@@ -1,9 +1,0 @@
-[alias]
-   co = checkout
-   st = status
-   ci = commit
-[color]
-   ui = auto
-[user]
-	name = Dustin Diaz
-	email = dustin@tdustindiaz.com
