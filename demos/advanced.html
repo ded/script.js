@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>advanced $script.js example</title>
+    <script src="../script.js"></script>
+    <script type="text/javascript">
+    // load all files asynchronously!
+    $script('js/foo.js', 'main'); // main dependency
+
+    $script(['js/bar.js', 'js/baz.js'], 'plugin'); // bar & baz rely on 'main'
+
+    $script('js/thunk.js'); // thunk relies on 'plugin'
+    </script>
+  </head>
+  <body>
+    <h1>advanced $script.js example</h1>
+  </body>
+</html>

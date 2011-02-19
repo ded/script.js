@@ -50,8 +50,11 @@
             }
           }
         };
+    if (ids[id]) {
+      return;
+    }
     each(paths, function(path) {
-      if ((path in scripts) || (id in ids)) {
+      if (scripts[path]) {
         return;
       } else {
         scripts[path] = ids[id] = 1;
