@@ -64,7 +64,7 @@
         };
         el.async = true;
         el.src = path;
-        script.insertBefore(el, script.firstChild);
+        script.parentNode.insertBefore(el, script);
       }, 0);
       return true;
     });
