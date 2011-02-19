@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE HTML>
 <html lang="en-us">
   <head>
@@ -19,22 +17,21 @@
     <script type="text/javascript">
     // usage
     $script.ready('jquery', function() {
-      console.log('omg whoa');
+      console.log('jquery is ready');
     })
       .ready('jquery', function() {
-        console.log('jesus fuck finally');
+        console.log('jquery is still ready');
       })
       .ready('yui', function() {
         console.log('yui is ready');
       })
       .ready('anim', function() {
-        console.log('boosh got the anim stuffs');
+        console.log('the animation lib is ready');
       })
       .ready(['jquery', 'anim'], function() {
-        console.log('love me two time');
-
-        $('<h1 id="test">boosh</h1>').appendTo('body');
-        new YAHOO.util.ColorAnim('test', {
+        console.log('jquery and animation are both ready');
+        // jQuery and YUI make love together
+        new YAHOO.util.ColorAnim($('<h1 id="test">boosh</h1>').appendTo('body'), {
           color: {
             from: '#ee0000',
             to: '#76ee00'
@@ -52,14 +49,15 @@
     });
 
     setTimeout(function() {
+      // test to make sure deferred 'ready' calls still work
       $script.ready(['jquery', 'anim'], function() {
-        console.log('yeah. still works for a bundle');
+        console.log('game is still on for jquery and anim');
       })
         .ready('yui', function() {
-          console.log('and a single again for yui');
+          console.log('yui stand alone still works');
         });
 
-    }, 1000);
+    }, 2000);
 
     </script>
   </head>
