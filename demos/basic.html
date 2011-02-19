@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE HTML>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>$script.js demo - @ded</title>
+    <style type="text/css">
+      body {
+        overflow: hidden;
+        text-align: center;
+        font-family: 'helvetica neue', helvetica, arial;
+      }
+      h1 {
+        font-weight: 300;
+      }
+    </style>
+    <script src="../script.min.js"></script>
+    <script type="text/javascript">
+    // usage
+    $script.ready('jquery', function() {
+      console.log('omg whoa');
+    })
+      .ready('jquery', function() {
+        console.log('jesus fuck finally');
+      })
+      .ready('yui', function() {
+        console.log('yui is ready');
+      })
+      .ready('anim', function() {
+        console.log('boosh got the anim stuffs');
+      })
+      .ready(['jquery', 'anim'], function() {
+        console.log('love me two time');
+
+        $('<h1 id="test">boosh</h1>').appendTo('body');
+        new YAHOO.util.ColorAnim('test', {
+          color: {
+            from: '#ee0000',
+            to: '#76ee00'
+          },
+          fontSize: {
+            to: 300,
+            unit: 'px'
+          }
+        }, .7, YAHOO.util.Easing.bounceOut).animate();
+      })
+
+    $script('http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js', 'jquery');
+    $script('http://yui.yahooapis.com/2.8.2r1/build/yahoo-dom-event/yahoo-dom-event.js', 'yui', function() {
+      $script('http://yui.yahooapis.com/2.8.2r1/build/animation/animation-min.js', 'anim');
+    });
+
+    setTimeout(function() {
+      $script.ready(['jquery', 'anim'], function() {
+        console.log('yeah. still works for a bundle');
+      })
+        .ready('yui', function() {
+          console.log('and a single again for yui');
+        });
+
+    }, 1000);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
