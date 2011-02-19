@@ -21,7 +21,7 @@
       each = function(ar, fn, s) {
         every(ar, function(el, i, a) {
           fn(el, i, a);
-          return true;
+          return 1;
         }, s);
       };
   if (doc.readyState == null && doc.addEventListener) {
@@ -50,10 +50,10 @@
             }
           }
         };
-    every(paths, function(path) {
+    each(paths, function(path) {
+      var el = doc.createElement("script"),
+          loaded = f;
       setTimeout(function() {
-        var el = doc.createElement("script"),
-            loaded = f;
         el.onload = el.onreadystatechange = function () {
           if ((el.readyState && el.readyState !== "complete" && el.readyState !== "loaded") || loaded) {
             return f;
@@ -66,7 +66,6 @@
         el.src = path;
         script.parentNode.insertBefore(el, script);
       }, 0);
-      return true;
     });
     return win;
   }
