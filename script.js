@@ -59,10 +59,10 @@
             return f;
           }
           el.onload = el.onreadystatechange = null;
-          loaded = true;
+          loaded = 1;
           callback();
         };
-        el.async = true;
+        el.async = 1;
         el.src = path;
         script.parentNode.insertBefore(el, script);
       }, 0);
