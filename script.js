@@ -6,7 +6,7 @@
  */
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, delay = {}, f = false, noop = function(){},
+      list = {}, ids = {}, delay = {}, f = false, noop = function(){},
       scripts = {}, s = 'string',
       every = function() {
         return Array.every || function(ar, fn, s) {
@@ -51,10 +51,10 @@
           }
         };
     each(paths, function(path) {
-      if (path in scripts) {
+      if ((path in scripts) || (id in ids)) {
         return;
       } else {
-        scripts[path] = 1;
+        scripts[path] = ids[id] = 1;
       }
       var el = doc.createElement("script"),
           loaded = f;

@@ -46,7 +46,11 @@
     $script('http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js', 'jquery');
 
     // duplicate call to same lib. $script.js will not load it
-    $script('http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js', 'jquery');
+    $script('http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js', 'jqueryagain');
+
+    // also don't bother loading a file with the same id. bad juju may occur
+    $script('http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js', 'jquery');
+
     $script('http://yui.yahooapis.com/2.8.2r1/build/yahoo-dom-event/yahoo-dom-event.js', 'yui', function() {
       $script('http://yui.yahooapis.com/2.8.2r1/build/animation/animation-min.js', 'anim');
     });
