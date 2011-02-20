@@ -73,7 +73,7 @@
         el.async = 1;
         el.src = path;
         script.parentNode.insertBefore(el, script);
-      }, 20);
+      }, 30);
     });
     return win;
   }

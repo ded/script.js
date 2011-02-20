@@ -1,0 +1,77 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<title>head.js</title>
+	<script>
+		// calculate difference between zero and window.onload
+		var now = new Date();
+		window.onload = function() {
+			document.getElementById("content").style.display = "block";
+			document.getElementById("ms").innerHTML = (new Date()).getTime() - now.getTime();
+		}
+	</script>
+<script src="head.js"></script>
+<script>
+/*
+ * $script.js v 1.0
+ * http://dustindiaz.com/scriptjs
+ * Copyright: Dustin Diaz 2011
+ * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
+ */
+(function(e,k){var i=k.getElementsByTagName("script")[0],g={},a={},c={},l=function(){},b={},m="string",d=function(){return Array.every||function(n,q){for(var p=0,o=n.length;p<o;++p){if(!q(n[p],p,n)){return 0}}return 1}}(),j=function(n,o){d(n,function(r,q,p){o(r,q,p);return 1})};if(!k.readyState&&k.addEventListener){k.addEventListener("DOMContentLoaded",function h(){k.removeEventListener("DOMContentLoaded",h,f);k.readyState="complete"},f);k.readyState="loading"}e.$script=function(r,o,q){var p=typeof o=="function"?o:(q||l),r=typeof r==m?[r]:r,t=typeof o==m?o:r.join(""),n=r.length,s=function(){if(!--n){g[t]=1;p();for(dset in c){d(dset.split("|"),function(u){return(u in g)})&&d(c[dset],function(u){u();c[dset].shift()})}}};if(a[t]){return}j(r,function(w){if(b[w]){return}else{b[w]=a[t]=1}var v=k.createElement("script"),u=0;setTimeout(function(){v.onload=v.onreadystatechange=function(){if((v.readyState&&!(/loaded|complete/.test(v.readyState)))||u){return}v.onload=v.onreadystatechange=null;u=1;s()};v.async=1;v.src=w;i.parentNode.insertBefore(v,i)},30)});return e};$script.ready=function(q,o,p){p=p||l;q=(typeof q==m)?[q]:q;var n=[];!j(q,function(r){(g[r])||n.push(r)})&&d(q,function(r){return(g[r])})?o():(function(r){c[r]=c[r]||[];c[r].push(o);p(n)}(q.join("|")));return $script}}(window,document));
+
+
+// head.js("https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js")
+//   .js("https://github.com/jquery/jquery-ui/raw/master/jquery-1.4.4.js")
+//   .js("https://github.com/smith/scripty2/raw/master/lib/prototype.js")
+//   .js("http://yui.yahooapis.com/combo?2.8.2r1/build/utilities/utilities.js&2.8.2r1/build/datasource/datasource-min.js&2.8.2r1/build/datemath/datemath-min.js&2.8.2r1/build/element-delegate/element-delegate-min.js&2.8.2r1/build/selector/selector-min.js&2.8.2r1/build/event-delegate/event-delegate-min.js&2.8.2r1/build/event-mouseenter/event-mouseenter-min.js&2.8.2r1/build/event-simulate/event-simulate-min.js&2.8.2r1/build/history/history-min.js&2.8.2r1/build/imageloader/imageloader-min.js&2.8.2r1/build/json/json-min.js&2.8.2r1/build/resize/resize-min.js&2.8.2r1/build/swf/swf-min.js&2.8.2r1/build/cookie/cookie-min.js&2.8.2r1/build/swfstore/swfstore-min.js&2.8.2r1/build/storage/storage-min.js&2.8.2r1/build/stylesheet/stylesheet-min.js")
+//   .js("https://github.com/kosmas58/compass-jquery-plugin/raw/master/lib/jslint.js");
+  $script("https://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js")
+  $script("https://github.com/jquery/jquery-ui/raw/master/jquery-1.4.4.js")
+  $script("https://github.com/smith/scripty2/raw/master/lib/prototype.js")
+  $script("http://yui.yahooapis.com/combo?2.8.2r1/build/utilities/utilities.js&2.8.2r1/build/datasource/datasource-min.js&2.8.2r1/build/datemath/datemath-min.js&2.8.2r1/build/element-delegate/element-delegate-min.js&2.8.2r1/build/selector/selector-min.js&2.8.2r1/build/event-delegate/event-delegate-min.js&2.8.2r1/build/event-mouseenter/event-mouseenter-min.js&2.8.2r1/build/event-simulate/event-simulate-min.js&2.8.2r1/build/history/history-min.js&2.8.2r1/build/imageloader/imageloader-min.js&2.8.2r1/build/json/json-min.js&2.8.2r1/build/resize/resize-min.js&2.8.2r1/build/swf/swf-min.js&2.8.2r1/build/cookie/cookie-min.js&2.8.2r1/build/swfstore/swfstore-min.js&2.8.2r1/build/storage/storage-min.js&2.8.2r1/build/stylesheet/stylesheet-min.js")
+  $script("https://github.com/kosmas58/compass-jquery-plugin/raw/master/lib/jslint.js");
+
+</script>
+	<style>
+	html { background-color:#f9f9f9;	 }
+	body { color:#333; font:13px sans-serif; }
+	#wrap { margin:50px auto;  width:800px;		 }
+	#nav { padding-left:30px;		 }
+	#nav a { float:left;	 margin-right:30px; color:#666; text-decoration:none; font-weight:bold; }
+	#nav em { display:block; font-style:normal; font-weight:normal; color:#999; }
+	#content { margin-top:10px; background-color:#fff;	 padding:30px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -moz-box-shadow: 0 0 5px rgba(0,0,0,.2); -webkit-box-shadow: 0 0 5px rgba(0,0,0,.2); }
+	h1 { color:#777; font-size:40px; margin:0; margin-bottom:-10px; }
+	h1 em { font-weight:normal; font-style:normal; color:#999; }
+	#time { font-size:150px; color:#888; }
+	#ms { font-weight:bold; color:#222; margin-right:-25px; }
+	#content p { font-size:18px; margin:5px 0; color:#777; }
+	#content strong { color:#222; }
+	#footer { margin:5px 15px;	 }
+	#footer a { text-decoration:none; color:#666; font-size:11px; }
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="content" style="display:none">
+			<h1>head.js</h1>
+			<div id="time"><span id="ms"></span> ms</div>
+			<p>
+				Press <strong>CTRL+SHIFT+R</strong> to reload with an empty cache = first impression.
+			</p>
+			<p>
+				<strong>View source</strong> to see how scripts are provided.
+			</p>
+			<p>
+				Time is calculated when <code>window.onload</code> fires.
+			</p>
+			<p>
+				Try with different browsers. The time difference varies a lot.
+			</p>
+			<p class="details">
+        head.js() calls are always separate from the page rendering. Does not matter whether you load on HEAD or on bottom. You can also load programmatically on demand.
+			</p>
+		</div>
+	</div>
+</body>
+</html>
