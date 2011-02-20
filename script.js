@@ -9,7 +9,7 @@
       list = {}, ids = {}, delay = {}, f = false, noop = function(){},
       scripts = {}, s = 'string',
       every = function() {
-        return Array.every || function(ar, fn, sc) {
+        return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
             if (!fn(ar[i], i, ar)) {
               return f;
@@ -18,11 +18,11 @@
           return 1;
         };
       }(),
-      each = function(ar, fn, s) {
+      each = function(ar, fn) {
         every(ar, function(el, i, a) {
           fn(el, i, a);
           return 1;
-        }, s);
+        });
       };
   if (!doc.readyState && doc.addEventListener) {
     doc.addEventListener("DOMContentLoaded", function fn() {
