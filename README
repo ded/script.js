@@ -46,14 +46,14 @@ $script(['foo.js', 'bar.js'], function() {
 });
 
 
-$script(['foo.js', 'bar.js', 'bundle');
+$script(['foo.js', 'bar.js'], 'bundle');
 $script.ready('bundle', function() {
   // foo.js & bar.js is ready
 });
 
 
-$script(['foo.js', 'foo');
-$script(['foo.js', 'bar');
+$script(['foo.js'], 'foo');
+$script(['bar.js'], 'bar');
 $script
   .ready('foo', function() {
     // foo.js is ready
