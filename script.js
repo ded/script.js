@@ -6,13 +6,13 @@
  */
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, f = false, noop = function(){},
+      list = {}, ids = {}, delay = {}, noop = function(){},
       scripts = {}, s = 'string',
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
             if (!fn(ar[i], i, ar)) {
-              return f;
+              return 0;
             }
           }
           return 1;
@@ -32,10 +32,9 @@
     doc.readyState = "loading";
   }
   win.$script = function(paths, idOrDone, optDone) {
-    var idOrDoneIsId = typeof idOrDone == s,
-        done = idOrDoneIsId ? (optDone || noop) : idOrDone,
+    var done = typeof idOrDone == 'function' ? idOrDone : (optDone || noop),
         paths = typeof paths == s ? [paths] : paths,
-        id = idOrDoneIsId ? idOrDone : paths.join(''),
+        id = typeof idOrDone == s ? idOrDone : paths.join(''),
         queue = paths.length,
         callback = function() {
           if (!--queue) {
@@ -61,11 +60,11 @@
         scripts[path] = ids[id] = 1;
       }
       var el = doc.createElement("script"),
-          loaded = f;
+          loaded = 0;
       setTimeout(function() {
         el.onload = el.onreadystatechange = function () {
           if ((el.readyState && !(/loaded|complete/.test(el.readyState))) || loaded) {
-            return f;
+            return;
           }
           el.onload = el.onreadystatechange = null;
           loaded = 1;
@@ -82,10 +81,10 @@
     req = req || noop;
     deps = (typeof deps == s) ? [deps] : deps;
     var missing = [];
-    each(deps, function(dep) {
-      (dep in list) || missing.push(dep);
+    !each(deps, function(dep) {
+      (list[dep]) || missing.push(dep);
     }) && every(deps, function(dep) {
-      return (dep in list);
+      return (list[dep]);
     }) ? ready() : (function(key) {
       delay[key] = delay[key] || [];
       delay[key].push(ready);
