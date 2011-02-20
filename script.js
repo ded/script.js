@@ -9,7 +9,7 @@
       list = {}, ids = {}, delay = {}, f = false, noop = function(){},
       scripts = {}, s = 'string',
       every = function() {
-        return Array.every || function(ar, fn, s) {
+        return Array.every || function(ar, fn, sc) {
           for (var i=0, j=ar.length; i < j; ++i) {
             if (!fn(ar[i], i, ar)) {
               return f;
@@ -24,7 +24,7 @@
           return 1;
         }, s);
       };
-  if (doc.readyState == null && doc.addEventListener) {
+  if (!doc.readyState && doc.addEventListener) {
     doc.addEventListener("DOMContentLoaded", function fn() {
       doc.removeEventListener("DOMContentLoaded", fn, f);
       doc.readyState = "complete";
@@ -63,7 +63,7 @@
           loaded = f;
       setTimeout(function() {
         el.onload = el.onreadystatechange = function () {
-          if ((el.readyState && el.readyState !== "complete" && el.readyState !== "loaded") || loaded) {
+          if ((el.readyState && !(/loaded|complete/.test(el.readyState))) || loaded) {
             return f;
           }
           el.onload = el.onreadystatechange = null;
