@@ -6,6 +6,7 @@
     <style type="text/css">
       body {
         font: 16px 'helvetica neue', helvetica, arial;
+        text-shadow: 0 2px 2px #aaa;
       }
       #doc {
         margin: 0 auto;
@@ -26,6 +27,7 @@
       #ms {
         font-size: 150px;
         color: #222;
+        font-weight: bold;
       }
       p em {
         font-size: 50px;
@@ -39,41 +41,40 @@
       };
     </script>
     <script src="../script.js"></script>
-    <script src="../vendor/mootools-1.3.js"></script>
     <script type="text/javascript">
 
-        window.addEvent('domready', function() {
-          console.log('The DOM is ready!');
-        });
-
-
       $script.ready('jquery', function() {
         document.addEventListener('DOMContentLoaded', function(e) {
-          console.log('ready again biaaaaaaatch');
+          console.log('ready from jquery');
         }, false);
       });
+
       $script('http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js', 'jquery', function() {
-        document.addEventListener('DOMContentLoaded', function(e) {
-          console.log('domready from regular dom ready after dom ready');
-        }, false);
-        window.addEventListener('load', function(e) {
-          console.log('window loaded!');
-        }, false);
-      });
-      // $script('../vendor/mootools-1.3.js', function() {
-      //   window.addEvent('domready', function() {
-      //     alert('The DOM is ready!');
-      //   });
-      // });
 
-      $script.ready('jquery', function() {
-        document.addEventListener('DOMContentLoaded', function(e) {
-          console.log('ready again biaaaaaaatch');
-        }, false);
+      $script('http://yui.yahooapis.com/2.8.2r1/build/yahoo/yahoo.js', 'yui');
+      $script('js/foo.js', 'foo');
+      $script('../vendor/mootools-1.3.js', 'moomoo', function() {
+        window.addEvent('domready', function() {
+          console.log('The DOM is ready from mootools!');
+        });
       });
 
+      $script.ready('moomoo', function() {
+        window.addEvent('domready', function() {
+          console.log('The DOM is ready from mootools AGAIN!');
+        });
+      });
 
-      $script.done();
+      $script.ready(['yui', 'foo', 'moomoo', 'jquery'], function() {
+        console.log('ALL THINGS DONE');
+        $script.done();
+        $script('js/bar.js', function() {
+          console.log('loaded bar');
+          document.addEventListener('DOMContentLoaded', function(e) {
+            console.log('NEVER WILL I EVER SEE THIS * MUAHAHAHAHA');
+          }, false);
+        });
+      });
     </script>
   </head>
   <body>

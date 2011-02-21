@@ -6,9 +6,8 @@
  */
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, noop = function(){},
-      scripts = {}, s = 'string', domReady = 0, firedLoad = 0,
-      locked = 0, windowReady,
+      list = {}, ids = {}, delay = {}, noop = function(){}, f = false,
+      scripts = {}, s = 'string', domReady, locked,
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -26,7 +25,7 @@
         });
       },
       fireDomReady = function() {
-        (locked && domReady && !firedLoad) && load();
+        (!locked && domReady) && load();
       };
   if (!doc.readyState && doc.addEventListener) {
     doc.addEventListener("DOMContentLoaded", function fn() {
@@ -98,23 +97,13 @@
     return $script;
   };
   function load() {
-    firedLoad = 1;
-    var evt = document.createEvent("HTMLEvents");
-    evt.initEvent("DOMContentLoaded", true, false);
-    document.dispatchEvent(evt);
+    var evt = doc.createEvent("HTMLEvents");
+    evt.initEvent("DOMContentLoaded", true, f);
+    doc.dispatchEvent(evt);
   }
-  document.asdf ?
-    document.addEventListener('DOMContentLoaded', function() {
-      domReady = 1;
-    }, false) :
-    (function(n) {
-      setTimeout(function() {
-        domReady = doc.readyState.match(/loaded|complete/) || !setTimeout(arguments.callee, n);
-      }, n);
-    }(25));
-  window.addEventListener('load', function() {
-    windowReady = 1;
-  }, false);
+  setTimeout(function() {
+    domReady = doc.readyState.match(/loaded|complete/) || !setTimeout(arguments.callee, 1);
+  }, 1);
   $script.done = function() {
     locked = 1;
   };
