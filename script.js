@@ -32,9 +32,10 @@
     doc.readyState = "loading";
   }
   win.$script = function(paths, idOrDone, optDone) {
-    var done = typeof idOrDone == 'function' ? idOrDone : (optDone || noop),
+    var idOrDoneIsId = typeof idOrDone == s,
+        done = (idOrDoneIsId ? optDone : idOrDone) || noop,
         paths = typeof paths == s ? [paths] : paths,
-        id = typeof idOrDone == s ? idOrDone : paths.join(''),
+        id = idOrDoneIsId ? idOrDone : paths.join(''),
         queue = paths.length,
         callback = function() {
           if (!--queue) {
