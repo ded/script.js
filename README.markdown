@@ -99,4 +99,29 @@ Exhaustive list of ways to use $script.js
         });
       });
 
+Added in v1.1
+-------------
+Since many scripts on the web depend on document ready (DOMContentLoaded), loading them with $script.js may lead to a race condition where the document will have already loaded after your script loads (because $script.js is so fast!), yielding your document ready callbacks useless. Thus $script.js has added a new method on the $script object call *domReady*. It works like this:
 
+    <head>
+      <script>
+      $script('10-metabytes.js', function() {
+        // use after a library has been loaded
+        $script.domReady(function() {
+          // your code here
+        });
+      });
+
+      // or use independently
+      $script.domReady(function() {
+        // dom has loaded
+      });
+      </script>
+    </head>
+    <body>
+      ...
+    </body>
+
+Reason for $script.domReady
+---------------------------
+The reason why $script.js exposes a domReady method rather than *fixing DOMContentLoaded* is that it's not necessarily the responsibility of this utility to do it. There are literally hundreds of implementations on the internet of what "DOM Ready" means, and by no stretch will I attempt to make sure $script works with them all. Hence the most we can provide is yet another (small & simple) way to let users hook into when the DOM is ready.
