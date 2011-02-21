@@ -1,5 +1,5 @@
 /*!
- * $script.js v 1.0
+ * $script.js v 1.1
  * http://dustindiaz.com/scriptjs
  * Copyright: Dustin Diaz 2011
  * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
@@ -7,7 +7,7 @@
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, noop = function(){},
-      scripts = {}, s = 'string',
+      scripts = {}, s = 'string', f = false, domReady, readyList = [],
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -73,7 +73,7 @@
         el.async = 1;
         el.src = path;
         script.parentNode.insertBefore(el, script);
-      }, 30);
+      }, 25);
     });
     return win;
   }
@@ -91,5 +91,15 @@
       req(missing);
     }(deps.join('|')));
     return $script;
+  };
+
+  setTimeout(function() {
+    domReady = /loaded|complete/.test(doc.readyState) ? !each(readyList, function(f) {
+      f();
+    }) : !setTimeout(arguments.callee, 1);
+  }, 1);
+
+  $script.domReady = function(fn) {
+    domReady ? fn() : readyList.push(fn);
   };
 }(window, document));

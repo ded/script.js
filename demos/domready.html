@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>$script.js - domReady</title>
+    <style type="text/css">
+      body {
+        width: 650px;
+        margin: 10px auto;
+        font: 300 16px 'helvetica neue', helvetica, arial;
+      }
+      h1 {
+        border-bottom: 3px solid #333;
+      }
+      #ms {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    </style>
+    <script src="../script.js"></script>
+    <script type="text/javascript">
+      var start = +new Date;
+      window.onload = function() {
+        document.getElementById('ms').innerHTML = +new Date - start;
+      };
+
+      // regular DOM Ready
+      $script.domReady(function() {
+        document.getElementById('first').innerHTML = '✓';
+      });
+
+      // load a bunch of libraries
+      $script('http://yui.yahooapis.com/2.8.2r1/build/utilities/utilities.js', 'yui');
+      $script('http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js', 'jquery');
+
+      $script.ready(['jquery', 'yui'], function() {
+        $script.domReady(function() {
+          document.getElementById('second').innerHTML = '✓';
+        });
+      });
+
+      setTimeout(function() {
+        // well after DOM has been ready
+        $script.domReady(function() {
+          document.getElementById('third').innerHTML = '✓';
+        });
+      }, 1000);
+    </script>
+  </head>
+  <body>
+    <h1>DOM Ready Test</h1>
+    <ul>
+      <li>DOM is ready first pass... <span id="first"></span></li>
+      <li>DOM &amp; jQuery are both ready... <span id="second"></span></li>
+      <li>Deferred late dom ready... <span id="third"></span></li>
+    </ul>
+    <div id="ready">
+      <p>Dom Ready time: <span id="ms">0</span>ms</p>
+    </div>
+  </body>
+</html>
