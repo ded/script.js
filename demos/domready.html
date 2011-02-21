@@ -49,7 +49,7 @@
         }, false);
       });
 
-      $script('http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js', 'jquery', function() {
+      $script('http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js', 'jquery');
 
       $script('http://yui.yahooapis.com/2.8.2r1/build/yahoo/yahoo.js', 'yui');
       $script('js/foo.js', 'foo');
@@ -71,7 +71,7 @@
         $script('js/bar.js', function() {
           console.log('loaded bar');
           document.addEventListener('DOMContentLoaded', function(e) {
-            console.log('NEVER WILL I EVER SEE THIS * MUAHAHAHAHA');
+            console.log('NEVER WILL I EVER SEE THIS  MUAHAHAHAHA');
           }, false);
         });
       });
