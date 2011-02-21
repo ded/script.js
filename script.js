@@ -7,7 +7,8 @@
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, noop = function(){},
-      scripts = {}, s = 'string',
+      scripts = {}, s = 'string', domReady = 0, firedLoad = 0,
+      locked = 0, windowReady,
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -23,6 +24,9 @@
           fn(el, i, a);
           return 1;
         });
+      },
+      fireDomReady = function() {
+        (locked && domReady && !firedLoad) && load();
       };
   if (!doc.readyState && doc.addEventListener) {
     doc.addEventListener("DOMContentLoaded", function fn() {
@@ -48,6 +52,7 @@
                 delay[dset].shift();
               });
             }
+            fireDomReady();
           }
         };
     if (ids[id]) {
@@ -91,5 +96,26 @@
       req(missing);
     }(deps.join('|')));
     return $script;
+  };
+  function load() {
+    firedLoad = 1;
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("DOMContentLoaded", true, false);
+    document.dispatchEvent(evt);
+  }
+  document.asdf ?
+    document.addEventListener('DOMContentLoaded', function() {
+      domReady = 1;
+    }, false) :
+    (function(n) {
+      setTimeout(function() {
+        domReady = doc.readyState.match(/loaded|complete/) || !setTimeout(arguments.callee, n);
+      }, n);
+    }(25));
+  window.addEventListener('load', function() {
+    windowReady = 1;
+  }, false);
+  $script.done = function() {
+    locked = 1;
   };
 }(window, document));
