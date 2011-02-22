@@ -8,6 +8,9 @@ h1 {
   font-size: 30px;
   font-weight: 300;
 }
+ol,li {
+  list-style: none;
+}
 ol {
   -moz-box-shadow: 0 0 5px #ccc;
   -moz-border-radius: 5px;
