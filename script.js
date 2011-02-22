@@ -31,6 +31,14 @@
     }, f);
     doc.readyState = "loading";
   }
+
+  // (function l() {
+  //   domReady = re.test(doc.readyState) ? !each(readyList, function(f) {
+  //     domReady = 1;
+  //     f();
+  //   }) : !setTimeout(l, 50);
+  // }());
+
   win.$script = function(paths, idOrDone, optDone) {
     var done = typeof idOrDone == 'function' ? idOrDone : (optDone || noop),
         paths = typeof paths == s ? [paths] : paths,
@@ -52,19 +60,20 @@
     if (ids[id]) {
       return;
     }
-    each(paths, function(path) {
-      if (scripts[path]) {
-        return;
-      } else {
-        scripts[path] = ids[id] = 1;
-      }
-      var el = doc.createElement("script"),
-          loaded = 0;
-      setTimeout(function() {
+    setTimeout(function() {
+      each(paths, function(path) {
+        if (scripts[path]) {
+          return;
+        } else {
+          scripts[path] = ids[id] = 1;
+        }
+        var el = doc.createElement("script"),
+            loaded = 0;
         el.onload = el.onreadystatechange = function () {
           if ((el.readyState && !(/loaded|complete/.test(el.readyState))) || loaded) {
             return;
           }
+          el.type = 'text/javascript';
           el.onload = el.onreadystatechange = null;
           loaded = 1;
           callback();
@@ -72,8 +81,8 @@
         el.async = 1;
         el.src = path;
         script.parentNode.insertBefore(el, script);
-      }, 25);
-    });
+      });
+    }, 25);
     return $script;
   }
   $script.ready = function(deps, ready, req) {
@@ -91,13 +100,6 @@
     }(deps.join('|')));
     return $script;
   };
-
-  (function l() {
-    domReady = re.test(doc.readyState) ? !each(readyList, function(f) {
-      domReady = 1;
-      f();
-    }) : !setTimeout(l, 1);
-  }());
 
   $script.domReady = function(fn) {
     domReady ? fn() : readyList.push(fn);
