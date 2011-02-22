@@ -70,7 +70,7 @@
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el.onreadystatechange = function () {
-          if ((el.readyState && !(/loaded|complete/.test(el.readyState))) || loaded) {
+          if ((el.readyState && !(re.test(el.readyState))) || loaded) {
             return;
           }
           el.onload = el.onreadystatechange = null;
