@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>head.js benchmarks</title>
+    <title>$script.js - benchmarks</title>
     <style type="text/css">
       body {
         width: 650px;
@@ -21,7 +21,7 @@
         font-size: 20px;
       }
     </style>
-    <script src="../vendor/head.js"></script>
+    <script src="../script.js"></script>
     <script type="text/javascript">
       var start = (+new Date),
           onloadTime = 0,
@@ -30,19 +30,16 @@
         document.getElementById('window-ms').innerHTML = (+new Date) - start;
       };
       // load a bunch of libraries
-      head.js('../vendor/yui-utilities.js', function() {
+      $script('../vendor/yui-utilities.js', 'yui', function() {
         YAHOO.util.Dom.get('yui').innerHTML = '✓';
       });
-
-      head.js('../vendor/mootools.js', function() {
+      $script('../vendor/jquery.js', 'jquery', function() {
         $('#jquery').html('✓');
       });
-
-      head.js('../vendor/jquery.js', function() {
+      $script('../vendor/mootools.js', 'moo', function() {
         document.id('mootools').innerHTML = '✓';
       });
-
-      head.ready(function() {
+      $script.ready(['moo', 'jquery', 'yui'], function() {
         document.getElementById('total').innerHTML = (+new Date) - start;
       });
     </script>
