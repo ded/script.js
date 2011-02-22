@@ -6,8 +6,8 @@
  */
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, noop = function(){},
-      scripts = {}, s = 'string', f = false, domReady, readyList = [],
+      list = {}, ids = {}, delay = {}, noop = function(){}, re = /loaded|complete/,
+      scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -43,10 +43,9 @@
             for (dset in delay) {
               every(dset.split('|'), function(file) {
                 return (file in list);
-              }) && every(delay[dset], function(fn) {
+              }) && !each(delay[dset], function(fn) {
                 fn();
-                delay[dset].shift();
-              });
+              }) && (delay[dset] = [])
             }
           }
         };
@@ -75,7 +74,7 @@
         script.parentNode.insertBefore(el, script);
       }, 25);
     });
-    return win;
+    return $script;
   }
   $script.ready = function(deps, ready, req) {
     req = req || noop;
@@ -93,11 +92,12 @@
     return $script;
   };
 
-  setTimeout(function() {
-    domReady = /loaded|complete/.test(doc.readyState) ? !each(readyList, function(f) {
+  (function l() {
+    domReady = re.test(doc.readyState) ? !each(readyList, function(f) {
+      domReady = 1;
       f();
-    }) : !setTimeout(arguments.callee, 1);
-  }, 1);
+    }) : !setTimeout(l, 1);
+  }());
 
   $script.domReady = function(fn) {
     domReady ? fn() : readyList.push(fn);
