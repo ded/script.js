@@ -48,7 +48,7 @@
           if (!--queue) {
             list[id] = 1;
             done();
-            for (dset in delay) {
+            for (var dset in delay) {
               every(dset.split('|'), function(file) {
                 return (file in list);
               }) && !each(delay[dset], function(fn) {
