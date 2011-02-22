@@ -48,18 +48,15 @@
     </script>
   </head>
   <body>
-    <h1>DOM Ready Test</h1>
+    <h1>Benchmark Test</h1>
     <div id="ready">
+      <img src="../vendor/bird.png">
       <p>window.onload time: <span id="window-ms">0</span>ms</p>
-      <p>note the difference between how long window.load takes to fire and the amount of time it takes to load the libraries.
-        window.onload should almost be instantaneous (usually under 30ms (sometimes 1ms in Chrome)) because there is
-        hardly much HTML on this page.</p>
-      <p>Lesson learned, $script.js does not block the page load.</p>
       <ul>
         <li>YUI: <span id="yui"></span></li>
         <li>jQuery: <span id="jquery"></span></li>
         <li>Mootools: <span id="mootools"></span></li>
-        <li>Total: <strong id="total">0</strong>ms</li>
+        <li>Total: <strong id="total">0</strong>ms using head.js</li>
       </ul>
     </div>
   </body>

@@ -22,7 +22,6 @@ ol {
 }
 li {
   margin: 2px 5px;
-  white-space: nowrap;
   padding: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
