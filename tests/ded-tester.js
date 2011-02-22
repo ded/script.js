@@ -39,7 +39,7 @@ function test(name, expect, fn) {
   document.getElementById('tests').appendChild(li);
   fn();
   setTimeout(function() {
-    if (+new Date - start > 5000) {
+    if (+new Date - start > 10000) {
       failure(li, check);
     } else {
       if (fail) {
