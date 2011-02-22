@@ -1,5 +1,5 @@
 body {
-  width: 500px;
+  width: 650px;
   margin: 20px auto;
   font: 300 16px 'helvetica neue', helvetica, arial;
   text-shadow: 0 2px 2px #ccc;
@@ -22,6 +22,7 @@ ol {
 }
 li {
   margin: 2px 5px;
+  white-space: nowrap;
   padding: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
