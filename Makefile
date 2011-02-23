@@ -1,5 +1,8 @@
 # GNU Makefile
-# 
+#
+# Huge props to Yesudeep Mangalapilly for creating this make
+# https://github.com/gorakhargosh
+#
 # Setting up your build environment
 # =================================
 # These instructions should help you get started
@@ -10,7 +13,7 @@
 # -------------------------------------------
 # 1. Python 2.5+
 # 2. Java 1.6+
-# 3. Pip (Python package management): 
+# 3. Pip (Python package management):
 #    http://pypi.python.org/pypi/pip
 #    (Installing pip on OS X is detailed below)
 # 4. XCode (Mac OS X only)
@@ -21,31 +24,35 @@
 # -------------------------
 # If you're using OS X, it's advisable to use Homebrew
 # to manage packages and installation:
-# 
+#
 #     http://mxcl.github.com/homebrew/
 #
 # Follow the instructions at the above Website to
 # install homebrew, grab a cup of coffee and be back here.
-# 
+#
 # Installing pip after installing home brew is as easy as
-# 
+#
 #     brew install pip
+#
+# if this errors for you, you may try easy_install
+#
+#     sudo easy_install pip
 #
 # Yeesh. That's a ton of package management tools already.
 # But wait, there's more!
 #
 # Installing the "Developer SDK"
 # ------------------------------
-# Squeeze is a tool that bundles together yuicompressor, 
+# Squeeze is a tool that bundles together yuicompressor,
 # google closure compiler, and other tools. We just
-# need the yuicompressor and the closure compiler for 
+# need the yuicompressor and the closure compiler for
 # script.js:
 #
 #     pip install squeeze
 #
-# script.js can also be minified using 
+# script.js can also be minified using
 # [UglifyJS](https://github.com/mishoo/UglifyJS),
-# (which is turning out to be a darn good minifier. 
+# (which is turning out to be a darn good minifier.
 # So, uglifyjs uses nodejs and nodejs has its own package
 # manager called npm. So we need the latter two programs
 # installed before we install uglifyjs. OK, I lied.
@@ -54,14 +61,14 @@
 #
 # 1. Install nodejs
 #    https://github.com/ry/node/wiki/Installation
-#  
+#
 #    Mac OS X + Homebrew
 #    -------------------
-#    If you did install homebrew earlier, you're in for 
+#    If you did install homebrew earlier, you're in for
 #    treat. Just type into your terminal:
 #
 #        brew install node
-#   
+#
 # 2. Install npm
 #    http://npmjs.org/
 #
@@ -73,7 +80,7 @@
 #    So, jQuery 1.5 now uses UglifyJS. Hmmm.
 #
 #    $ mkdir -p ~/.node_libraries/
-#    $ git clone --recursive git://github.com/mishoo/UglifyJS.git ~/.node_libraries/uglify-js    
+#    $ git clone --recursive git://github.com/mishoo/UglifyJS.git ~/.node_libraries/uglify-js
 #
 #    Add this line to your ~/.profile (OS X) or ~/.bashrc file
 #    export PATH=$HOME/.node_libraries/uglify-js/bin:$PATH
@@ -88,7 +95,7 @@
 #     $ make
 #
 # Phew!
-# PS. Yes, I know that's like 15 more commands to get 2 commands to work. 
+# PS. Yes, I know that's like 15 more commands to get 2 commands to work.
 # But it's the right way. Cheers.
 
 SQUEEZE=squeeze
