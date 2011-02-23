@@ -1,6 +1,5 @@
 # Install these:
 #     pip install squeeze
-#     pip install Pygments==dev
 # Install nodejs, npm, and uglifyjs
 SQUEEZE=squeeze
 UGLIFYJS=uglifyjs
