@@ -67,7 +67,6 @@
           return;
         }
         scripts[path] = ids[id] = 1;
-        
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el.onreadystatechange = function () {
