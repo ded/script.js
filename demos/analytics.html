@@ -2,13 +2,14 @@
 <html lang="en-us">
   <head>
     <title>advanced $script.js example</title>
+    <link rel="stylesheet" href="css/demos.css" type="text/css">
     <script src="../script.js"></script>
   </head>
   <body>
-    
+
       <h1>Using with Google Analytics</h1>
       <p>As on <a href="http://twitter.com">twitter.com</a>:</p>
-      
+
       <pre>
           &lt;script type="text/javascript"&gt;
           var _gaq = _gaq || [];
@@ -56,12 +57,12 @@
           &lt;/script&gt;
       </pre>
       <script>
-      $script("//www.google-analytics.com/ga.js", function(){
-          var t = _gat._getTracker ("UA-XXXXX-X");
-          t._setDomainName("twitter.com");
-          //t._initData();
-          t._trackPageview();
-      });
+      // $script("//www.google-analytics.com/ga.js", function(){
+      //     var t = _gat._getTracker ("UA-XXXXX-X");
+      //     t._setDomainName("twitter.com");
+      //     //t._initData();
+      //     t._trackPageview();
+      // });
       </script>
   </body>
 </html>
