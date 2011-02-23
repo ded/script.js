@@ -9,7 +9,10 @@ UGLIFYJS=uglifyjs
 
 .PHONY: all clean
 
-all: script.min.js script.u.js script.c.js
+all: script.min.js script.u.js script.c.js script.js
+
+script.js: src/header.js src/script.js
+	@cat src/header.js src/script.js > $@
 
 script.min.js: script.js
 	@echo "Minifying using YUICompressor"
@@ -23,8 +26,8 @@ script.c.tmp.js: script.js
 	@echo "Minifying using Google Closure"
 	@$(SQUEEZE) closure --js $< --js_output_file $@
 
-script.c.js: script.c.tmp.js
-	@cat header.js $< > $@
+script.c.js: src/header.js script.c.tmp.js
+	@cat src/header.js script.c.tmp.js > $@
 
 clean:
-	@-rm -rf script.u.js script.c.tmp.js script.c.js
+	@-rm -f script.js script.min.js script.u.js script.c.tmp.js script.c.js
