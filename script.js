@@ -8,6 +8,7 @@
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, noop = function(){}, re = /loaded|complete/,
       scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
+      domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -19,21 +20,20 @@
         };
       }(),
       each = function(ar, fn) {
-        every(ar, function(el, i, a) {
-          fn(el, i, a);
-          return 1;
+        every(ar, function(el, i) {
+          return !fn(el, i, ar);
         });
       };
-  if (!doc.readyState && doc.addEventListener) {
-    doc.addEventListener("DOMContentLoaded", function fn() {
-      doc.removeEventListener("DOMContentLoaded", fn, f);
-      doc.readyState = "complete";
+  if (!doc[readyState] && doc.addEventListener) {
+    doc.addEventListener(domContentLoaded, function fn() {
+      doc.removeEventListener(domContentLoaded, fn, f);
+      doc[readyState] = "complete";
     }, f);
-    doc.readyState = "loading";
+    doc[readyState] = "loading";
   }
 
   (function l() {
-    domReady = re.test(doc.readyState) ? !each(readyList, function(f) {
+    domReady = re.test(doc[readyState]) ? !each(readyList, function(f) {
       domReady = 1;
       f();
     }) : !setTimeout(l, 50);
@@ -51,7 +51,7 @@
             done();
             for (var dset in delay) {
               every(dset.split('|'), function(file) {
-                return (file in list);
+                return (list[file]);
               }) && !each(delay[dset], function(fn) {
                 fn();
               }) && (delay[dset] = [])
@@ -71,7 +71,7 @@
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el.onreadystatechange = function () {
-          if ((el.readyState && !(re.test(el.readyState))) || loaded) {
+          if ((el[readyState] && !(re.test(el[readyState]))) || loaded) {
             return;
           }
           el.onload = el.onreadystatechange = null;
