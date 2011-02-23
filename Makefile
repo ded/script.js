@@ -1,9 +1,7 @@
 # Install these:
 #     pip install squeeze
 #     pip install Pygments==dev
-# Install nodejs and npm
-# Install these:
-#     npm install docco
+# Install nodejs, npm, and uglifyjs
 SQUEEZE=squeeze
 UGLIFYJS=uglifyjs
 
