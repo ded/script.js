@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="ded-tester.css" type="text/css">
+    <title>$script.js - tests</title>
+    <script src="../script.c.js"></script>
+    <script src="ded-tester.js"></script>
+    <script type="text/javascript">
+      $script.domReady(function() {
+
+        test('document ready fires even after doc has been loaded', 1, function() {
+          $script.domReady(function() {
+            ok(true, 'loaded');
+          });
+        });
+
+        test('base ready calls', 5, function() {
+
+          $script.domReady(function() {
+            ok(true, 'dom loaded');
+          });
+
+          $script.ready('jquery', function() {
+            ok(true, 'loaded from ready callback');
+          });
+
+          $script.ready('jquery', function() {
+            ok(true, 'called jquery callback again');
+          })
+            .ready('jquery', function() {
+              ok(true, 'called ready on a chain');
+            });
+
+          $script('../vendor/jquery.js', 'jquery', function() {
+            ok(true, 'loaded from base callback');
+          });
+
+        });
+
+        test('multiple files can be loaded at once', 1, function() {
+          $script(['../demos/js/foo.js', '../demos/js/bar.js'], function() {
+            ok(true, 'foo and bar have been loaded');
+          });
+        });
+
+        test('ready can wait for multiple files by name', 1, function() {
+          $script(['../demos/js/baz.js', '../demos/js/thunk.js'], 'bundle').ready('bundle', function() {
+            ok(true, 'batch has been loaded');
+          });
+        });
+
+        test('ready can wait for several batches by name', 1, function() {
+          $script('../vendor/yui-utilities.js', 'yui');
+          $script('../vendor/mootools.js', 'moomoo');
+          $script.ready(['yui', 'moomoo'], function() {
+            console.log('ONCE');
+            ok(true, 'multiple batch has been loaded');
+          });
+        });
+
+        test('ready does not call a duplicate callback', 1, function() {
+          $script.ready(['yui', 'moomoo'], function() {
+            console.log('TWICE');
+            ok(true, 'found yui and moomoo again');
+          });
+        });
+
+        test('ready calls in  ', 1, function() {
+          $script.ready(['yui', 'moomoo'], function() {
+            console.log('THREE');
+            ok(true, 'found yui and moomoo again');
+          });
+        });
+
+      });
+
+    </script>
+  </head>
+  <body>
+  	<h1>$script.js unit tests</h1>
+  	<ol id="tests"></ol>
+  </body>
+</html>
