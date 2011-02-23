@@ -54,7 +54,22 @@
           $script('../vendor/yui-utilities.js', 'yui');
           $script('../vendor/mootools.js', 'moomoo');
           $script.ready(['yui', 'moomoo'], function() {
+            console.log('ONCE');
             ok(true, 'multiple batch has been loaded');
+          });
+        });
+
+        test('ready does not call a duplicate callback', 1, function() {
+          $script.ready(['yui', 'moomoo'], function() {
+            console.log('TWICE');
+            ok(true, 'found yui and moomoo again');
+          });
+        });
+
+        test('ready calls in  ', 1, function() {
+          $script.ready(['yui', 'moomoo'], function() {
+            console.log('THREE');
+            ok(true, 'found yui and moomoo again');
           });
         });
 
