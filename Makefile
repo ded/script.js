@@ -100,29 +100,26 @@
 
 SQUEEZE=squeeze
 UGLIFYJS=uglifyjs
+DIST_PATH=dist
 
 .PHONY: all clean
 
-all: script.min.js script.u.js script.c.js script.js
+all: script.js script.min.js script.u.js script.c.js
 
 script.js: src/header.js src/script.js
-	@cat src/header.js src/script.js > $@
+	@cat src/header.js src/script.js > ${DIST_PATH}/$@
 
-script.min.js: script.js
+script.min.js: ${DIST_PATH}/script.js
 	@echo "Minifying using YUICompressor"
-	@$(SQUEEZE) yuicompressor --type=js $< > $@
+	@$(SQUEEZE) yuicompressor --type=js $< > ${DIST_PATH}/$@
 
-script.u.js: script.js
+script.u.js: ${DIST_PATH}/script.js
 	@echo "Minifying using UglifyJS"
-	@$(UGLIFYJS) $< > $@
+	@$(UGLIFYJS) $< > ${DIST_PATH}/$@
 
-# script.c.tmp.js: script.js
-# 	@echo "Minifying using Google Closure"
-# 	@$(SQUEEZE) closure --js $< --js_output_file $@
-
-script.c.js: script.js
+script.c.js: ${DIST_PATH}/script.js
 	@echo "Minifying using Google Closure"
-	@$(SQUEEZE) closure --js $< > $@
+	@$(SQUEEZE) closure --js $< > ${DIST_PATH}/$@
 
 clean:
-	@-rm -f script.js script.min.js script.u.js script.c.js
+	@-rm -rf dist/*
