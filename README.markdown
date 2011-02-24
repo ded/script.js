@@ -144,4 +144,4 @@ The copies of $script.js & $script.min.js that are in the dist folder will be ov
 
 *Note: you must init the UglifyJS submodule before running the makefile. To do this run:*
 
-    git submodule init
+    git submodule update --init
