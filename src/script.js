@@ -29,7 +29,7 @@
   }
 
   win.$script = function(paths, idOrDone, optDone) {
-    var idOrDoneIsId = idOrDone.splice,
+    var idOrDoneIsId = idOrDone.slice,
         done = idOrDoneIsId ? optDone : idOrDone,
         paths = paths[push] ? paths : [paths],
         id = idOrDoneIsId ? idOrDone : paths.join(''),
