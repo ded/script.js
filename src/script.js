@@ -29,21 +29,20 @@
   }
 
   win.$script = function(paths, idOrDone, optDone) {
-    var idOrDoneIsId = idOrDone.slice,
-        done = idOrDoneIsId ? optDone : idOrDone,
-        paths = paths[push] ? paths : [paths],
-        id = idOrDoneIsId ? idOrDone : paths.join(''),
+    paths = paths[push] ? paths : [paths];
+    var idOrDoneIsDone = idOrDone.call,
+        done = idOrDoneIsDone ? idOrDone : optDone,
+        id = idOrDoneIsDone ? paths.join('') : idOrDone,
         queue = paths.length,
+        loopFn = function(item) {
+          return item.call ? item() : list[item];
+        },
         callback = function() {
           if (!--queue) {
             list[id] = 1;
             done && done();
             for (var dset in delay) {
-              every(dset.split('|'), function(file) {
-                return (list[file]);
-              }) && !each(delay[dset], function(fn) {
-                fn();
-              }) && (delay[dset] = [])
+              every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = []);
             }
           }
         };
@@ -72,7 +71,7 @@
       });
     }, 0);
     return $script;
-  }
+  };
 
   $script.ready = function(deps, ready, req) {
     deps = deps[push] ? deps : [deps];
