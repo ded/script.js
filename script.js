@@ -1,7 +1,8 @@
 /*!
  * $script.js v1.1
  * http://dustindiaz.com/scriptjs
- * Copyright: Dustin Diaz 2011
+ * Copyright: @ded & @fat
+ * Dustin Diaz, Jacob Thornton 2011
  * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
  */(function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
