@@ -1,6 +1,6 @@
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /loaded|complete/,
+      list = {}, ids = {}, delay = {}, re = /in/,
       scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
       domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
@@ -28,10 +28,10 @@
   }
 
   (function l() {
-    domReady = re.test(doc[readyState]) ? !each(readyList, function(f) {
+    domReady = re(doc[readyState]) ? !setTimeout(l, 50) : !each(readyList, function(f) {
       domReady = 1;
       f();
-    }) : !setTimeout(l, 50);
+    });
   }());
 
   win.$script = function(paths, idOrDone, optDone) {
@@ -65,7 +65,7 @@
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el[onreadystatechange] = function () {
-          if ((el[readyState] && !(re.test(el[readyState]))) || loaded) {
+          if ((el[readyState] && !(!re(el[readyState]))) || loaded) {
             return;
           }
           el.onload = el[onreadystatechange] = null;

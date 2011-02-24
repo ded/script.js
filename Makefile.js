@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-
+// building $script.js requires node
+// to install node try "port install node"
+// if that doesn't work. see the instructions
+// https://github.com/ry/node/wiki/Installation
 var fs = require('fs'),
-  uglifyJs = require('./build/UglifyJS');
+    uglifyJs = require('./build/UglifyJS');
 
 BUILD_DIR   = 'build',
 DIST_DIR    = 'dist',
