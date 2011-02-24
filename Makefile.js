@@ -29,7 +29,7 @@ jshint.errors.forEach(function (err) {
   }
 });
 
-if ( !errors.length ) {
+if (!errors.length) {
   console.log('Congratulations. You are a very special and handsome person. <3 JSHint.');
 } else {
   console.log(
@@ -44,10 +44,11 @@ if ( !errors.length ) {
   console.log('---------------------------------');
 }
 
+var $oldFile = fs.readFileSync(DIST_DIR + '/script.min.js', 'UTF-8');
 var ast = uglifyJs.parser.parse($script); // parse code and get the initial AST
 ast = uglifyJs.uglify.ast_mangle(ast); // get a new AST with mangled names
 ast = uglifyJs.uglify.ast_squeeze(ast); // get an AST with compression optimizations
-var $script_ugly = uglifyJs.uglify.gen_code(ast);
+var $scriptUgly = uglifyJs.uglify.gen_code(ast);
 
 console.log('$script minified with UglifyJs');
 
@@ -57,8 +58,20 @@ try {
   fs.mkdirSync(DIST_DIR, 0775);
 }
 
-// Without plugins
+var $uglyFile = [header, $scriptUgly].join('');
 fs.writeFileSync(DIST_DIR + '/script.js', [header, $script].join('\n'));
-fs.writeFileSync(DIST_DIR + '/script.min.js', [header, $script_ugly].join(''));
+fs.writeFileSync(DIST_DIR + '/script.min.js', $uglyFile);
 
-console.log("Finished!");
+var oldLen = $oldFile.length,
+    newLen = $uglyFile.length,
+    fileDiff = Math.abs(oldLen - newLen);
+console.log("Done! $script.js is now",  + ' bytes.');
+if (newLen < oldLen) {
+  console.log('You are a very special, handsome person. Now go do a shot of whiskey');
+  console.log('That\'s ' + fileDiff + ' bytes less!');
+} else if (newLen < oldLen) {
+  console.log('Dude! You made it worse!');
+  console.log('That\'s ' + fileDiff + ' bytes more!');
+} else {
+  console.log('Not bad. But how does it feel to do all that work and make no difference');
+}
