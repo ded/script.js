@@ -6,7 +6,7 @@
  * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
  */(function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /loaded|complete/i,
+      list = {}, ids = {}, delay = {}, re = /loaded|complete/,
       scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
       domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener',
