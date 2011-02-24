@@ -1,10 +1,11 @@
-/*!
+/**
  * $script.js v1.1
  * https://github.com/polvero/script.js
  * Copyright: @ded & @fat
  * Dustin Diaz, Jacob Thornton 2011
  * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
  */
+
 (function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /loaded|complete/,

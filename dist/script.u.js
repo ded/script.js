@@ -1,7 +1,0 @@
-/*!
- * $script.js v1.1
- * https://github.com/polvero/script.js
- * Copyright: @ded & @fat
- * Dustin Diaz, Jacob Thornton 2011
- * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
- */(function(a,b){var c=b.getElementsByTagName("script")[0],d={},e={},f={},g=/loaded|complete/,h={},i="string",j=!1,k=j,l=[],m="DOMContentLoaded",n="readyState",o="addEventListener",p=function(){return Array.every||function(a,b){for(var c=0,d=a.length;c<d;++c)if(!b(a[c],c,a))return 0;return 1}}(),q=function(a,b){p(a,function(c,d){return!b(c,d,a)})};!b[n]&&b[o]&&(b[o](m,function r(){b.removeEventListener(m,r,j),b[n]="complete"},j),b[n]="loading"),function s(){k=g.test(b[n])?!q(l,function(a){k=1,a()}):!setTimeout(s,50)}(),a.$script=function(a,j,k){var l=typeof j==i,m=l?k:j,a=typeof a==i?[a]:a,o=l?j:a.join(""),r=a.length,s=function(){if(!--r){d[o]=1,m&&m();for(var a in f)p(a.split("|"),function(a){return d[a]})&&!q(f[a],function(a){a()})&&(f[a]=[])}};if(!e[o]){setTimeout(function(){q(a,function(a){if(!h[a]){h[a]=e[o]=1;var d=b.createElement("script"),f=0;d.onload=d.onreadystatechange=function(){d[n]&&!g.test(d[n])||f||(d.onload=d.onreadystatechange=null,f=1,s())},d.async=1,d.src=a,c.parentNode.insertBefore(d,c)}})},0);return $script}},$script.ready=function(a,b,c){a=typeof a==i?[a]:a;var e=[];!q(a,function(a){d[a]||e.push(a)})&&p(a,function(a){return d[a]})?b():function(a){f[a]=f[a]||[],f[a].push(b),c&&c(e)}(a.join("|"));return $script},$script.domReady=function(a){k?a():l.push(a)}})(window,document)

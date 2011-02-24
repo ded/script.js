@@ -1,4 +1,4 @@
-/*!
+/**
  * $script.js v1.1
  * https://github.com/polvero/script.js
  * Copyright: @ded & @fat
