@@ -5,9 +5,10 @@
  * License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
  */(function(win, doc) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, noop = function(){}, re = /loaded|complete/,
+      list = {}, ids = {}, delay = {}, re = /loaded|complete/,
       scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
       domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
+      addEventListener = 'addEventListener',
       every = function() {
         return Array.every || function(ar, fn) {
           for (var i=0, j=ar.length; i < j; ++i) {
@@ -23,8 +24,8 @@
           return !fn(el, i, ar);
         });
       };
-  if (!doc[readyState] && doc.addEventListener) {
-    doc.addEventListener(domContentLoaded, function fn() {
+  if (!doc[readyState] && doc[addEventListener]) {
+    doc[addEventListener](domContentLoaded, function fn() {
       doc.removeEventListener(domContentLoaded, fn, f);
       doc[readyState] = "complete";
     }, f);
@@ -40,14 +41,14 @@
 
   win.$script = function(paths, idOrDone, optDone) {
     var idOrDoneIsId = typeof idOrDone == s,
-        done = (idOrDoneIsId ? optDone : idOrDone) || noop,
+        done = idOrDoneIsId ? optDone : idOrDone,
         paths = typeof paths == s ? [paths] : paths,
         id = idOrDoneIsId ? idOrDone : paths.join(''),
         queue = paths.length,
         callback = function() {
           if (!--queue) {
             list[id] = 1;
-            done();
+            done && done();
             for (var dset in delay) {
               every(dset.split('|'), function(file) {
                 return (list[file]);
@@ -84,7 +85,6 @@
     return $script;
   }
   $script.ready = function(deps, ready, req) {
-    req = req || noop;
     deps = (typeof deps == s) ? [deps] : deps;
     var missing = [];
     !each(deps, function(dep) {
@@ -94,7 +94,7 @@
     }) ? ready() : (function(key) {
       delay[key] = delay[key] || [];
       delay[key].push(ready);
-      req(missing);
+      req && req(missing);
     }(deps.join('|')));
     return $script;
   };
