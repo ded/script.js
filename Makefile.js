@@ -65,7 +65,7 @@ fs.writeFileSync(DIST_DIR + '/script.min.js', $uglyFile);
 var oldLen = $oldFile.length,
     newLen = $uglyFile.length,
     fileDiff = Math.abs(oldLen - newLen);
-console.log("Done! $script.js is now",  + ' bytes.');
+console.log("Done! $script.js is now " + newLen + ' bytes.');
 if (newLen < oldLen) {
   console.log('You are a very special, handsome person. Now go do a shot of whiskey');
   console.log('That\'s ' + fileDiff + ' bytes less!');
