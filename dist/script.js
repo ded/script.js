@@ -4,10 +4,10 @@
  License: CC Attribution: http://creativecommons.org/licenses/by/3.0/
 */
 
-(function(win, doc) {
+(function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /in/,
-      scripts = {}, s = 'string', f = false, domReady = f, readyList = [],
+      scripts = {}, s = 'string', f = false,
       domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = function() {
@@ -25,6 +25,7 @@
           return !fn(el, i, ar);
         });
       };
+
   if (!doc[readyState] && doc[addEventListener]) {
     doc[addEventListener](domContentLoaded, function fn() {
       doc.removeEventListener(domContentLoaded, fn, f);
@@ -32,13 +33,6 @@
     }, f);
     doc[readyState] = "loading";
   }
-
-  (function l() {
-    domReady = re(doc[readyState]) ? !setTimeout(l, 50) : !each(readyList, function(f) {
-      domReady = 1;
-      f();
-    });
-  }());
 
   win.$script = function(paths, idOrDone, optDone) {
     var idOrDoneIsId = typeof idOrDone == s,
@@ -62,7 +56,7 @@
     if (ids[id]) {
       return;
     }
-    setTimeout(function() {
+    timeout(function() {
       each(paths, function(path) {
         if (scripts[path]) {
           return;
@@ -71,7 +65,7 @@
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el[onreadystatechange] = function () {
-          if ((el[readyState] && !(!re(el[readyState]))) || loaded) {
+          if ((el[readyState] && !(!re.test(el[readyState]))) || loaded) {
             return;
           }
           el.onload = el[onreadystatechange] = null;
@@ -85,6 +79,7 @@
     }, 0);
     return $script;
   }
+
   $script.ready = function(deps, ready, req) {
     deps = (typeof deps == s) ? [deps] : deps;
     var missing = [];
@@ -99,7 +94,11 @@
     }(deps.join('|')));
     return $script;
   };
-  $script.domReady = function(fn) {
-    domReady ? fn() : readyList.push(fn);
-  };
-}(window, document));
+
+  function domReady(fn) {
+    re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
+  }
+
+  win.$script.domReady = domReady;
+
+}(this, document, setTimeout));

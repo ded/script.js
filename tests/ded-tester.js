@@ -25,10 +25,9 @@ function pass(li, check) {
 }
 function test(name, expect, fn) {
   if (testing) {
-    setTimeout(function() {
+    return setTimeout(function() {
       test(name, expect, fn);
     }, 100);
-    return;
   }
   testing = true;
   total = expect;
