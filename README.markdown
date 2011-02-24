@@ -1,10 +1,10 @@
 $script.js - Asynchronous JavaScript loader and dependency manager
 ------------------------------------------------------------------
 
-Copyright: [@ded](http://twitter.com/ded "@ded"). & [@fat](http://twitter.com/fat "@fat"). 2011  
-Dustin Diaz [http://dustindiaz.com](http://dustindiaz.com "http://dustindiaz.com")  
-Jacob Thornton [http://hellomynameisjacob.com](http://hellomynameisjacob.com "http://hellomynameisjacob.com")  
-License: Creative Commons Attribution: [http://creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/ "http://creativecommons.org/licenses/by/3.0/")  
+Copyright: [@ded](http://twitter.com/ded "@ded"). & [@fat](http://twitter.com/fat "@fat"). 2011
+Dustin Diaz [http://dustindiaz.com](http://dustindiaz.com "http://dustindiaz.com")
+Jacob Thornton [http://hellomynameisjacob.com](http://hellomynameisjacob.com "http://hellomynameisjacob.com")
+License: Creative Commons Attribution: [http://creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/ "http://creativecommons.org/licenses/by/3.0/")
 
 $script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint (currently 698 bytes! (min + gzip)). Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
@@ -144,4 +144,4 @@ The copies of $script.js & $script.min.js that are in the dist folder will be ov
 
 *Note: you must init the UglifyJS submodule before running the makefile. To do this run:*
 
-    git submodule init
+    git submodule update --init
