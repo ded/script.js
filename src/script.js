@@ -75,12 +75,12 @@
   }
 
   $script.ready = function(deps, ready, req) {
-    deps = (typeof deps == s) ? [deps] : deps;
+    deps = deps[push] ? deps : [deps];
     var missing = [];
     !each(deps, function(dep) {
-      (list[dep]) || missing[push](dep);
+      list[dep] || missing[push](dep);
     }) && every(deps, function(dep) {
-      return (list[dep]);
+      return list[dep];
     }) ? ready() : !function(key) {
       delay[key] = delay[key] || [];
       delay[key][push](ready);
