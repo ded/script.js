@@ -1,10 +1,12 @@
 $script.js - Asynchronous JavaScript loader and dependency manager
 ------------------------------------------------------------------
 
-Copyright: Dustin Diaz 2011 - http://dustindiaz.com
+Copyright: @ded & @fat 2011
+Dustin Diaz http://dustindiaz.com
+Jacob Thornton http://hellomynameisjacob.com
 License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
 
-$script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint. Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
+$script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint (currently 698 bytes! (min + gzip)). Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
 Browser Support
 ---------------
@@ -35,17 +37,22 @@ middle school - loads as non-blocking, but has multiple dependents
 
 new school - loads as non-blocking, and ALL js files load asynchronously
 
-    $script('jquery.js', 'jquery');
-    $script('my-jquery-plugin.js', 'plugin');
+    // load jquery and plugin at the same time. name it 'bundle'
+    $script(['jquery.js', 'my-jquery-plugin.js'], 'bundle');
+
+    // load your usage
     $script('my-app-that-uses-plugin.js');
 
+
     /*--- in my-jquery-plugin.js ---*/
-    $script.ready('jquery', function() {
+    $script.ready('bundle', function() {
+      // jquery & plugin (this file) are both ready
       // plugin code...
     });
 
+
     /*--- in my-app-that-uses-plugin.js ---*/
-    $script.ready('plugin', function() {
+    $script.ready('bundle', function() {
       // use your plugin :)
     });
 
@@ -88,12 +95,13 @@ Exhaustive list of ways to use $script.js
     $script('foo.js', 'foo');
     $script('bar.js', 'bar');
 
+    // wait for multiple depdendencies!
     $script.ready(['foo', 'bar', 'thunk'], function() {
       // foo.js & bar.js & thunkor.js & thunky.js is ready
     }, function(depsNotFound) {
-        // foo.js & bar.js may not have downloaded yet
-        // furthermore ['thunk'] dependency was never found
-        // so lazy load them now
+        // foo.js & bar.js may have downloaded
+        // but ['thunk'] dependency was never found
+        // so lazy load it now
         depsNotFound.forEach(function(dep) {
           $script(dependencyList[dep], dep);
         });
