@@ -116,12 +116,13 @@ script.u.js: script.js
 	@echo "Minifying using UglifyJS"
 	@$(UGLIFYJS) $< > $@
 
-script.c.tmp.js: script.js
-	@echo "Minifying using Google Closure"
-	@$(SQUEEZE) closure --js $< --js_output_file $@
+# script.c.tmp.js: script.js
+# 	@echo "Minifying using Google Closure"
+# 	@$(SQUEEZE) closure --js $< --js_output_file $@
 
-script.c.js: src/header.js script.c.tmp.js
-	@cat src/header.js script.c.tmp.js > $@
+script.c.js: script.js
+	@echo "Minifying using Google Closure"
+	@$(SQUEEZE) closure --js $< > $@
 
 clean:
-	@-rm -f script.js script.min.js script.u.js script.c.tmp.js script.c.js
+	@-rm -f script.js script.min.js script.u.js script.c.js
