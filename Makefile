@@ -104,9 +104,10 @@ DIST_PATH=dist
 
 .PHONY: all clean
 
-all: script.js script.min.js script.u.js script.c.js
+all: script.js script.min.js script.u.js script.c.tmp.js script.c.js
 
 script.js: src/header.js src/script.js
+	@echo "Building uncompressed script.js"
 	@cat src/header.js src/script.js > ${DIST_PATH}/$@
 
 script.min.js: ${DIST_PATH}/script.js
@@ -117,9 +118,13 @@ script.u.js: ${DIST_PATH}/script.js
 	@echo "Minifying using UglifyJS"
 	@$(UGLIFYJS) $< > ${DIST_PATH}/$@
 
-script.c.js: ${DIST_PATH}/script.js
-	@echo "Minifying using Google Closure"
+script.c.tmp.js: ${DIST_PATH}/script.js
 	@$(SQUEEZE) closure --js $< > ${DIST_PATH}/$@
+
+script.c.js: ${DIST_PATH}/script.c.tmp.js src/header.js
+	@echo "Minifying using Google Closure"
+	@cat src/header.js ${DIST_PATH}/script.c.tmp.js > ${DIST_PATH}/$@
+	@-rm -rf dist/script.c.tmp.js
 
 clean:
 	@-rm -rf dist/*
