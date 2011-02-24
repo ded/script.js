@@ -1,10 +1,10 @@
 $script.js - Asynchronous JavaScript loader and dependency manager
 ------------------------------------------------------------------
 
-Copyright: @ded & @fat 2011
-Dustin Diaz http://dustindiaz.com
-Jacob Thornton http://hellomynameisjacob.com
-License: Creative Commons Attribution: http://creativecommons.org/licenses/by/3.0/
+Copyright: [@ded](http://twitter.com/ded "@ded"). & [@fat](http://twitter.com/fat "@fat"). 2011  
+Dustin Diaz [http://dustindiaz.com](http://dustindiaz.com "http://dustindiaz.com")  
+Jacob Thornton [http://hellomynameisjacob.com](http://hellomynameisjacob.com "http://hellomynameisjacob.com")  
+License: Creative Commons Attribution: [http://creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/ "http://creativecommons.org/licenses/by/3.0/")  
 
 $script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint (currently 698 bytes! (min + gzip)). Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
@@ -133,3 +133,15 @@ Since many scripts on the web depend on document ready (DOMContentLoaded), loadi
 Reason for $script.domReady
 ---------------------------
 The reason why $script.js exposes a domReady method rather than *fixing DOMContentLoaded* is that it's not necessarily the responsibility of this utility to do it. There are literally hundreds of implementations on the internet of what "DOM Ready" means, and by no stretch will I attempt to make sure $script works with them all. Hence the most we can provide is yet another (small & simple) way to let users hook into when the DOM is ready.
+
+Building $script.js
+-------------------
+Building $script.js requires NodeJS to be installed. To build, just run:
+
+    node Makefile.js
+
+The copies of $script.js & $script.min.js that are in the dist folder will be overwritten with the newly built copies. The minified version of $script is compressed with [UglifyJS](https://github.com/mishoo/UglifyJS "UglifyJS").
+
+*Note: you must init the UglifyJS submodule before running the makefile. To do this run:*
+
+    git submodule init
