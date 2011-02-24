@@ -1,8 +1,8 @@
-(function(win, doc, timeout) {
+!function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /in/,
       scripts = {}, s = 'string', f = false,
-      domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
+      push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = function() {
         return Array.every || function(ar, fn) {
@@ -29,9 +29,9 @@
   }
 
   win.$script = function(paths, idOrDone, optDone) {
-    var idOrDoneIsId = typeof idOrDone == s,
+    var idOrDoneIsId = idOrDone.trim,
         done = idOrDoneIsId ? optDone : idOrDone,
-        paths = typeof paths == s ? [paths] : paths,
+        paths = paths[push] ? paths : [paths],
         id = idOrDoneIsId ? idOrDone : paths.join(''),
         queue = paths.length,
         callback = function() {
@@ -78,14 +78,14 @@
     deps = (typeof deps == s) ? [deps] : deps;
     var missing = [];
     !each(deps, function(dep) {
-      (list[dep]) || missing.push(dep);
+      (list[dep]) || missing[push](dep);
     }) && every(deps, function(dep) {
       return (list[dep]);
-    }) ? ready() : (function(key) {
+    }) ? ready() : !function(key) {
       delay[key] = delay[key] || [];
-      delay[key].push(ready);
+      delay[key][push](ready);
       req && req(missing);
-    }(deps.join('|')));
+    }(deps.join('|'));
     return $script;
   };
 
@@ -95,4 +95,4 @@
 
   win.$script.domReady = domReady;
 
-}(this, document, setTimeout));
+}(this, document, setTimeout);
