@@ -35,11 +35,11 @@
       });
 
       head.js('../vendor/mootools.js', function() {
-        $('#jquery').html('✓');
+        document.id('mootools').set('html', '✓');
       });
 
       head.js('../vendor/jquery.js', function() {
-        document.id('mootools').innerHTML = '✓';
+        $('#jquery').html('✓');
       });
 
       head.ready(function() {
