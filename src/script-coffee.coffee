@@ -54,12 +54,12 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # Here we go.
 ((global, doc, timeout) ->
     # All the IDs processed
-    scriptIds = {}
+    scriptIds          = {}
     # All the script paths processed.
-    scriptPaths = {}
-    list = {}
-    delay = {}
-    re = /in/
+    scriptPaths        = {}
+    list               = {}
+    delay              = {}
+    re                 = /in/
     firstScriptElement = doc.getElementsByTagName("script")[0]
 
     # Returns `true` if all elements in the array pass the test function.
@@ -91,10 +91,10 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         queue = paths.length
         if idOrDone.call
             done = idOrDone
-            id = paths.join("")
+            id   = paths.join("")
         else
             done = optDone
-            id = idOrDone
+            id   = idOrDone
 
         # Don't fetch scripts for the given id again.
         if scriptIds[id]
@@ -102,7 +102,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
         timeout(() ->
             fn = (item) -> if item.call then item() else list[item]
-            #for path in paths
+            
+            # `for path in paths ...`
             each(paths, (path) ->
                 # Don't fetch the same script path again.
                 if scriptPaths[path]
@@ -110,13 +111,13 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
                 scriptPaths[path] = scriptIds[id] = 1 # true
                 element = doc.createElement("script")
-                loaded = 0 # false
+                loaded  = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
                     if (element.readyState and not (not re.test(element.readyState))) or loaded
                         return
                     element.onload = element.onreadystatechange = null
-                    loaded = 1 # true
+                    loaded         = 1 # true
 
                     # The original callback() inlined.
                     if not --queue
@@ -126,7 +127,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                             all(dset.split("|"), fn) and not each(delay[dset], fn) and (delay[dset] = [])
                     return
                 element.async = 1 # true
-                element.src = path
+                element.src   = path
                 firstScriptElement.parentNode.insertBefore(element, firstScriptElement)
 
                 return
