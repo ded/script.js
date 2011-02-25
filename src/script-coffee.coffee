@@ -51,7 +51,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # 12. Use legible variable names. The minifier will take
 #     care of shortening them for you.
 
-# Here we go.
+# Here we go
+# ----------
 ((global, doc, timeout) ->
     # All the IDs processed
     scriptIds             = {}
@@ -80,7 +81,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         all(array, (element, i) -> not fn(element, i, array))
         return
 
-    # **Workaround**:
+    #### Missing `document.readyState` Workaround
     # Some browsers (e.g. [< Firefox 3.6](https://developer.mozilla.org/en/dom/document.readystate)) 
     # don't have `document.readyState` implemented. 
     # The closure exists to limit the scope of `fn`.

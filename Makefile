@@ -103,8 +103,8 @@
 
 SQUEEZE=squeeze
 UGLIFYJS=uglifyjs
-GZIP=gzip
-GUNZIP=gunzip
+GZIP=gzip -f
+GUNZIP=gunzip -f
 COFFEE=coffee
 DIST_DIR=_build
 SRC_DIR=src
