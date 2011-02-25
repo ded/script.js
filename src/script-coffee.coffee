@@ -54,13 +54,16 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # Here we go.
 ((global, doc, timeout) ->
     # All the IDs processed
-    scriptIds          = {}
+    scriptIds             = {}
     # All the script paths processed.
-    scriptPaths        = {}
-    list               = {}
-    delay              = {}
-    re                 = /in/
-    firstScriptElement = doc.getElementsByTagName("script")[0]
+    scriptPaths           = {}
+    list                  = {}
+    delay                 = {}
+    # Regular expression to match against `document.readyState`. Looks for the substring `"in"` in `"loading"`.
+    domReadyLoadingRegexp = /in/
+
+    # Handle to the first script element in the document.
+    firstScriptElement    = doc.getElementsByTagName("script")[0]
 
     # Returns **truthy** if all elements in the array pass the test function;
     # **falsy** otherwise.
@@ -77,10 +80,11 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         all(array, (element, i) -> not fn(element, i, array))
         return
 
-    # Closure to limit the scope of `fn`.
+    # **Workaround**:
+    # Some browsers (e.g. [< Firefox 3.6](https://developer.mozilla.org/en/dom/document.readystate)) 
+    # don't have `document.readyState` implemented. 
+    # The closure exists to limit the scope of `fn`.
     (() ->
-        # Some browsers (like < Firefox 3.6) don't have `document.readyState` 
-        # implemented.
         if not doc.readyState and doc.addEventListener
             fn = () ->
                 doc.removeEventListener("DOMContentLoaded", fn, 0) # false)
@@ -120,7 +124,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 loaded  = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
-                    if (element.readyState and not (not re.test(element.readyState))) or loaded
+                    if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
                         return
                     element.onload = element.onreadystatechange = null
                     loaded         = 1 # true
@@ -166,14 +170,14 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         # Coffee-script doesn't do this automatically, so we're inlining this JavaScript
         # code in here.
         #
-        #     if re.test(doc.readyState)
+        #     if domReadyLoadingRegexp.test(doc.readyState)
         #                 timeout(() ->
         #                     global.$script.domReady(fn)
         #                     return
         #                 , 50)
         #             else
         #                 fn()
-        `re.test(doc.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
+        `domReadyLoadingRegexp.test(doc.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
         return
 
     return
