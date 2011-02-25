@@ -62,7 +62,10 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     re                 = /in/
     firstScriptElement = doc.getElementsByTagName("script")[0]
 
-    # Returns `true` if all elements in the array pass the test function.
+    # Returns **truthy** if all elements in the array pass the test function;
+    # **falsy** otherwise.
+    # We delegate to the JavaScript 1.6 `Array.every` method if it is 
+    # available. 
     all = Array.every or (array, fn) ->
         for element, i in array
             if not fn(element, i, array)
@@ -87,6 +90,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     )()
 
     global.$script = (paths, idOrDone, optDone) ->
+        # We need `paths` to be a sequence.
         paths = if paths.push then paths else [paths]
         queue = paths.length
         if idOrDone.call
@@ -139,6 +143,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         return $script
 
     $script.ready = (deps, ready, req) ->
+        # We need `deps` to be a sequence.
         deps = if deps.push then deps else [deps]
         missing = []
 
