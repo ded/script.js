@@ -114,7 +114,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         timeout(() ->
             fn = (item) -> if item.call then item() else list[item]
 
-            # `for path in paths ...`
+            # `for path in paths ...` produces larger compressed code. Using `each` instead.
             each(paths, (path) ->
                 # Don't fetch the same script path again.
                 if scriptPaths[path]
