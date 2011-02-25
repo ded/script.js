@@ -25,7 +25,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # 5. Avoid using named functions which would otherwise result
 #    in function hoisting and polluting the global namespace.
 #
-# 6. `doc.readyState` is the same as `doc["readyState"]`. The former
+# 6. `document.readyState` is the same as `doc["readyState"]`. The former
 #    uses fewer characters and will compress *better*. Don't assign
 #    string literals to new variables. Every variable added increases
 #    compressed size.
@@ -53,7 +53,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
 # Here we go
 # ----------
-((global, doc, timeout) ->
+((global, timeout) ->
     # All the IDs processed
     scriptIds             = {}
     # All the script paths processed.
@@ -64,7 +64,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     domReadyLoadingRegexp = /in/
 
     # Handle to the first script element in the document.
-    firstScriptElement    = doc.getElementsByTagName("script")[0]
+    firstScriptElement    = document.getElementsByTagName("script")[0]
 
     # Returns **truthy** if all elements in the array pass the test function;
     # **falsy** otherwise.
@@ -86,13 +86,13 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     # don't have `document.readyState` implemented.
     # The closure exists to limit the scope of `fn`.
     (() ->
-        if not doc.readyState and doc.addEventListener
+        if not document.readyState and document.addEventListener
             fn = () ->
-                doc.removeEventListener("DOMContentLoaded", fn, 0) # false)
-                doc.readyState = "complete"
+                document.removeEventListener("DOMContentLoaded", fn, 0) # false)
+                document.readyState = "complete"
                 return
-            doc.addEventListener("DOMContentLoaded", fn, 0) # false)
-            doc.readyState = "loading"
+            document.addEventListener("DOMContentLoaded", fn, 0) # false)
+            document.readyState = "loading"
             return
     )()
 
@@ -121,7 +121,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                     return
 
                 scriptPaths[path] = scriptIds[id] = 1 # true
-                element = doc.createElement("script")
+                element = document.createElement("script")
                 loaded  = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
@@ -171,15 +171,15 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         # Coffee-script doesn't do this automatically, so we're inlining the JavaScript
         # code for the following in here.
         #
-        #     if domReadyLoadingRegexp.test(doc.readyState)
+        #     if domReadyLoadingRegexp.test(document.readyState)
         #         timeout(() ->
         #             global.$script.domReady(fn)
         #             return
         #         , 50)
         #     else
         #         fn()
-        `domReadyLoadingRegexp.test(doc.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
+        `domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
         return
 
     return
-)(this, document, setTimeout)
+)(this, setTimeout)
