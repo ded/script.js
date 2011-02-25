@@ -86,7 +86,11 @@
 #
 #    $ source ~/.profile   # or ~/.bashrc if you used that instead (say on Ubuntu).
 #
-# 4. Docco
+# 4. Coffeescript
+#    
+#    $ npm install coffee-script
+#
+# 5. Docco
 #
 #    $ npm install docco
 #
