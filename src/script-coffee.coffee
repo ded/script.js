@@ -3,9 +3,11 @@ https://github.com/polvero/script.js
 Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
 License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
+# Optimization Notes
+# ------------------
 # Optimize for compression and only then minification.
 # This will produce smaller scripts. The more variables
-# you add to the function header, the less effective
+# you add to the function preamble, the less effective
 # compression will become. Strategy:
 # 
 # 1. Boolean values:
@@ -32,23 +34,24 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 #    into coffee-script for this. We could have used macro expansion
 #    to achieve this.)
 #
-# 8. Use only 1 type of string quoting character. Either " or ',
+# 8. Use only one type of string quoting character. Either `"` or `'`,
 #    but not both. The minifiers are smart enough to handle this for
 #    you, but you should know about this.
 #
 # 9. Avoid unnecessary nesting using closures. They don't add much
-#    value to the code and in fact, make it harder to read it.
+#    value to the code and make it harder to read it.
 #
 # 10. If you're going to include a hack, *document it* and provide
 #     links to articles about where one can find more information
 #     if required.
 #
-# 11. DONT try to minify code yourself. Optimize for compression.
+# 11. **DON'T** try to minify code yourself. Optimize for compression.
 #     The minifier knows its job very well.
 #
 # 12. Use legible variable names. The minifier will take
 #     care of shortening them for you.
 
+# Here we go.
 ((global, doc, timeout) ->
     # All the IDs processed
     scriptIds = {}
@@ -151,7 +154,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
     # The shortest `domReady` hack there is.
     global.$script.domReady = (fn) ->
-        # **Size optimization**:
+        # **Manual minification**:
         # Coffee-script doesn't do this automatically, so we're inlining this JavaScript
         # code in here.
         #
