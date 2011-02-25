@@ -125,7 +125,9 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 loaded  = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
-                    #if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
+                    # We don't need the regular expression:
+                    #
+                    #     if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
                     if (element.readyState and element.readyState == "loading") or loaded
                         return
                     element.onload = element.onreadystatechange = null
@@ -179,7 +181,12 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         #         , 50)
         #     else
         #         fn()
-        #`domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { $script.domReady(fn); }, 50) : fn();`
+        # to:
+        #
+        #     `domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { $script.domReady(fn); }, 50) : fn();`
+        #
+        # Turns out, we don't need the regular expression either. Therefore:
+        #
         `document.readyState === "loading" ? timeout(function() {$script.domReady(fn); }, 50) : fn();`
         return
 
