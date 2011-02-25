@@ -154,7 +154,10 @@ addClass(document.documentElement, 'js')
 </code></pre>
 
 <p>As <code>$script.js</code> is loaded right in the head of the document, 
-we assume no <code>js</code> class has been set and we just add it.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; js&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>If we're running on IE, enable HTML5 elements:</p>
+we assume no <code>js</code> class has been set and we just add it.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; js&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>Let's not. Let IE users download html5shim. It's already well written.
+Why burden other browsers with that?</p>
+
+<p>If we're running on IE, enable HTML5 elements:</p>
 
 <pre><code>if eval(/*@cc_on!@*/)
     enableHTML5Elements()

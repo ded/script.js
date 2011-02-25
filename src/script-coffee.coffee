@@ -216,6 +216,9 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     # we assume no `js` class has been set and we just add it.
     document.documentElement.className += ' js'
 
+    # Let's not. Let IE users download html5shim. It's already well written.
+    # Why burden other browsers with that?
+    #
     # If we're running on IE, enable HTML5 elements:
     #
     #     if eval(/*@cc_on!@*/)
