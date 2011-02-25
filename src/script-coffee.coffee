@@ -92,7 +92,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 document.readyState = "complete"
                 return
             document.addEventListener("DOMContentLoaded", fn, 0) # false)
-            document.readyState = "loading"
+            # We don't need "loading" either, since we're now only looking for "complete" or loaded.
+            # document.readyState = "loading"
             return
     )()
 
@@ -128,7 +129,14 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                     # We don't need the regular expression:
                     #
                     #     if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
-                    if (element.readyState and element.readyState == "loading") or loaded
+                    # 
+                    # to:
+                    #
+                    #      if (element.readyState and element.readyState == "loading") or loaded
+                    #
+                    # And getting rid of "loading" entirely from the code (one less string to worry about):
+                    #
+                    if (element.readyState and element.readyState != "complete") or loaded
                         return
                     element.onload = element.onreadystatechange = null
                     loaded         = 1 # true
@@ -187,7 +195,11 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         #
         # Turns out, we don't need the regular expression either. Therefore:
         #
-        `document.readyState === "loading" ? timeout(function() {$script.domReady(fn); }, 50) : fn();`
+        #     `document.readyState === "loading" ? timeout(function() {$script.domReady(fn); }, 50): fn();`
+        #
+        # But wait, we can do better. Just get rid of the "loading" string from the entire code and we hit lower size.
+        #
+        `document.readyState === "complete" ? fn(): timeout(function() {$script.domReady(fn); }, 50);`
         return
 
     return
