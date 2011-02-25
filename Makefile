@@ -120,8 +120,10 @@ all: distdir script1 script-coffee
 	@gzip $(DIST_DIR)/*.js
 	@ls -laG $(DIST_DIR)/*
 	@gunzip $(DIST_DIR)/*.gz
+	@echo "--------------------------------------------------------------------------------"
 
 distdir:
+	@echo "--------------------------------------------------------------------------------"	
 	@mkdir -p $(DIST_DIR)
 
 script1: $(DIST_DIR)/script.yui.js $(DIST_DIR)/script.uglifyjs.js $(DIST_DIR)/script.closure.js $(DIST_DIR)/script.js 
