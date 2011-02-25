@@ -202,5 +202,25 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         `document.readyState === "complete" ? fn(): timeout(function() {$script.domReady(fn); }, 50);`
         return
 
+    # The idea.
+    # 
+    #     hasClass = (element, className) ->
+    #         return (" #{element.className} ").indexOf(className) > -1
+    #
+    #     addClass = (element, className) ->
+    #         element.className = if hasClass(element, className) then element.className else element.className + " " + className 
+    #
+    #     addClass(document.documentElement, 'js')
+    # 
+    # Since $script.js is loaded right in the head, we shall assume no .js class has been set and just add it.
+    document.documentElement.className += ' js'
+
+    # If we're running on IE, enable HTML5 elements.
+    #     if eval(/*@cc_on!@*/)
+    #         enableHTML5Elements()
+    #
+    #     enableHTML5Elements = () ->
+    #         return
+
     return
 )(this, setTimeout)
