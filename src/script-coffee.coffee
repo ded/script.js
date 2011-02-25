@@ -20,8 +20,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     all = Array.every or (array, fn) ->
         for element, i in array
             if not fn(element, i, array)
-                return false
-        return true
+                return 0 # false
+        return 1 # true
 
     # Yet another `each`
     each = (array, fn) ->
@@ -32,10 +32,10 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     (() ->
         if not doc.readyState and doc.addEventListener
             fn = () ->
-                doc.removeEventListener("DOMContentLoaded", fn, false)
+                doc.removeEventListener("DOMContentLoaded", fn, 0) # false)
                 doc.readyState = "complete"
                 return
-            doc.addEventListener("DOMContentLoaded", fn, false)
+            doc.addEventListener("DOMContentLoaded", fn, 0) # false)
             doc.readyState = "loading"
             return
     )()
@@ -62,15 +62,15 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 if script_paths[path]
                     return
 
-                script_paths[path] = script_ids[id] = true
+                script_paths[path] = script_ids[id] = 1 # true
                 element = doc.createElement("script")
-                loaded = false
+                loaded = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
                     if (element.readyState and not (not re.test(element.readyState))) or loaded
                         return
                     element.onload = element.onreadystatechange = null
-                    loaded = true
+                    loaded = 1 # true
 
                     # The original callback() inlined.
                     if not --queue
@@ -79,7 +79,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                         for dset of delay
                             all(dset.split("|"), fn) and not each(delay[dset], fn) and (delay[dset] = [])
                     return
-                element.async = true
+                element.async = 1 # true
                 element.src = path
                 first_script.parentNode.insertBefore(element, first_script)
 
