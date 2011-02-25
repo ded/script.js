@@ -69,7 +69,7 @@ console.log("Done! $script.js is now " + newLen + ' bytes.');
 if (newLen < oldLen) {
   console.log('You are a very special, handsome person. Now go do a shot of whiskey');
   console.log('That\'s ' + fileDiff + ' bytes less!');
-} else if (newLen < oldLen) {
+} else if (newLen > oldLen) {
   console.log('Dude! You made it worse!');
   console.log('That\'s ' + fileDiff + ' bytes more!');
 } else {
