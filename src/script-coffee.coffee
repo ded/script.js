@@ -9,7 +9,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # This will produce smaller scripts. The more variables
 # you add to the function preamble, the less effective
 # compression will become. Strategy:
-# 
+#
 # 1. Boolean values:
 #    Use `1` and `0` instead of `true` and `false` respectively.
 #    (Wish we had a preprocessor that did this automatically, but not yet.)
@@ -19,7 +19,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 #
 # 3. Use the `each` and `all` functions.
 #
-# 4. Reuse the same variable name as much as possible while 
+# 4. Reuse the same variable name as much as possible while
 #    not blowing up scope. Keep scopes limited using closures.
 #
 # 5. Avoid using named functions which would otherwise result
@@ -68,8 +68,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
     # Returns **truthy** if all elements in the array pass the test function;
     # **falsy** otherwise.
-    # We delegate to the JavaScript 1.6 `Array.every` method if it is 
-    # available. 
+    # We delegate to the JavaScript 1.6 `Array.every` method if it is
+    # available.
     all = Array.every or (array, fn) ->
         for element, i in array
             if not fn(element, i, array)
@@ -82,8 +82,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         return
 
     #### Missing `document.readyState` Workaround
-    # Some browsers (e.g. [< Firefox 3.6](https://developer.mozilla.org/en/dom/document.readystate)) 
-    # don't have `document.readyState` implemented. 
+    # Some browsers (e.g. [< Firefox 3.6](https://developer.mozilla.org/en/dom/document.readystate))
+    # don't have `document.readyState` implemented.
     # The closure exists to limit the scope of `fn`.
     (() ->
         if not doc.readyState and doc.addEventListener
@@ -113,7 +113,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
         timeout(() ->
             fn = (item) -> if item.call then item() else list[item]
-            
+
             # `for path in paths ...`
             each(paths, (path) ->
                 # Don't fetch the same script path again.
@@ -172,12 +172,12 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         # code for the following in here.
         #
         #     if domReadyLoadingRegexp.test(doc.readyState)
-        #                 timeout(() ->
-        #                     global.$script.domReady(fn)
-        #                     return
-        #                 , 50)
-        #             else
-        #                 fn()
+        #         timeout(() ->
+        #             global.$script.domReady(fn)
+        #             return
+        #         , 50)
+        #     else
+        #         fn()
         `domReadyLoadingRegexp.test(doc.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
         return
 
