@@ -4,3 +4,6 @@
 [submodule "build/jshint"]
 	path = build/jshint
 	url = https://github.com/jshint/jshint
+[submodule "build/gzip"]
+	path = build/gzip
+	url = https://github.com/donnerjack13589/node.gzip.git

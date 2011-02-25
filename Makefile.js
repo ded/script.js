@@ -6,6 +6,7 @@
 var fs = require('fs'),
     uglifyJs = require('./build/UglifyJS'),
     jshint = require('./build/jshint/jshint').JSHINT,
+    gzip = require('./build/gzip/lib/gzip'),
 
     BUILD_DIR   = 'build',
     DIST_DIR    = 'dist',
@@ -62,6 +63,7 @@ var $uglyFile = [header, $scriptUgly].join('');
 fs.writeFileSync(DIST_DIR + '/script.js', [header, $script].join('\n'));
 fs.writeFileSync(DIST_DIR + '/script.min.js', $uglyFile);
 
+
 var oldLen = $oldFile.length,
     newLen = $uglyFile.length,
     fileDiff = Math.abs(oldLen - newLen);
@@ -75,3 +77,32 @@ if (newLen < oldLen) {
 } else {
   console.log('Not bad. But how does it feel to do all that work and make no difference');
 }
+
+//gzip everything
+console.log('gzipping...');
+gzip($oldFile, function(err, data){
+  var oldLen = $oldFile.length,
+    oldGzipLen = data.length;
+    gzip($uglyFile, function(err, data){
+      var newLen = $uglyFile.length,
+      newGzipLen = data.length;
+      messageLength(oldLen, oldGzipLen, newLen, newGzipLen);
+    });
+});
+
+function messageLength(oldLen, oldGzipLen, newLen, newGzipLen){ 
+  var fileDiff = Math.abs(oldLen - newLen),
+    gzipDiff = oldGzipLen - newGzipLen,
+    gzipMsg = '(' + Math.abs(gzipDiff) + ' ' + (gzipDiff < 0 ? 'more' : 'less') + ' gzipped.)';
+  
+  console.log("Done! $script.js is now " + newLen + ' bytes. (Only ' + newGzipLen + ' gzipped.)');
+  if (newLen < oldLen) {
+    console.log('You are a very special, handsome person. Now go do a shot of whiskey');
+    console.log('That\'s ' + fileDiff + ' bytes less! ' + gzipMsg);
+  } else if (newLen > oldLen) {
+    console.log('Dude! You made it worse!');
+    console.log('That\'s ' + fileDiff + ' bytes more! ' + gzipMsg);
+  } else {
+    console.log('Not bad. But how does it feel to do all that work and make no difference');
+  }
+};
