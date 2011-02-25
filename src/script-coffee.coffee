@@ -4,17 +4,60 @@ Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
 License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
 # Optimize for compression and only then minification.
-# This will produce smaller scripts.
+# This will produce smaller scripts. The more variables
+# you add to the function header, the less effective
+# compression will become. Strategy:
+# 
+# 1. Boolean values:
+#    Use `1` and `0` instead of `true` and `false` respectively.
+#    (Wish we had a preprocessor that did this automatically, but not yet.)
+#
+# 2. Limit the scope of all the variables as much as possible
+#    using closures.
+#
+# 3. Use the `each` and `all` functions.
+#
+# 4. Reuse the same variable name as much as possible while 
+#    not blowing up scope. Keep scopes limited using closures.
+#
+# 5. Avoid using named functions which would otherwise result
+#    in function hoisting and polluting the global namespace.
+#
+# 6. `doc.readyState` is the same as `doc["readyState"]`. The former
+#    uses fewer characters and will compress *better*. Don't assign
+#    string literals to new variables. Every variable added increases
+#    compressed size.
+#
+# 7. Inline string literals (Wish we had a preprocessor built
+#    into coffee-script for this. We could have used macro expansion
+#    to achieve this.)
+#
+# 8. Use only 1 type of string quoting character. Either " or ',
+#    but not both. The minifiers are smart enough to handle this for
+#    you, but you should know about this.
+#
+# 9. Avoid unnecessary nesting using closures. They don't add much
+#    value to the code and in fact, make it harder to read it.
+#
+# 10. If you're going to include a hack, *document it* and provide
+#     links to articles about where one can find more information
+#     if required.
+#
+# 11. DONT try to minify code yourself. Optimize for compression.
+#     The minifier knows its job very well.
+#
+# 12. Use legible variable names. The minifier will take
+#     care of shortening them for you.
 
 ((global, doc, timeout) ->
     # All the IDs processed
-    script_ids = {}
+    scriptIds = {}
     # All the script paths processed.
-    script_paths = {}
+    scriptPaths = {}
     list = {}
     delay = {}
     re = /in/
-    first_script = doc.getElementsByTagName("script")[0]
+    firstScriptElement = doc.getElementsByTagName("script")[0]
 
     # Returns `true` if all elements in the array pass the test function.
     all = Array.every or (array, fn) ->
@@ -51,7 +94,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
             id = idOrDone
 
         # Don't fetch scripts for the given id again.
-        if script_ids[id]
+        if scriptIds[id]
             return
 
         timeout(() ->
@@ -59,10 +102,10 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
             #for path in paths
             each(paths, (path) ->
                 # Don't fetch the same script path again.
-                if script_paths[path]
+                if scriptPaths[path]
                     return
 
-                script_paths[path] = script_ids[id] = 1 # true
+                scriptPaths[path] = scriptIds[id] = 1 # true
                 element = doc.createElement("script")
                 loaded = 0 # false
 
@@ -81,7 +124,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                     return
                 element.async = 1 # true
                 element.src = path
-                first_script.parentNode.insertBefore(element, first_script)
+                firstScriptElement.parentNode.insertBefore(element, firstScriptElement)
 
                 return
             )
@@ -108,7 +151,9 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
     # The shortest `domReady` hack there is.
     global.$script.domReady = (fn) ->
-        # Short for:
+        # **Size optimization**:
+        # Coffee-script doesn't do this automatically, so we're inlining this JavaScript
+        # code in here.
         #
         #     if re.test(doc.readyState)
         #                 timeout(() ->
