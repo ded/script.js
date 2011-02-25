@@ -43,6 +43,12 @@
 #
 #     pip install squeeze
 #
+# Watchdog is used by the autobuild.sh script to monitor
+# your source tree and automatically build the project
+# in the background:
+#
+#     pip install watchdog
+#
 # script.js can also be minified using 
 # [UglifyJS](https://github.com/mishoo/UglifyJS),
 # (which is turning out to be a darn good minifier. 
@@ -80,6 +86,10 @@
 #
 #    $ source ~/.profile   # or ~/.bashrc if you used that instead (say on Ubuntu).
 #
+# 4. Docco
+#
+#    $ npm install docco
+#
 # How to build a distributable release
 # ====================================
 # Clone the source repository:
@@ -98,6 +108,7 @@ GUNZIP=gunzip
 COFFEE=coffee
 DIST_DIR=_build
 SRC_DIR=src
+DOCCO=docco
 
 .PHONY: all clean
 
@@ -139,7 +150,7 @@ $(DIST_DIR)/script-coffee.closure.js: $(SRC_DIR)/header.js $(DIST_DIR)/script-co
 
 docs/script-coffee.html: $(SRC_DIR)/script-coffee.coffee
 	@echo "[coffee:docco] Generating documentation"
-	@docco $(SRC_DIR)/*.coffee
+	@$(DOCCO) $(SRC_DIR)/*.coffee
 
 ###################################################################
 # Plain JS.
