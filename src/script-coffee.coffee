@@ -60,7 +60,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     scriptPaths           = {}
     list                  = {}
     delay                 = {}
-    # Regular expression to match against `document.readyState`. Looks for the substring `"in"` in `"loading"`.
+    # **REMOVED**: Regular expression to match against `document.readyState`. Looks for the substring `"in"` in `"loading"`.
     # domReadyLoadingRegexp = /in/
 
     # Handle to the first script element in the document.
