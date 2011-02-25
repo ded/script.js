@@ -168,8 +168,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     # The shortest `domReady` hack there is.
     global.$script.domReady = (fn) ->
         # **Manual minification**:
-        # Coffee-script doesn't do this automatically, so we're inlining this JavaScript
-        # code in here.
+        # Coffee-script doesn't do this automatically, so we're inlining the JavaScript
+        # code for the following in here.
         #
         #     if domReadyLoadingRegexp.test(doc.readyState)
         #                 timeout(() ->
