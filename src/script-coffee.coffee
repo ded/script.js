@@ -61,7 +61,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     list                  = {}
     delay                 = {}
     # Regular expression to match against `document.readyState`. Looks for the substring `"in"` in `"loading"`.
-    domReadyLoadingRegexp = /in/
+    # domReadyLoadingRegexp = /in/
 
     # Handle to the first script element in the document.
     firstScriptElement    = document.getElementsByTagName("script")[0]
@@ -125,7 +125,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 loaded  = 0 # false
 
                 element.onload = element.onreadystatechange = () ->
-                    if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
+                    #if (element.readyState and not (not domReadyLoadingRegexp.test(element.readyState))) or loaded
+                    if (element.readyState and element.readyState == "loading") or loaded
                         return
                     element.onload = element.onreadystatechange = null
                     loaded         = 1 # true
@@ -178,7 +179,8 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         #         , 50)
         #     else
         #         fn()
-        `domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { $script.domReady(fn); }, 50) : fn();`
+        #`domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { $script.domReady(fn); }, 50) : fn();`
+        `document.readyState === "loading" ? timeout(function() {$script.domReady(fn); }, 50) : fn();`
         return
 
     return
