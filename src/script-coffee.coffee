@@ -72,13 +72,15 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 return 0 # false
         return 1 # true
 
-    # Yet another `each`
+    # Yet another `each`.
     each = (array, fn) ->
         all(array, (element, i) -> not fn(element, i, array))
         return
 
-    # Closure to limit the scope of `fn`
+    # Closure to limit the scope of `fn`.
     (() ->
+        # Some browsers (like < Firefox 3.6) don't have `document.readyState` 
+        # implemented.
         if not doc.readyState and doc.addEventListener
             fn = () ->
                 doc.removeEventListener("DOMContentLoaded", fn, 0) # false)
