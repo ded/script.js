@@ -25,7 +25,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 # 5. Avoid using named functions which would otherwise result
 #    in function hoisting and polluting the global namespace.
 #
-# 6. `document.readyState` is the same as `doc["readyState"]`. The former
+# 6. `document.readyState` is the same as `document["readyState"]`. The former
 #    uses fewer characters and will compress *better*. Don't assign
 #    string literals to new variables. Every variable added increases
 #    compressed size.

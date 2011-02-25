@@ -18,7 +18,7 @@ using closures.</p></li>
 not blowing up scope. Keep scopes limited using closures.</p></li>
 <li><p>Avoid using named functions which would otherwise result
 in function hoisting and polluting the global namespace.</p></li>
-<li><p><code>document.readyState</code> is the same as <code>doc["readyState"]</code>. The former
+<li><p><code>document.readyState</code> is the same as <code>document["readyState"]</code>. The former
 uses fewer characters and will compress <em>better</em>. Don't assign
 string literals to new variables. Every variable added increases
 compressed size.</p></li>
