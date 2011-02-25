@@ -106,8 +106,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         # Allow chaining calls.
         return $script
 
-    # The shortest domReady hack there is.
-    #
+    # The shortest `domReady` hack there is.
     global.$script.domReady = (fn) ->
         # Short for:
         #
