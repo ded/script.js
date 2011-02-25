@@ -142,7 +142,7 @@ else
 </code></pre>
 
 <p>But wait, we can do better. Just get rid of the "loading" string from the entire code and we hit lower size.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="o">`</span><span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="s2">&quot;complete&quot;</span> <span class="o">?</span> <span class="nx">fn</span><span class="p">()</span><span class="o">:</span> <span class="nx">timeout</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">$script</span><span class="p">.</span><span class="nx">domReady</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span> <span class="p">},</span> <span class="mi">50</span><span class="p">);</span><span class="o">`</span>
-        <span class="k">return</span></pre></div>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <p>The idea.</p>
+        <span class="k">return</span></pre></div>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <h3>Adds the <code>js</code> class to the <code>html</code> element to help CSS authors.</h3>
 
 <pre><code>hasClass = (element, className) -&gt;
     return (" #{element.className} ").indexOf(className) &gt; -1
@@ -153,11 +153,13 @@ addClass = (element, className) -&gt;
 addClass(document.documentElement, 'js')
 </code></pre>
 
-<p>Since $script.js is loaded right in the head, we shall assume no .js class has been set and just add it.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; js&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>If we're running on IE, enable HTML5 elements.
-    if eval(/<em>@cc_on!@</em>/)
-        enableHTML5Elements()</p>
+<p>As <code>$script.js</code> is loaded right in the head of the document, 
+we assume no <code>js</code> class has been set and we just add it.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; js&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>If we're running on IE, enable HTML5 elements:</p>
 
-<pre><code>enableHTML5Elements = () -&gt;
+<pre><code>if eval(/*@cc_on!@*/)
+    enableHTML5Elements()
+
+enableHTML5Elements = () -&gt;
     return
 </code></pre>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">return</span>
 <span class="p">)(</span><span class="k">this</span><span class="p">,</span> <span class="nx">setTimeout</span><span class="p">)</span>

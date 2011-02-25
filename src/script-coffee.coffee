@@ -202,7 +202,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         `document.readyState === "complete" ? fn(): timeout(function() {$script.domReady(fn); }, 50);`
         return
 
-    # The idea.
+    #### Adds the `js` class to the `html` element to help CSS authors.
     # 
     #     hasClass = (element, className) ->
     #         return (" #{element.className} ").indexOf(className) > -1
@@ -212,10 +212,12 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
     #
     #     addClass(document.documentElement, 'js')
     # 
-    # Since $script.js is loaded right in the head, we shall assume no .js class has been set and just add it.
+    # As `$script.js` is loaded right in the head of the document, 
+    # we assume no `js` class has been set and we just add it.
     document.documentElement.className += ' js'
 
-    # If we're running on IE, enable HTML5 elements.
+    # If we're running on IE, enable HTML5 elements:
+    #
     #     if eval(/*@cc_on!@*/)
     #         enableHTML5Elements()
     #
