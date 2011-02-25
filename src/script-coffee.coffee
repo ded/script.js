@@ -166,19 +166,19 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
         return $script
 
     # The shortest `domReady` hack there is.
-    global.$script.domReady = (fn) ->
+    $script.domReady = (fn) ->
         # **Manual minification**:
         # Coffee-script doesn't do this automatically, so we're inlining the JavaScript
         # code for the following in here.
         #
         #     if domReadyLoadingRegexp.test(document.readyState)
         #         timeout(() ->
-        #             global.$script.domReady(fn)
+        #             $script.domReady(fn)
         #             return
         #         , 50)
         #     else
         #         fn()
-        `domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
+        `domReadyLoadingRegexp.test(document.readyState) ? timeout(function() { $script.domReady(fn); }, 50) : fn();`
         return
 
     return
