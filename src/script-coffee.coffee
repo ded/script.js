@@ -3,32 +3,33 @@ https://github.com/polvero/script.js
 Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
 License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
-# Optimize for GZip not only for the minification.
-# GZip is available on 80% of the browsers. Only
-# minification would cater to the remaining 20%.
+# Optimize for compression and only then minification.
+# This will produce smaller scripts.
 
-((global, doc, timeout) ->    
+((global, doc, timeout) ->
     # All the IDs processed
     script_ids = {}
     # All the script paths processed.
     script_paths = {}
     list = {}
-    delay = {}    
+    delay = {}
     re = /in/
     first_script = doc.getElementsByTagName("script")[0]
 
+    # Returns `true` if all elements in the array pass the test function.
     all = Array.every or (array, fn) ->
         for element, i in array
             if not fn(element, i, array)
                 return false
         return true
-    
+
+    # Yet another `each`
     each = (array, fn) ->
         all(array, (element, i) -> not fn(element, i, array))
         return
-    
+
+    # Closure to limit the scope of `fn`
     (() ->
-        # Closure to limit the scope of `fn`
         if not doc.readyState and doc.addEventListener
             fn = () ->
                 doc.removeEventListener("DOMContentLoaded", fn, false)
@@ -38,7 +39,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
             doc.readyState = "loading"
             return
     )()
-    
+
     global.$script = (paths, idOrDone, optDone) ->
         paths = if paths.push then paths else [paths]
         queue = paths.length
@@ -60,7 +61,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 # Don't fetch the same script path again.
                 if script_paths[path]
                     return
-                    
+
                 script_paths[path] = script_ids[id] = true
                 element = doc.createElement("script")
                 loaded = false
@@ -70,7 +71,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                         return
                     element.onload = element.onreadystatechange = null
                     loaded = true
-                    
+
                     # The original callback() inlined.
                     if not --queue
                         list[id] = true
@@ -81,7 +82,7 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
                 element.async = true
                 element.src = path
                 first_script.parentNode.insertBefore(element, first_script)
-            
+
                 return
             )
             return
@@ -89,11 +90,11 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
 
         # Allows chaining calls.
         return $script
-    
+
     $script.ready = (deps, ready, req) ->
         deps = if deps.push then deps else [deps]
         missing = []
-        
+
         if not each(deps, (dep) -> (list[dep] or missing.push(dep))) and all(deps, (dep) -> list[dep])
             ready()
         else
@@ -101,19 +102,24 @@ License: CC Attribution: http://creativecommons.org/licenses/by/3.0/###
             delay[key] = delay[key] or []
             delay[key].push(ready)
             req and req(missing)
-        
+
         # Allow chaining calls.
         return $script
-    
+
+    # The shortest domReady hack there is.
+    #
     global.$script.domReady = (fn) ->
-        if re.test(doc.readyState)
-            timeout(() -> 
-                global.$script.domReady(fn)
-                return
-            , 50) 
-        else 
-            fn()
+        # Short for:
+        #
+        #     if re.test(doc.readyState)
+        #                 timeout(() ->
+        #                     global.$script.domReady(fn)
+        #                     return
+        #                 , 50)
+        #             else
+        #                 fn()
+        `re.test(doc.readyState) ? timeout(function() { global.$script.domReady(fn); }, 50) : fn();`
         return
-        
+
     return
-)(this, document, setTimeout)    
+)(this, document, setTimeout)
