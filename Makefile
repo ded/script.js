@@ -110,7 +110,7 @@ UGLIFYJS=uglifyjs
 GZIP=gzip -f
 GUNZIP=gunzip -f
 COFFEE=coffee
-DIST_DIR=_build
+DIST_DIR=distrib
 SRC_DIR=src
 DOCCO=docco
 
