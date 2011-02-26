@@ -117,9 +117,7 @@ DOCCO=docco
 .PHONY: all clean
 
 all: distdir script1 script-coffee
-	@gzip $(DIST_DIR)/*.js
-	@ls -laG $(DIST_DIR)/*
-	@gunzip $(DIST_DIR)/*.gz
+	@gzip $(DIST_DIR)/*.js && ls -laG $(DIST_DIR)/* && gunzip $(DIST_DIR)/*.gz
 	@echo "--------------------------------------------------------------------------------"
 
 distdir:
