@@ -7,3 +7,6 @@
 [submodule "build/gzip"]
 	path = build/gzip
 	url = https://github.com/donnerjack13589/node.gzip.git
+[submodule "build/sink"]
+	path = build/sink
+	url = git://github.com/polvero/sink-test.git
