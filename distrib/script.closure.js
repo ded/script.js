@@ -1,0 +1,7 @@
+/*! $script.js v1.1
+https://github.com/polvero/script.js
+Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
+License: CC Attribution: http://creativecommons.org/licenses/by/3.0/
+*/(function(q,d,r){function s(e){t.test(d[i])?r(function(){s(e)},50):e()}var u=d.getElementsByTagName("script")[0],l={},v={},j={},t=/in/,w={},i="readyState",m=function(){return Array.every||function(e,a){for(var b=0,g=e.length;b<g;++b)if(!a(e[b],b,e))return 0;return 1}}(),n=function(e,a){m(e,function(b,g){return!a(b,g,e)})};if(!d[i]&&d.addEventListener){d.addEventListener("DOMContentLoaded",function a(){d.removeEventListener("DOMContentLoaded",a,!1);d[i]="complete"},!1);d[i]="loading"}q.$script=function(a,
+b,g){a=a.push?a:[a];var k=b.call,c=k?b:g,o=k?a.join(""):b,z=a.length,x=function(h){return h.call?h():l[h]};if(!v[o]){r(function(){n(a,function(h){if(!w[h]){w[h]=v[o]=1;var f=d.createElement("script"),y=0;f.onload=f.onreadystatechange=function(){if(!(f[i]&&t.test(f[i])||y)){f.onload=f.onreadystatechange=null;y=1;if(!--z){l[o]=1;c&&c();for(var p in j)m(p.split("|"),x)&&!n(j[p],x)&&(j[p]=[])}}};f.async=1;f.src=h;u.parentNode.insertBefore(f,u)}})},0);return $script}};$script.ready=function(a,b,g){a=a.push?
+a:[a];var k=[];!n(a,function(c){l[c]||k.push(c)})&&m(a,function(c){return l[c]})?b():function(c){j[c]=j[c]||[];j[c].push(b);g&&g(k)}(a.join("|"));return $script};q.$script.domReady=s})(this,document,setTimeout);
