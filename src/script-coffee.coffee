@@ -83,9 +83,12 @@ window.$script = ((window, document, timeout) ->
 
     # Returns **truthy** if all elements in the array pass the test function;
     # **falsy** otherwise.
-    # We delegate to the JavaScript 1.6 `Array.every` method if it is
-    # available.
-    all = Array.every or (array, iterator) ->
+    # We could delegate to the JavaScript 1.6 `Array.every` method if it is
+    # available, but since the portable method works everywhere, we'll use that
+    # instead. Saves us a few more bytes and still works as expected.
+    #
+    #     all = Array.every or (array, iterator) ->
+    all = (array, iterator) ->
         for element, i in array
             if not iterator(element, i, array)
                 return 0 # false

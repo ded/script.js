@@ -60,8 +60,12 @@ addClass(document.documentElement, 'js')
 <p>As <code>$script.js</code> is loaded right in the head of the document, 
 we assume no <code>js</code> class has been set and we just add it.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; js&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Returns <strong>truthy</strong> if all elements in the array pass the test function;
 <strong>falsy</strong> otherwise.
-We delegate to the JavaScript 1.6 <code>Array.every</code> method if it is
-available.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">all = </span><span class="nb">Array</span><span class="p">.</span><span class="nx">every</span> <span class="o">or</span> <span class="nf">(array, iterator) -&gt;</span>
+We could delegate to the JavaScript 1.6 <code>Array.every</code> method if it is
+available, but since the portable method works everywhere, we'll use that
+instead. Saves us a few more bytes and still works as expected.</p>
+
+<pre><code>all = Array.every or (array, iterator) -&gt;
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">all = </span><span class="nf">(array, iterator) -&gt;</span>
         <span class="k">for</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">array</span>
             <span class="k">if</span> <span class="o">not</span> <span class="nx">iterator</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span>
                 <span class="k">return</span> <span class="mi">0</span> <span class="c1"># false</span>
