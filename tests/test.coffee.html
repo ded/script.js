@@ -8,7 +8,7 @@
     <script src="ded-tester.js"></script>
     <script type="text/javascript">
       $script.domReady(function() {
-
+          
         test('document ready fires even after doc has been loaded', 1, function() {
           $script.domReady(function() {
             ok(true, 'loaded');
@@ -54,27 +54,23 @@
           $script('../vendor/yui-utilities.js', 'yui');
           $script('../vendor/mootools.js', 'moomoo');
           $script.ready(['yui', 'moomoo'], function() {
-            console.log('ONCE');
             ok(true, 'multiple batch has been loaded');
           });
         });
 
         test('ready does not call a duplicate callback', 1, function() {
           $script.ready(['yui', 'moomoo'], function() {
-            console.log('TWICE');
             ok(true, 'found yui and moomoo again');
           });
         });
 
         test('ready calls in  ', 1, function() {
           $script.ready(['yui', 'moomoo'], function() {
-            console.log('THREE');
             ok(true, 'found yui and moomoo again');
           });
         });
 
         test('document head has class .js  ', 1, function() {
-            console.log(document.documentElement.className);
             if ((" " + document.documentElement.className + " ").indexOf("js") > -1) {
                 ok(true, 'found class .js in document');                
             }
