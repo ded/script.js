@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="ded-tester.css" type="text/css">
     <title>$script.js - tests</title>
-    <script src="../_build/script-coffee.js"></script>
+    <script src="../_build/script-coffee.uglifyjs.js"></script>
     <script src="ded-tester.js"></script>
     <script type="text/javascript">
       $script.domReady(function() {
@@ -71,6 +71,13 @@
             console.log('THREE');
             ok(true, 'found yui and moomoo again');
           });
+        });
+
+        test('document head has class .js  ', 1, function() {
+            console.log(document.documentElement.className);
+            if ((" " + document.documentElement.className + " ").indexOf("js") > -1) {
+                ok(true, 'found class .js in document');                
+            }
         });
 
       });
