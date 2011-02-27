@@ -8,7 +8,7 @@
     <script src="../build/sink/src/sink.js"></script>
     <script type="text/javascript">
       $script.domReady(function() {
-        start(function(test, ok) {
+        sink(function(test, ok) {
           test('document ready should fire even after doc has been loaded', 1, function() {
             $script.domReady(function() {
               ok(true, 'loaded');
