@@ -10,3 +10,6 @@
 [submodule "build/sink"]
 	path = build/sink
 	url = git://github.com/polvero/sink-test.git
+[submodule "build/jsdom"]
+	path = build/jsdom
+	url = https://github.com/tmpvar/jsdom.git
