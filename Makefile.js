@@ -17,7 +17,8 @@ var fs = require('fs'),
 console.log("Loading $script source...");
 
 var $script = fs.readFileSync(SRC_DIR + '/script.js', 'UTF-8'),
-    header = fs.readFileSync(SRC_DIR + '/header.js', 'UTF-8');
+    header = fs.readFileSync(SRC_DIR + '/header.js', 'UTF-8'),
+    $requireScript = fs.readFileSync(SRC_DIR + '/script-commonjs.js', 'UTF-8');
 
 console.log("Testing $script against jshint...");
 
@@ -49,8 +50,14 @@ var $oldFile = fs.readFileSync(DIST_DIR + '/script.min.js', 'UTF-8');
 var ast = uglifyJs.parser.parse($script); // parse code and get the initial AST
 ast = uglifyJs.uglify.ast_mangle(ast); // get a new AST with mangled names
 ast = uglifyJs.uglify.ast_squeeze(ast); // get an AST with compression optimizations
-var $scriptUgly = uglifyJs.uglify.gen_code(ast);
 
+var ast_require = uglifyJs.parser.parse($requireScript); // parse code and get the initial AST
+ast_require = uglifyJs.uglify.ast_mangle(ast_require); // get a new AST with mangled names
+ast_require = uglifyJs.uglify.ast_squeeze(ast_require); // get an AST with compression optimizations
+
+
+var $scriptUgly = uglifyJs.uglify.gen_code(ast);
+var $requireUgly = uglifyJs.uglify.gen_code(ast_require);
 console.log('$script minified with UglifyJs');
 
 try {
@@ -60,8 +67,10 @@ try {
 }
 
 var $uglyFile = [header, $scriptUgly].join('');
+var $uglyRequireFile = [header, $requireUgly].join('');
 fs.writeFileSync(DIST_DIR + '/script.js', [header, $script].join('\n'));
 fs.writeFileSync(DIST_DIR + '/script.min.js', $uglyFile);
+fs.writeFileSync(DIST_DIR + '/script.commonjs.min.js', $uglyRequireFile);
 
 
 //gzip everything

@@ -1,4 +1,4 @@
-/*! $script.js v1.1
+/*! $script.js v1.2
  https://github.com/polvero/script.js
  Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
  License: CC Attribution: http://creativecommons.org/licenses/by/3.0/
@@ -34,7 +34,7 @@
     doc[readyState] = "loading";
   }
 
-  win.$script = function(paths, idOrDone, optDone) {
+  var $script = function(paths, idOrDone, optDone) {
     paths = paths[push] ? paths : [paths];
     var idOrDoneIsDone = idOrDone.call,
         done = idOrDoneIsDone ? idOrDone : optDone,
@@ -98,6 +98,6 @@
     re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
   }
 
-  win.$script.domReady = domReady;
+  win.$script;
 
 }(this, document, setTimeout);

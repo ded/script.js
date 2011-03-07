@@ -145,3 +145,14 @@ The copies of $script.js & $script.min.js that are in the dist folder will be ov
 *Note: you must init the UglifyJS submodule before running the makefile. To do this run:*
 
     git submodule update --init
+
+Common JS Support
+-----------------
+
+Several folks have asked about [Common JS Module](http://commonjs.org) support. It's a bit unclear why this support is needed since $script itself can load files, and more than likely you're already loading your dependencies with something like [RequireJS](http://requirejs.org/). However it's also unknown what any given developer can be doing with $script, like for example injecting it into their existing headless unit testing framework -- therefore as of v1.2, $script will export itself as a module rather than exposing itself to the browser _window_ object.
+
+    var $S = require('script');
+
+    $S('/foo.js', function () {
+      // foo is ready
+    });

@@ -92,6 +92,11 @@
     re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
   }
 
-  win.$script;
+  $script.domReady = domReady;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = $script;
+  } else {
+    win.$script;
+  }
 
 }(this, document, setTimeout);
