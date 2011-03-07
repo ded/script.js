@@ -92,6 +92,6 @@
     re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
   }
 
-  win.$script;
+  win.$script = $script;
 
 }(this, document, setTimeout);

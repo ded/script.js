@@ -96,7 +96,7 @@
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = $script;
   } else {
-    win.$script;
+    win.$script = $script;
   }
 
 }(this, document, setTimeout);
