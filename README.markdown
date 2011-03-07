@@ -107,7 +107,7 @@ Exhaustive list of ways to use $script.js
         });
       });
 
-Added in v1.1
+domReady - added in v1.1
 -------------
 Since many scripts on the web depend on document ready (DOMContentLoaded), loading them with $script.js may lead to a race condition where the document will have already loaded after your script loads (because $script.js is so fast!), yielding your document ready callbacks useless. Thus $script.js has added a new method on the $script object call *domReady*. It works like this:
 
@@ -146,7 +146,7 @@ The copies of $script.js & $script.min.js that are in the dist folder will be ov
 
     git submodule update --init
 
-Common JS Support
+Common JS Support - added in v1.2
 -----------------
 
 Several folks have asked about [Common JS Module](http://commonjs.org) support. It's a bit unclear why this support is needed since $script itself can load files, and more than likely you're already loading your dependencies with something like [RequireJS](http://requirejs.org/). However it's also unknown what any given developer can be doing with $script, like for example injecting it into their existing headless unit testing framework -- therefore as of v1.2, $script will export itself as a module rather than exposing itself to the browser _window_ object.
