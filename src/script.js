@@ -4,16 +4,14 @@
       scripts = {}, s = 'string', f = false,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
-      every = function() {
-        return Array.every || function(ar, fn) {
-          for (var i=0, j=ar.length; i < j; ++i) {
-            if (!fn(ar[i], i, ar)) {
-              return 0;
-            }
+      every = Array.every || function(ar, fn) {
+        for (var i=0, j=ar.length; i < j; ++i) {
+          if (!fn(ar[i], i, ar)) {
+            return 0;
           }
-          return 1;
-        };
-      }(),
+        }
+        return 1;
+      },
       each = function(ar, fn) {
         every(ar, function(el, i) {
           return !fn(el, i, ar);

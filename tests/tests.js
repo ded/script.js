@@ -1,9 +1,3 @@
-if (typeof module !== 'undefined') {
-  var sink = require('../build/sink/src/sink');
-  var start = sink.start;
-  sink = sink.sink;
-  var $script = require('../dist/script.commonjs.min.js');
-}
 $script.domReady(function() {
   sink('Basic', function(test, ok, before, after) {
 
