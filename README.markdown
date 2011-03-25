@@ -156,3 +156,9 @@ Several folks have asked about [Common JS Module](http://commonjs.org) support. 
     $S('/foo.js', function () {
       // foo is ready
     });
+
+Contributors
+------------
+  * [Dustin Diaz](https://github.com/ded/klass/commits/master?author=ded)
+  * [Jacob Thornton](https://github.com/ded/klass/commits/master?author=jacobthornton)
+  * Follow our Software [@dedfat](http://twitter.com/dedfat)
