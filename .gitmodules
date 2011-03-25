@@ -9,7 +9,7 @@
 	url = https://github.com/donnerjack13589/node.gzip.git
 [submodule "build/sink"]
 	path = build/sink
-	url = git://github.com/polvero/sink-test.git
+	url = https://@github.com/ded/script.js.git
 [submodule "build/jsdom"]
 	path = build/jsdom
 	url = https://github.com/tmpvar/jsdom.git
