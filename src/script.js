@@ -16,7 +16,7 @@
         every(ar, function(el) {
           return !fn(el);
         });
-      };
+      }
 
   if (!doc[readyState] && doc[addEventListener]) {
     doc[addEventListener](domContentLoaded, function fn() {
@@ -34,7 +34,7 @@
         queue = paths.length;
         function loopFn(item) {
           return item.call ? item() : list[item];
-        },
+        }
         function callback() {
           if (!--queue) {
             list[id] = 1;
@@ -43,7 +43,7 @@
               every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = []);
             }
           }
-        };
+        }
     if (id && ids[id]) {
       return;
     }

@@ -1,5 +1,7 @@
-/*! $script.js v1.2
- https://github.com/polvero/script.js
- Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
- License: CC Attribution: http://creativecommons.org/licenses/by/3.0/
-*/
+/*!
+  * $script.js v1.3
+  * https://github.com/ded/script.js
+  * Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
+  * Follow our software http://twitter.com/dedfat
+  * License: MIT
+  */

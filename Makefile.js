@@ -21,7 +21,7 @@ jshint($script, jshint_opts);
 var errors = [];
 jshint.errors.forEach(function (err) {
   //ignore these errors until jshint resolves https://github.com/jshint/jshint/issues#issue/20
-  if (err.reason != 'Expected an assignment or function call and instead saw an expression.') {
+  if (err && err.reason != 'Expected an assignment or function call and instead saw an expression.') {
     errors.push(err);
   }
 });
