@@ -1,20 +1,20 @@
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /in/,
-      scripts = {}, s = 'string', f = false,
+      scripts = {}, s = 'string', f = false, i,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = Array.every || function(ar, fn) {
-        for (var i=0, j=ar.length; i < j; ++i) {
-          if (!fn(ar[i], i, ar)) {
+        for (i = 0, j = ar.length; i < j; ++i) {
+          if (!fn(ar[i])) {
             return 0;
           }
         }
         return 1;
-      },
-      each = function(ar, fn) {
-        every(ar, function(el, i) {
-          return !fn(el, i, ar);
+      };
+      function each(ar, fn) {
+        every(ar, function(el) {
+          return !fn(el);
         });
       };
 
@@ -31,11 +31,11 @@
     var idOrDoneIsDone = idOrDone.call,
         done = idOrDoneIsDone ? idOrDone : optDone,
         id = idOrDoneIsDone ? paths.join('') : idOrDone,
-        queue = paths.length,
-        loopFn = function(item) {
+        queue = paths.length;
+        function loopFn(item) {
           return item.call ? item() : list[item];
         },
-        callback = function() {
+        function callback() {
           if (!--queue) {
             list[id] = 1;
             done && done();
@@ -44,7 +44,7 @@
             }
           }
         };
-    if (ids[id]) {
+    if (id && ids[id]) {
       return;
     }
     timeout(function() {
@@ -52,7 +52,8 @@
         if (scripts[path]) {
           return;
         }
-        scripts[path] = ids[id] = 1;
+        scripts[path] = 1;
+        id && (ids[id] = 1);
         var el = doc.createElement("script"),
             loaded = 0;
         el.onload = el[onreadystatechange] = function () {
