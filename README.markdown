@@ -159,6 +159,6 @@ Several folks have asked about [Common JS Module](http://commonjs.org) support. 
 
 Contributors
 ------------
-  * [Dustin Diaz](https://github.com/ded/klass/commits/master?author=ded)
-  * [Jacob Thornton](https://github.com/ded/klass/commits/master?author=fat)
+  * [Dustin Diaz](https://github.com/ded/script.js/commits/master?author=ded)
+  * [Jacob Thornton](https://github.com/ded/script.js/commits/master?author=fat)
   * Follow our Software [@dedfat](http://twitter.com/dedfat)
