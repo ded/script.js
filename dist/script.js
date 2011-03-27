@@ -36,7 +36,7 @@
 
   var $script = function(paths, idOrDone, optDone) {
     paths = paths[push] ? paths : [paths];
-    var idOrDoneIsDone = idOrDone.call,
+    var idOrDoneIsDone = idOrDone && idOrDone.call,
         done = idOrDoneIsDone ? idOrDone : optDone,
         id = idOrDoneIsDone ? paths.join('') : idOrDone,
         queue = paths.length;
