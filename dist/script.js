@@ -100,5 +100,6 @@
   }
 
   win.$script = $script;
+  win.$script.domReady = domReady;
 
 }(this, document, setTimeout);

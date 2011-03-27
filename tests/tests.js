@@ -1,3 +1,4 @@
+console.dir($script);
 $script.domReady(function() {
   sink('Basic', function(test, ok, before, after) {
 
@@ -64,6 +65,19 @@ $script.domReady(function() {
         ok(true, 'found yui and moomoo again');
       });
     });
+
+    test('should load a single file without extra arguments', 1, function () {
+      var err = false;
+      try {
+        $script('../vendor/yui-utilities.js');
+      } catch (ex) {
+        err = true;
+        console.log('wtf ex', ex);
+      } finally {
+        ok(!err, 'no error');
+      }
+    });
+
   });
   start();
 });
