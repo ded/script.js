@@ -99,7 +99,13 @@
     re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
   }
 
+  $script.domReady = domReady;
+
+  var old = $script;
+  $script.noConflict = function () {
+    win.$script = $script;
+    return this;
+  };
   win.$script = $script;
-  win.$script.domReady = domReady;
 
 }(this, document, setTimeout);
