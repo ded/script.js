@@ -101,7 +101,7 @@
 
   $script.domReady = domReady;
 
-  var old = $script;
+  var old = win.$script;
   $script.noConflict = function () {
     win.$script = old;
     return this;
