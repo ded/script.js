@@ -103,7 +103,7 @@
 
   var old = $script;
   $script.noConflict = function () {
-    win.$script = $script;
+    win.$script = old;
     return this;
   };
   win.$script = $script;
