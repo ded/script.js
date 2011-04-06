@@ -2,7 +2,7 @@ script.domReady(function() {
 
   sink('no conflict', function (test, ok) {
     test('should return old $script back to context', 1, function () {
-      ok($script() == 'success', 'old qwery called');
+      ok($script() == 'success', 'old $script called');
     });
   });
 
