@@ -1,0 +1,13 @@
+{
+  "name": "scriptjs",
+  "description": "Asyncronous JavaScript loader and dependency manager",
+  "version": "1.2",
+  "homepage": "https://github.com/ded/script.js",
+  "authors": ["Dustin Diaz, @ded", "Jacob Thornton, @fat"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ded/script.js.git"
+  },
+  "main": "./dist/script.js",
+  "ender": "./src/ender.js"
+}
