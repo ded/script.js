@@ -1,6 +1,6 @@
 !function () {
   var s = $script.noConflict();
-  $.augment({
+  $.ender({
     script: s,
     domReady: s.domReady
   });
