@@ -98,6 +98,9 @@
     win.$script = old;
     return this;
   };
-  win.$script = $script;
+
+  (typeof module !== 'undefined' && module.exports) ?
+    (module.exports = $script) :
+    (win.$script = $script);
 
 }(this, document, setTimeout);
