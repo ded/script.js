@@ -16,7 +16,7 @@
 
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /^i|c/, loaded = 0,
+      list = {}, ids = {}, delay = {}, re = /^i|c/, loaded = 0, fns = [],
       scripts = {}, s = 'string', f = false, i, testEl = doc.createElement('a'),
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
@@ -109,13 +109,20 @@
     }, 50);
   }
 
+  testEl.doScroll && doc.attachEvent(onreadystatechange, function ol() {
+    /^c/.test(doc[readyState]) &&
+    (loaded = 1) &&
+    !doc.detachEvent(onreadystatechange, ol) &&
+    each(fns, function (f) {
+      f();
+    });
+  });
+
   var domReady = testEl.doScroll ?
     function (fn) {
       self != top ?
         !loaded ?
-          doc.onreadystatechange = function() {
-            (loaded && fn()) || /^c/.test(doc[readyState]) && (loaded = 1) && fn();
-          } :
+          fns.push(fn) :
           fn() :
         !function () {
           try {
