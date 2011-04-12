@@ -8,7 +8,7 @@
 
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /in/,
+      list = {}, ids = {}, delay = {}, re = /^i|c/,
       scripts = {}, s = 'string', f = false, i,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
@@ -96,7 +96,12 @@
   };
 
   function domReady(fn) {
-    re.test(doc[readyState]) ? timeout(function() { domReady(fn); }, 50) : fn();
+    re.test(doc[readyState]) ? fn() : timeout(
+      function() {
+        domReady(fn);
+      },
+      50
+    );
   }
 
   $script.domReady = domReady;
