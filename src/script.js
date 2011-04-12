@@ -1,7 +1,7 @@
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /^i|c/,
-      scripts = {}, s = 'string', f = false, i,
+      scripts = {}, s = 'string', f = false, i, docEl = doc.documentElement,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = Array.every || function(ar, fn) {
@@ -93,14 +93,16 @@
     }, 50);
   }
 
-  var domReady = /msi/i.test(navigator.userAgent) ?
+  var domReady = docEl.doScroll ?
     function (fn) {
       try {
-        doc.documentElement.doScroll('top');
+        self == top ?
+          docEl.doScroll('top') :
+          /^com/.test(doc[readyState]) ? fn() : again(fn);
       } catch (e) {
         return again(fn);
       }
-      fn();
+      self == top && fn();
     } :
     function (fn) {
       re.test(doc[readyState]) ? fn() : again(fn);
