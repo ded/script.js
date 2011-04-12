@@ -95,14 +95,24 @@
     return $script;
   };
 
-  function domReady(fn) {
-    re.test(doc[readyState]) ? fn() : timeout(
-      function() {
-        domReady(fn);
-      },
-      50
-    );
+  function again(fn) {
+    timeout(function() {
+      domReady(fn);
+    }, 50);
   }
+
+  var domReady = /msi/i.test(navigator.userAgent) ?
+    function (fn) {
+      try {
+        doc.documentElement.doScroll('top');
+      } catch (e) {
+        return again(fn);
+      }
+      fn();
+    } :
+    function (fn) {
+      re.test(doc[readyState]) ? fn() : again(fn);
+    };
 
   $script.domReady = domReady;
 
