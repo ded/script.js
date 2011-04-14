@@ -15,3 +15,6 @@
 [submodule "build/smoosh"]
 	path = build/smoosh
 	url = git://github.com/fat/smoosh.git
+[submodule "build/domready"]
+	path = build/domready
+	url = git://github.com/ded/domready

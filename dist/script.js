@@ -16,8 +16,8 @@
 
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /^i|c/, loaded = 0, fns = [], ol,
-      scripts = {}, s = 'string', f = false, i, testEl = doc.createElement('a'),
+      list = {}, ids = {}, delay = {}, re = /^i|c/,
+      scripts = {}, s = 'string', f = false, i,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = function(ar, fn) {
@@ -102,42 +102,6 @@
     }(deps.join('|'));
     return $script;
   };
-
-  function again(fn) {
-    timeout(function() {
-      domReady(fn);
-    }, 50);
-  }
-
-  testEl.doScroll && doc.attachEvent(onreadystatechange, (ol = function ol() {
-    /^c/.test(doc[readyState]) &&
-    (loaded = 1) &&
-    !doc.detachEvent(onreadystatechange, ol) &&
-    each(fns, function (f) {
-      f();
-    });
-  }));
-
-  var domReady = testEl.doScroll ?
-    function (fn) {
-      self != top ?
-        !loaded ?
-          fns[push](fn) :
-          fn() :
-        !function () {
-          try {
-            testEl.doScroll('left');
-          } catch (e) {
-            return again(fn);
-          }
-          fn();
-        }();
-    } :
-    function (fn) {
-      re.test(doc[readyState]) ? fn() : again(fn);
-    };
-
-  $script.domReady = domReady;
 
   var old = win.$script;
   $script.noConflict = function () {

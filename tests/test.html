@@ -9,12 +9,14 @@
       return 'success';
     };
     </script>
-    <script src="../dist/script.min.js"></script>
+    <script src="../src/script.js"></script>
     <script src="../build/sink/src/sink.js"></script>
     <script type="text/javascript">
       var script = $script.noConflict();
     </script>
-    <script src="tests.js"></script>
+    <script type="text/javascript">
+      script('tests.js');
+    </script>
   </head>
   <body>
     <div id="balls"></div>
