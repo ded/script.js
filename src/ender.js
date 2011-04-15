@@ -1,5 +1,8 @@
 !function () {
+  var s = $script.noConflict();
   $.ender({
-    script: $script.noConflict()
+    script: s,
+    require: s,
+    getScript: s
   });
 }();
