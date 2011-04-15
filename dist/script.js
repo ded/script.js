@@ -5,15 +5,6 @@
   * Follow our software http://twitter.com/dedfat
   * License: MIT
   */
-
-/*!
-  * $script.js v1.3
-  * https://github.com/ded/script.js
-  * Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
-  * Follow our software http://twitter.com/dedfat
-  * License: MIT
-  */
-
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /^i|c/,
