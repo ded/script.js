@@ -1,7 +1,7 @@
 $script.js - Asynchronous JavaScript loader and dependency manager
 ------------------------------------------------------------------
 
-$script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint (currently 698 bytes! (min + gzip)). Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
+$script.js is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint (currently 800 bytes! (min + gzip)). Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
 Browser Support
 ---------------
@@ -101,6 +101,26 @@ Exhaustive list of ways to use $script.js
           $script(dependencyList[dep], dep);
         });
       });
+
+$script.path
+------------
+Optionally to make working with large projects easier, there is a path variable you can set to set as a base.
+
+    $script.path = '/js/modules/';
+    $script(['dom', 'event'], function () {
+      // use dom & event
+    });
+
+Note that this will include all scripts from here on out with the base path. If you wish to circumvent this for any single script, you can simply call <code>$script.get()</code>
+
+    $script.path = '/js/modules/';
+    $script(['dom', 'event'], function () {
+      // use dom & event
+    });
+
+    $script.get('http://example.com/base.js', function () {
+
+    });
 
 Building $script.js
 -------------------
