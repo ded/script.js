@@ -9,5 +9,6 @@
     "url": "https://github.com/ded/script.js.git"
   },
   "main": "./dist/script.js",
-  "ender": "./src/ender.js"
+  "ender": "./src/ender.js",
+  "changelog": "https://github.com/ded/script.js/commit/5bf7e2a0c1720bd3a09b6e0c229ed0b7c1ccac39"
 }

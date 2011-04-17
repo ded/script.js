@@ -60,23 +60,31 @@
         }
         scripts[path] = 1;
         id && (ids[id] = 1);
-        var el = doc.createElement("script"),
-            loaded = 0;
-        el.onload = el[onreadystatechange] = function () {
-          if ((el[readyState] && !(!re.test(el[readyState]))) || loaded) {
-            return;
-          }
-          el.onload = el[onreadystatechange] = null;
-          loaded = 1;
-          callback();
-        };
-        el.async = 1;
-        el.src = path;
-        script.parentNode.insertBefore(el, script);
+        create($script.path ?
+          $script.path + path + '.js' :
+          path, callback);
       });
     }, 0);
     return $script;
   };
+
+  function create(path, fn) {
+    var el = doc.createElement("script"),
+        loaded = 0;
+    el.onload = el[onreadystatechange] = function () {
+      if ((el[readyState] && !(!re.test(el[readyState]))) || loaded) {
+        return;
+      }
+      el.onload = el[onreadystatechange] = null;
+      loaded = 1;
+      fn();
+    };
+    el.async = 1;
+    el.src = path;
+    script.parentNode.insertBefore(el, script);
+  }
+
+  $script.get = create;
 
   $script.ready = function(deps, ready, req) {
     deps = deps[push] ? deps : [deps];

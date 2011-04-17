@@ -4,6 +4,6 @@
     script: s,
     ready: s.ready,
     require: s,
-    getScript: s
+    getScript: s.get
   });
 }();

@@ -2,14 +2,22 @@
 <html lang="en-us">
   <head>
     <title>advanced $script.js example</title>
-    <script src="../dist/script.js"></script>
+    <script src="../src/script.js"></script>
     <script type="text/javascript">
     // load all files asynchronously!
-    $script('js/foo.js', 'main'); // main dependency
+    var script = $script.noConflict();
+    script.path = 'js/';
 
-    $script(['js/bar.js', 'js/baz.js'], 'plugin'); // bar & baz rely on 'main'
+    script('foo', 'main'); // main dependency
 
-    $script('js/thunk.js'); // thunk relies on 'plugin'
+    script(['bar', 'baz'], 'plugin'); // bar & baz rely on 'main'
+
+    script('thunk'); // thunk relies on 'plugin'
+
+    script('foo', function () {
+      console.log('got foo again. called back');
+    });
+
     </script>
   </head>
   <body></body>
