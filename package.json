@@ -1,7 +1,7 @@
 {
   "name": "scriptjs",
   "description": "Asyncronous JavaScript loader and dependency manager",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/ded/script.js",
   "authors": ["Dustin Diaz <@ded>", "Jacob Thornton <@fat>"],
   "repository": {
