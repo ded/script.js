@@ -51,12 +51,11 @@
             }
           }
         }
-    if (id && ids[id]) {
-      return;
-    }
     timeout(function() {
       each(paths, function(path) {
         if (scripts[path]) {
+          id && (ids[id] = 1);
+          callback();
           return;
         }
         scripts[path] = 1;

@@ -76,6 +76,12 @@ script('../build/domready/ready.js', function () {
         }
       });
 
+      test('should callback a duplicate file without loading the file', 1, function () {
+        script('../vendor/yui-utilities.js', function () {
+          ok(true, 'loaded yui twice. nice');
+        });
+      });
+
     });
     start();
   });
