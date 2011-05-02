@@ -8,11 +8,11 @@
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
       list = {}, ids = {}, delay = {}, re = /^i|c/,
-      scripts = {}, s = 'string', f = false, i,
+      scripts = {}, s = 'string', f = false,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
       every = function(ar, fn) {
-        for (i = 0, j = ar.length; i < j; ++i) {
+        for (var i = 0, j = ar.length; i < j; ++i) {
           if (!fn(ar[i])) {
             return 0;
           }

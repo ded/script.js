@@ -5,7 +5,7 @@ require('smoosh').config({
   },
   "JSHINT_OPTS": {
     "boss": true,
-    "forin": true,
+    "forin": false,
     "curly": true,
     "debug": false,
     "devel": false,
