@@ -1,9 +1,6 @@
-!function () {
-  var s = $script.noConflict();
-  $.ender({
-    script: s,
-    ready: s.ready,
-    require: s,
-    getScript: s.get
-  });
-}();
+ender.ender({
+  script: $script,
+  ready: $script.ready,
+  require: $script,
+  getScript: $script.get
+});

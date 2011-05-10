@@ -12,7 +12,7 @@ require('smoosh').config({
     "evil": false,
     "regexp": false,
     "undef": false,
-    "sub": false,
+    "sub": true,
     "asi": false
   }
 }).run().build().analyze();

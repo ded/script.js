@@ -7,7 +7,7 @@
   */
 !function(win, doc, timeout) {
   var script = doc.getElementsByTagName("script")[0],
-      list = {}, ids = {}, delay = {}, re = /^i|c/,
+      list = {}, ids = {}, delay = {},
       scripts = {}, s = 'string', f = false,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
@@ -72,7 +72,7 @@
     var el = doc.createElement("script"),
         loaded = 0;
     el.onload = el[onreadystatechange] = function () {
-      if ((el[readyState] && !(!re.test(el[readyState]))) || loaded) {
+      if ((el[readyState] && !(/^c/.test(el[readyState]))) || loaded) {
         return;
       }
       el.onload = el[onreadystatechange] = null;
@@ -109,6 +109,6 @@
 
   (typeof module !== 'undefined' && module.exports) ?
     (module.exports = $script) :
-    (win.$script = $script);
+    (win['$script'] = $script);
 
 }(this, document, setTimeout);
