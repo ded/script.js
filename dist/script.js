@@ -6,7 +6,7 @@
   * License: MIT
   */
 !function(win, doc, timeout) {
-  var script = doc.getElementsByTagName("script")[0],
+  var head = doc.getElementsByTagName('head')[0],
       list = {}, ids = {}, delay = {},
       scripts = {}, s = 'string', f = false,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
@@ -14,7 +14,7 @@
       every = function(ar, fn) {
         for (var i = 0, j = ar.length; i < j; ++i) {
           if (!fn(ar[i])) {
-            return 0;
+            return f;
           }
         }
         return 1;
@@ -70,9 +70,9 @@
 
   function create(path, fn) {
     var el = doc.createElement("script"),
-        loaded = 0;
+        loaded = f;
     el.onload = el[onreadystatechange] = function () {
-      if ((el[readyState] && !(/^c/.test(el[readyState]))) || loaded) {
+      if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) {
         return;
       }
       el.onload = el[onreadystatechange] = null;
@@ -81,7 +81,7 @@
     };
     el.async = 1;
     el.src = path;
-    script.parentNode.insertBefore(el, script);
+    head.insertBefore(el, head.firstChild);
   }
 
   $script.get = create;
