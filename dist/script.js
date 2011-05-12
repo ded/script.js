@@ -71,7 +71,7 @@
   function create(path, fn) {
     var el = doc.createElement("script"),
         loaded = f;
-    el.onload = el[onreadystatechange] = function () {
+    el.onload = el.onerror = el[onreadystatechange] = function () {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) {
         return;
       }

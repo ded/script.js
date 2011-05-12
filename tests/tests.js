@@ -82,6 +82,12 @@ script('../build/domready/ready.js', function () {
         });
       });
 
+      test('onerror', 1, function () {
+        script('waaaaaaaaaaaa', function () {
+          ok(true, 'no waaaa');
+        });
+      });
+
     });
     start();
   });
