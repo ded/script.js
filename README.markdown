@@ -149,4 +149,3 @@ Contributors
 ------------
   * [Dustin Diaz](https://github.com/ded/script.js/commits/master?author=ded)
   * [Jacob Thornton](https://github.com/ded/script.js/commits/master?author=fat)
-  * Follow our Software [@dedfat](http://twitter.com/dedfat)
