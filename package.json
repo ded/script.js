@@ -2,7 +2,7 @@
   "name": "scriptjs",
   "description": "Asyncronous JavaScript loader and dependency manager",
   "keywords": ["ender", "script", "dependency", "ajax", "jsonp", "loader"],
-  "version": "2.1.4",
+  "version": "2.1.5",
   "homepage": "https://github.com/ded/script.js",
   "authors": ["Dustin Diaz <@ded>", "Jacob Thornton <@fat>"],
   "repository": {
