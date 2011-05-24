@@ -31,13 +31,13 @@
         document.getElementById('window-ms').innerHTML = (+new Date) - start;
       };
       // load a bunch of libraries
-      $script('../vendor/yui-utilities.js', 'yui', function() {
+      $script('../vendor/yui-utilities.js?' + start, 'yui', function() {
         YAHOO.util.Dom.get('yui').innerHTML = '✓';
       });
-      $script('../vendor/jquery.js', 'jquery', function() {
+      $script('../vendor/jquery.js?' + start, 'jquery', function() {
         $('#jquery').html('✓');
       });
-      $script('../vendor/mootools.js', 'moo', function() {
+      $script('../vendor/mootools.js?' + start, 'moo', function() {
         document.id('mootools').innerHTML = '✓';
       });
       $script.ready(['moo', 'jquery', 'yui'], function() {

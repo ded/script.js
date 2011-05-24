@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>head.js benchmarks</title>
+    <title>LAB2.js - benchmarks</title>
     <style type="text/css">
       body {
         width: 650px;
@@ -12,6 +12,7 @@
       h1 {
         border-bottom: 3px solid #333;
       }
+
       strong {
         font-weight: bold;
       }
@@ -21,7 +22,7 @@
         font-size: 20px;
       }
     </style>
-    <script src="../vendor/head.js"></script>
+    <script src="../vendor/lab2.min.js"></script>
     <script type="text/javascript">
       var start = (+new Date),
           onloadTime = 0,
@@ -29,22 +30,17 @@
       window.onload = function() {
         document.getElementById('window-ms').innerHTML = (+new Date) - start;
       };
+
+      $LAB
       // load a bunch of libraries
-      head.js('../vendor/yui-utilities.js?' + start, function() {
+      .script('../vendor/yui-utilities.js?' + start)
+      .script('../vendor/jquery.js?' + start)
+      .script('../vendor/mootools.js?' + start).wait(function () {
         YAHOO.util.Dom.get('yui').innerHTML = '✓';
-      });
-
-      head.js('../vendor/mootools.js?' + start, function() {
-        document.id('mootools').set('html', '✓');
-      });
-
-      head.js('../vendor/jquery.js?' + start, function() {
         $('#jquery').html('✓');
-      });
-
-      head.ready(function() {
+        document.id('mootools').innerHTML = '✓';
         document.getElementById('total').innerHTML = (+new Date) - start;
-      });
+      })
     </script>
   </head>
   <body>
@@ -56,7 +52,7 @@
         <li>YUI: <span id="yui"></span></li>
         <li>jQuery: <span id="jquery"></span></li>
         <li>Mootools: <span id="mootools"></span></li>
-        <li>Total: <strong id="total">0</strong>ms using head.js</li>
+        <li>Total: <strong id="total">0</strong>ms using $LAB2.js</li>
       </ul>
     </div>
   </body>
