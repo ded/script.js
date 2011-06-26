@@ -1,3 +1,4 @@
+var $script = require('scriptjs');
 ender.ender({
   script: $script,
   ready: $script.ready,
