@@ -1,5 +1,4 @@
 script('../build/domready/ready.js', function () {
-
   domReady(function() {
 
     sink('no conflict', function (test, ok) {
@@ -70,7 +69,6 @@ script('../build/domready/ready.js', function () {
           script('../vendor/yui-utilities.js');
         } catch (ex) {
           err = true;
-          console.log('wtf ex', ex);
         } finally {
           ok(!err, 'no error');
         }
@@ -82,11 +80,11 @@ script('../build/domready/ready.js', function () {
         });
       });
 
-      test('onerror', 1, function () {
-        script('waaaaaaaaaaaa', function () {
-          ok(true, 'no waaaa');
-        });
-      });
+      test('will do parallel order dependent loading', 1, function () {
+        script(['http://s3.amazonaws.com/ender-js/jeesh.min.js?' + (+new Date), '../demos/jeesh-module.js?' + (+new Date)], function () {
+          ok(true, 'did not error')
+        })
+      })
 
     });
     start();
