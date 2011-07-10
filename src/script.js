@@ -32,23 +32,23 @@
         done = idOrDoneIsDone ? idOrDone : optDone,
         id = idOrDoneIsDone ? paths.join('') : idOrDone,
         queue = paths.length;
-        function loopFn(item) {
-          return item.call ? item() : list[item];
+    function loopFn(item) {
+      return item.call ? item() : list[item];
+    }
+    function callback() {
+      if (!--queue) {
+        list[id] = 1;
+        done && done();
+        for (var dset in delay) {
+          every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = []);
         }
-        function callback() {
-          if (!--queue) {
-            list[id] = 1;
-            done && done();
-            for (var dset in delay) {
-              every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = []);
-            }
-          }
-        }
+      }
+    }
     timeout(function() {
       each(paths, function(path) {
         if (scripts[path]) {
           id && (ids[id] = 1);
-          callback();
+          scripts[path] == 2 && callback();
           return;
         }
         scripts[path] = 1;
@@ -70,6 +70,7 @@
       }
       el.onload = el[onreadystatechange] = null;
       loaded = 1;
+      scripts[path] = 2;
       fn();
     };
     el.async = 1;
