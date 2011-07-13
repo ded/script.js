@@ -95,6 +95,15 @@
     return $script;
   };
 
+  $script.styles = function(url,fn) {
+    var link = doc.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.onerror = fn;
+    link.href = url;
+    head.appendChild(link);
+  };
+
   var old = win.$script;
   $script.noConflict = function () {
     win.$script = old;
