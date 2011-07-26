@@ -106,7 +106,7 @@
   }
 
   function bind(fn) {
-    var a = [].slice.call(aruments, 1)
+    var a = Array.prototype.slice.call(arguments, 1)
     return function () {
       fn.apply(null, a)
     }
@@ -118,7 +118,7 @@
       el.type = 'text/javascript'
       if (preloadExplicit) {
         el.preload = true
-        el.onpreload = bind(fn,el)
+        el.onpreload = bind(fn, el)
       } else {
         el[onreadystatechange] = function () {
           if (complete.test(el[readyState])) {
@@ -127,7 +127,7 @@
           }
         }
       }
-      el.src = path
+      el.src = path // setting .src begins the preload
     } else if (async) {
       create(path, fn)
     } else {
