@@ -133,6 +133,25 @@ $script.get('http://example.com/base.js', function () {
 });
 ```
 
+$script.styles
+--------------
+A very simple stylesheet loader is provided. This loader does not provide any sort of callback
+when the sheet is loaded, nor does it report any sort of errors. It simply loads whatever URL
+is specified, adding a `<link>` tag at the end of the the page's `<head>`. Usage example:
+
+``` js
+var link = $script.styles('/css/styles.css');
+```
+
+If you need to know when the stylesheet is loaded, the `<link>` DOM element that is created 
+is returned for your use. Information on how to determine when a stylesheet has been loaded 
+can be found at the URL below. If you are having flash-of-content problems, this might help:
+http://www.phpied.com/when-is-a-stylesheet-really-loaded/
+
+Callbacks and error handling for CSS have been left out of $script as it would add a 
+significant amount of bloat the $script to support all browsers. Keeping $script lightweight
+is more important at this time. 
+
 Building $script.js
 -------------------
 Building $script.js requires Node. To build, just run:
