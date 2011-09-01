@@ -89,6 +89,31 @@ script('../build/domready/ready.js', function () {
       });
 
     });
+
+    sink('CSS Loading', function (test, ok) {
+      // This test currently only works in Chrome and Safari
+      // See http://www.phpied.com/when-is-a-stylesheet-really-loaded/
+      test('should load css content', 1, function () {
+        var sheets = document.styleSheets,
+            len = sheets.length,
+            count = 0,
+            ti;
+        script.styles('../demos/css/demos.css');
+        // Check if styles are loaded each second
+        ti = setInterval(function() {
+          // Loop through only the newly added stylesheets
+          for (var i=sheets.length; i>len; i--) {
+            if (sheets[i-1].href.indexOf('demos/css/demos.css') != -1) {
+              ok(true, 'css loaded');
+              clearInterval(ti);
+            }
+          }
+          // Give up after 10 tries
+          ++count > 10 && clearInterval(ti);
+        },1000);
+      });
+    });
+
     start();
   });
 });

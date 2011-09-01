@@ -102,6 +102,15 @@
     return $script;
   };
 
+  $script.styles = function(url) {
+    var link = doc.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = url;
+    head.appendChild(link);
+    return link;
+  };
+
   var old = win.$script;
   $script.noConflict = function () {
     win.$script = old;
