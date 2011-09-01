@@ -95,13 +95,13 @@
     return $script;
   };
 
-  $script.styles = function(url,fn) {
+  $script.styles = function(url) {
     var link = doc.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
-    link.onerror = fn;
     link.href = url;
     head.appendChild(link);
+    return link;
   };
 
   var old = win.$script;
