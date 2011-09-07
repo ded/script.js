@@ -13,6 +13,6 @@ require('smoosh').config({
     "regexp": false,
     "undef": false,
     "sub": true,
-    "asi": false
+    "asi": true
   }
 }).run().build().analyze();

@@ -1,6 +1,6 @@
 !function(win, doc, timeout) {
   var head = doc.getElementsByTagName('head')[0],
-      list = {}, ids = {}, delay = {},
+      list = {}, ids = {}, delay = {}, scriptpath,
       scripts = {}, s = 'string', f = false,
       push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState',
       addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange',
@@ -26,7 +26,7 @@
     doc[readyState] = "loading";
   }
 
-  var $script = function(paths, idOrDone, optDone) {
+  function $script(paths, idOrDone, optDone) {
     paths = paths[push] ? paths : [paths];
     var idOrDoneIsDone = idOrDone && idOrDone.call,
         done = idOrDoneIsDone ? idOrDone : optDone,
@@ -53,13 +53,13 @@
         }
         scripts[path] = 1;
         id && (ids[id] = 1);
-        create($script.path ?
-          $script.path + path + '.js' :
+        create(scriptpath ?
+          scriptpath + path + '.js' :
           path, callback);
       });
     }, 0);
     return $script;
-  };
+  }
 
   function create(path, fn) {
     var el = doc.createElement("script"),
@@ -80,6 +80,9 @@
 
   $script.get = create;
 
+  $script.path = function(p) {
+    scriptpath = p
+  }
   $script.ready = function(deps, ready, req) {
     deps = deps[push] ? deps : [deps];
     var missing = [];

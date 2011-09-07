@@ -109,12 +109,12 @@ $script.ready(['foo', 'bar', 'thunk'], function() {
   });
 ```
 
-$script.path
+$script.path()
 ------------
 Optionally to make working with large projects easier, there is a path variable you can set to set as a base.
 
 ``` js
-$script.path = '/js/modules/';
+$script.path('/js/modules/')
 $script(['dom', 'event'], function () {
   // use dom & event
 });
