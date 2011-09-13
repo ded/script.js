@@ -1,4 +1,4 @@
-script('../build/domready/ready.js', function () {
+script('../node_modules/domready/ready.js', function () {
 
   domReady(function() {
 

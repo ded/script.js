@@ -1,18 +1,24 @@
 require('smoosh').config({
-  "JAVASCRIPT": {
-    "DIST_DIR": "./dist",
-    "script": ['./src/header.js', './src/script.js']
-  },
-  "JSHINT_OPTS": {
-    "boss": true,
-    "forin": false,
-    "curly": true,
-    "debug": false,
-    "devel": false,
-    "evil": false,
-    "regexp": false,
-    "undef": false,
-    "sub": true,
-    "asi": true
+    "JAVASCRIPT": {
+      "DIST_DIR": "./dist"
+    , "script": ['./src/header.js', './src/script.js']
   }
-}).run().build().analyze();
+  , "JSHINT_OPTS": {
+      "boss": true
+    , "forin": false
+    , "curly": false
+    , "debug": false
+    , "devel": false
+    , "evil": false
+    , "regexp": false
+    , "undef": false
+    , "sub": true
+    , "white": false
+    , "indent": 2
+    , "whitespace": true
+    , "asi": true
+    , "laxbreak": true
+    , "eqeqeq": false
+    , "eqnull": true
+  }
+}).run().build().analyze()

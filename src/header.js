@@ -1,7 +1,6 @@
 /*!
-  * $script.js v1.3
+  * $script.js Async loader & dependency manager
   * https://github.com/ded/script.js
-  * Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
-  * Follow our software http://twitter.com/dedfat
+  * (c) Dustin Diaz, Jacob Thornton 2011
   * License: MIT
   */
