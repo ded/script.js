@@ -11,6 +11,7 @@
 }('$script', function() {
   var win = this, doc = document, timeout = setTimeout
     , head = doc.getElementsByTagName('head')[0]
+    , validBase = /^https?:\/\//
     , old = win.$script, list = {}, ids = {}, delay = {}, scriptpath
     , scripts = {}, s = 'string', f = false
     , push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState'
@@ -60,14 +61,14 @@
         }
         scripts[path] = 1
         id && (ids[id] = 1)
-        create(scriptpath ? scriptpath + path + '.js' : path, callback)
+        create(!validBase.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
       })
     }, 0)
     return $script
   }
 
   function create(path, fn) {
-    var el = doc.createElement("script")
+    var el = doc.createElement('script')
       , loaded = f
     el.onload = el.onerror = el[onreadystatechange] = function () {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
@@ -82,6 +83,14 @@
   }
 
   $script.get = create
+
+  $script.order = function (scripts, id, done) {
+    (function callback(s) {
+      s = scripts.shift()
+      if (!scripts.length) $script(s, id, done)
+      else $script(s, callback)
+    }())
+  }
 
   $script.path = function(p) {
     scriptpath = p
