@@ -9,7 +9,7 @@
   else if (typeof module != 'undefined') module.exports = definition()
   else this[name] = definition()
 }('$script', function() {
-  var win = this, doc = document, timeout = setTimeout
+  var win = this, doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
     , old = win.$script, list = {}, ids = {}, delay = {}, scriptpath
@@ -36,7 +36,7 @@
   }
 
   function $script(paths, idOrDone, optDone) {
-    paths = paths[push] ? paths : [paths];
+    paths = paths[push] ? paths : [paths]
     var idOrDoneIsDone = idOrDone && idOrDone.call
       , done = idOrDoneIsDone ? idOrDone : optDone
       , id = idOrDoneIsDone ? paths.join('') : idOrDone
@@ -53,7 +53,7 @@
         }
       }
     }
-    timeout(function() {
+    setTimeout(function () {
       each(paths, function(path) {
         if (scripts[path]) {
           id && (ids[id] = 1)

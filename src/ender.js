@@ -1,7 +1,7 @@
-var $script = require('scriptjs');
+var s = require('scriptjs')
 ender.ender({
-  script: $script,
-  ready: $script.ready,
-  require: $script,
-  getScript: $script.get
-});
+    script: s
+  , require: s
+  , ready: s.ready
+  , getScript: s.get
+})
