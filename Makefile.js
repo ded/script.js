@@ -18,6 +18,7 @@ require('smoosh').config({
     , "whitespace": true
     , "asi": true
     , "laxbreak": true
+    , "laxcomma": true
     , "eqeqeq": false
     , "eqnull": true
   }

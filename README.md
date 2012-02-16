@@ -5,11 +5,11 @@ $script.js - Async JavaScript loader and dependency manager
 
 Browser Support
 ---------------
-  * IE 6, 7, 8, 9
-  * Opera 10, 11
-  * Safari 3, 4, 5
-  * Chrome 9, 10, beta
-  * Firefox 2, 3, beta
+  * IE 6+
+  * Opera 10+
+  * Safari 3+
+  * Chrome 9+
+  * Firefox 2+
   * Lynx (just kidding)
 
 Examples

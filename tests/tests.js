@@ -2,12 +2,6 @@ script('../node_modules/domready/ready.js', function () {
 
   domReady(function() {
 
-    sink('no conflict', function (test, ok) {
-      test('should return old $script back to context', 1, function () {
-        ok($script() == 'success', 'old $script called')
-      })
-    })
-
     sink('Basic', function(test, ok, before, after) {
 
       test('should call from chained ready calls', 4, function() {

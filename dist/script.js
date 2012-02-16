@@ -12,7 +12,7 @@
   var win = this, doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
-    , old = win.$script, list = {}, ids = {}, delay = {}, scriptpath
+    , list = {}, ids = {}, delay = {}, scriptpath
     , scripts = {}, s = 'string', f = false
     , push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState'
     , addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange'
@@ -108,11 +108,5 @@
     }(deps.join('|'))
     return $script
   }
-
-  $script.noConflict = function () {
-    win.$script = old;
-    return this
-  }
-
   return $script
 })
