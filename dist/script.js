@@ -41,17 +41,8 @@
       , done = idOrDoneIsDone ? idOrDone : optDone
       , id = idOrDoneIsDone ? paths.join('') : idOrDone
       , queue = paths.length
-    function loopFn(item) {
-      return item.call ? item() : list[item]
-    }
     function callback() {
-      if (!--queue) {
-        list[id] = 1
-        done && done()
-        for (var dset in delay) {
-          every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
-        }
-      }
+      if (!--queue) complete(id, done)
     }
     setTimeout(function () {
       each(paths, function(path) {
@@ -66,6 +57,19 @@
     }, 0)
     return $script
   }
+
+  function complete(id, done) {
+    function loopFn(item) {
+      return item.call ? item() : list[item]
+    }
+    list[id] = 1
+    done && done()
+    for (var dset in delay) {
+      every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
+    }
+  }
+
+  $script.done = complete
 
   function create(path, fn) {
     var el = doc.createElement('script')
