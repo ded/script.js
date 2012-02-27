@@ -102,6 +102,13 @@ script('../node_modules/domready/ready.js', function () {
         })
       })
 
+      test('manual activation by name', 1, function () {
+        script.ready('manual', function () {
+          ok(true, 'done() called for manual')
+        })
+        script.done('manual')
+      })
+
     })
     start()
   })
