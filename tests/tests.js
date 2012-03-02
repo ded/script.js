@@ -1,6 +1,6 @@
 script('../node_modules/domready/ready.js', function () {
 
-  domReady(function() {
+  domready(function() {
 
     sink('Basic', function(test, ok, before, after) {
 

@@ -75,6 +75,11 @@ $script.ready('bundle', function() {
   // foo.js & bar.js is ready
 })
 
+// create an id and callback inline
+$script(['foo.js', 'bar.js'], 'bundle', function () {
+  // foo.js & bar.js is ready
+})
+
 
 $script('foo.js', 'foo')
 $script('bar.js', 'bar')
@@ -97,7 +102,7 @@ $script('foo.js', 'foo')
 $script('bar.js', 'bar')
 
 // wait for multiple depdendencies!
-$script.ready(['foo', 'bar', 'thunk'], function() {
+$script.ready(['foo', 'bar', 'thunk'], function () {
   // foo.js & bar.js & thunkor.js & thunky.js is ready
 }, function(depsNotFound) {
     // foo.js & bar.js may have downloaded
@@ -137,7 +142,7 @@ Developers
 -------------------
 Building a $script environment works like this:
 
-    $ npm install --dev
+    $ npm install -dev
     $ make
 
 Ender support

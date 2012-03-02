@@ -1,9 +1,9 @@
 !function (name, definition) {
-  if (typeof define == 'function') define(definition)
-  else if (typeof module != 'undefined') module.exports = definition()
+  if (typeof module != 'undefined') module.exports = definition()
+  else if (typeof define == 'function' && define.amd) define(name, definition)
   else this[name] = definition()
-}('$script', function() {
-  var win = this, doc = document
+}('$script', function () {
+  var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
     , list = {}, ids = {}, delay = {}, scriptpath
@@ -48,7 +48,7 @@
       }
     }
     setTimeout(function () {
-      each(paths, function(path) {
+      each(paths, function (path) {
         if (scripts[path]) {
           id && (ids[id] = 1)
           return scripts[path] == 2 && callback()
@@ -86,16 +86,16 @@
     }())
   }
 
-  $script.path = function(p) {
+  $script.path = function (p) {
     scriptpath = p
   }
-  $script.ready = function(deps, ready, req) {
+  $script.ready = function (deps, ready, req) {
     deps = deps[push] ? deps : [deps]
     var missing = [];
-    !each(deps, function(dep) {
+    !each(deps, function (dep) {
       list[dep] || missing[push](dep);
-    }) && every(deps, function(dep) {return list[dep]}) ?
-      ready() : !function(key) {
+    }) && every(deps, function (dep) {return list[dep]}) ?
+      ready() : !function (key) {
       delay[key] = delay[key] || []
       delay[key][push](ready)
       req && req(missing)
