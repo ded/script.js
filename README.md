@@ -160,7 +160,7 @@ $.require(...)
 You can also require it as such:
 
 ``` js
-var $S = require('script')
+var $S = require('scriptjs')
 
 $S('/foo.js', function () {
   // foo is ready
