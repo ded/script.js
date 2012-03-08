@@ -5,8 +5,8 @@
     <script src="../src/script.js"></script>
     <script type="text/javascript">
     // load all files asynchronously!
-    var script = $script.noConflict();
-    script.path = 'js/';
+    var script = $script;
+    script.path('js/');
 
     script('foo', 'main'); // main dependency
 
