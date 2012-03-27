@@ -4,11 +4,11 @@
   * (c) Dustin Diaz, Jacob Thornton 2011
   * License: MIT
   */
-!function (name, definition) {
+(function (name, definition) {
   if (typeof module != 'undefined') module.exports = definition()
   else if (typeof define == 'function' && define.amd) define(name, definition)
   else this[name] = definition()
-}('$script', function () {
+})('$script', function () {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
@@ -109,4 +109,4 @@
     return $script
   }
   return $script
-})
+});
