@@ -4,10 +4,10 @@
   * (c) Dustin Diaz, Jacob Thornton 2011
   * License: MIT
   */
-(function (name, definition) {
-  if (typeof module != 'undefined') module.exports = definition()
-  else if (typeof define == 'function' && define.amd) define(name, definition)
-  else this[name] = definition()
+(function (name, definition, context) {
+  if (typeof context['module'] != 'undefined' && context['module']['exports']) context['module']['exports'] = definition()
+  else if (typeof context['define'] != 'undefined' && context['define'] == 'function' && context['define']['amd']) define(name, definition)
+  else context[name] = definition()
 })('$script', function () {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
@@ -17,8 +17,8 @@
     , push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState'
     , addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange'
 
-  function every(ar, fn, i) {
-    for (i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
+  function every(ar, fn) {
+    for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
     return 1
   }
   function each(ar, fn) {
@@ -109,4 +109,4 @@
     return $script
   }
   return $script
-});
+}, this);

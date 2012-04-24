@@ -4,4 +4,4 @@ ender.ender({
   , require: s
   , ready: s.ready
   , getScript: s.get
-})
+});
