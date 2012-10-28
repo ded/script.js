@@ -1,5 +1,5 @@
 (function (name, definition, context) {
-  if (typeof context['module'] != 'undefined' && context['module']['exports']) context['module']['exports'] = definition()
+  if (typeof module != 'undefined' && module.exports) module.exports = definition()
   else if (typeof context['define'] != 'undefined' && context['define'] == 'function' && context['define']['amd']) define(name, definition)
   else context[name] = definition()
 })('$script', function () {
