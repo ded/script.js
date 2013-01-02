@@ -4,9 +4,18 @@ function $style(css){ var elem=document.createElement('style');  if(elem.styleSh
 
 var msie=(document.all&&/msie/.test(navigator.userAgent.toLowerCase()));
 
+// This script is used to create an embedable application very very easily
+// This example is not working, just an idea how I use $script.js
+
+// The container in the html file is optional it enables the embadder to choose the location of your app
+// The container can be created from this script
+//var t = document.createElement('div');
+//t.id = "container";
+//document.body.appendChild(t);
+
 document.write('<!--[if IE]><script type="text/javascript" src="http://123.123.123.123:5051/javascripts/FlashCanvas/bin/flashcanvas.js"></script><![endif]-->');
-$script('http://123.123.123.123:5051/socket.io/socket.io.js', function () {
-$script('http://123.123.123.123:5051/javascripts/layout.js', function () {
+$script('http://123.123.123.123:5051/socket.io/socket.io.js', function () { // notice socket io integratoin
+$script('http://123.123.123.123:5051/javascripts/layout.js', function () { // the script that connects socket io
 
 $script(['http://123.123.123.123:5051/javascripts/nodejs-clone-extend.js','http://123.123.123.123:5051/javascripts/observer.js'], function () {
 $script('http://123.123.123.123:5051/javascripts/flotr2/flotr2.min.js', function () {
@@ -24,7 +33,6 @@ $style('#chart1 {'+
     ''
 	  )
 var t = document.createElement('div');
-t.style.direction = "rtl";
 t.id = "chart1";
 document.getElementById('container').appendChild(t);
 $script('http://123.123.123.123:5051/javascripts/chart2.js', function () {
