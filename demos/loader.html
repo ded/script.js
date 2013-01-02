@@ -9,19 +9,24 @@
       }
     </style>
   </head>
-  <body>
+  <body>    
     * this thing is not working (ripped off from a working app) * (see source)<br/>
     <br/>
     
-    i have node.js with express and socket io
-    and a simple website, a website like wordpress, distant, on a different server.
-    i wanted to integrate a socket io app into it.
+    Example by Shimon Doodkin:
     
-    using $script i could develop a javascript application and make it embedable in any page.    
-    
-    on your server you have the loader.js (can be named as your app .js) the loader file which containes
-    a minified $script and it loades all other scripts.
-    then on a distant page you have something like this: 
+     
+    I have node.js with express and socket io
+    and a simple website, a website like Wordpress, distant, on a different server.
+    I wanted to integrate a socket io app into it.
+     
+    Using $script I could develop a JavaScript application and make it embedable in any page.
+    $script.js solved problems with existing global variables that consumed by 3d parity scripts (like jquery $ etc) and load orders.
+     
+    On your server you have the loader.js (can be named as your app .js) the loader file which contains
+    a minified $script and it loads all other scripts.
+    Then on a distant page you have something like this: 
+     
     <!--code-->
     <div id="container"></div>
     <script type="text/javascript" src="http://123.123.123.123:5051/loader.js"></script>
