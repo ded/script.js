@@ -7,8 +7,8 @@ var msie=(document.all&&/msie/.test(navigator.userAgent.toLowerCase()));
 // This script is used to create an embedable application very very easily
 // This example is not working, just an idea how I use $script.js
 
-// The container in the html file is optional it enables the embadder to choose the location of your app
-// The container can be created from this script
+// The container div in the html file is optional it enables the embadder to choose the location of your app
+// also The container can be created from this script
 //var t = document.createElement('div');
 //t.id = "container";
 //document.body.appendChild(t);
