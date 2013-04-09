@@ -55,6 +55,9 @@
     }
     setTimeout(function () {
       each(paths, function (path) {
+        if (path === null) {
+          return callback()
+        }
         if (scripts[path]) {
           id && (ids[id] = 1)
           return scripts[path] == 2 && callback()
@@ -108,5 +111,10 @@
     }(deps.join('|'))
     return $script
   }
+
+  $script.done = function (idOrDone) {
+    $script([null], idOrDone)
+  }
+
   return $script
 }, this);
