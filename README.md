@@ -101,18 +101,31 @@ var dependencyList = {
 $script('foo.js', 'foo')
 $script('bar.js', 'bar')
 
+// fallback to catch failed dependencies
+function fallback(depsNotFound) {
+	// foo.js & bar.js may have downloaded
+    // but ['thunk'] dependency was never found
+    // so lazy load it now
+	var i = depsNotFound.length;
+	while (i--) {
+		console.log('fallback '+depsNotFound[i]);
+		$script(dependencyList[depsNotFound[i]], depsNotFound[i]);
+	}
+}
+
+// CDN fallback
+$script('//cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js', 'Angular', function() {
+	
+}, fallback)
+
 // wait for multiple dependencies!
 $script.ready(['foo', 'bar', 'thunk'], function () {
   // foo.js & bar.js & thunkor.js & thunky.js is ready
-}, function(depsNotFound) {
-    // foo.js & bar.js may have downloaded
-    // but ['thunk'] dependency was never found
-    // so lazy load it now
-    var i = depsNotFound.length;
-    while (i--) {
-      $script(dependencyList[depsNotFound[i]], depsNotFound[i])
-    })
-  })
+}, fallback)
+
+
+
+
 ```
 
 $script.path()

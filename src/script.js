@@ -66,12 +66,12 @@
       , loaded = f
     el.onerror = function() {
       el.onload = el.onerror = el[onreadystatechange] = null
-    	fb && $script.ready(id,fn,fb)
+      fb && $script.ready(id,fn,fb)
     }
     el.onload= el[onreadystatechange] = function () {
-      if (el[readyState] === 'loaded' && el.nextSibling == null) {
-  	    fb && $script.ready(id,fn,fb);
-      	return;
+      if (el[readyState] === 'loaded' && el.nextSibling === null) {
+         fb && $script.ready(id,fn,fb);
+         return;
       } else if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
       el.onload = el.onerror = el[onreadystatechange] = null
       loaded = 1
