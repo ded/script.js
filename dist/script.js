@@ -35,7 +35,7 @@
     doc[readyState] = 'loading'
   }
 
-  function $script(paths, idOrDone, optDone) {
+  function $script(paths, idOrDone, optDone, fb) {
     paths = paths[push] ? paths : [paths]
     var idOrDoneIsDone = idOrDone && idOrDone.call
       , done = idOrDoneIsDone ? idOrDone : optDone
@@ -61,18 +61,25 @@
         }
         scripts[path] = 1
         id && (ids[id] = 1)
-        create(!validBase.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
+        create(!validBase.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback, id, fb)
       })
     }, 0)
     return $script
   }
 
-  function create(path, fn) {
+  function create(path, fn, id, fb) {
     var el = doc.createElement('script')
       , loaded = f
-    el.onload = el.onerror = el[onreadystatechange] = function () {
-      if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
-      el.onload = el[onreadystatechange] = null
+    el.onerror = function() {
+      el.onload = el.onerror = el[onreadystatechange] = null
+      fb && $script.ready(id,fn,fb)
+    }
+    el.onload= el[onreadystatechange] = function () {
+      if (el[readyState] === 'loaded' && el.nextSibling === null) {
+        fb && $script.ready(id,fn,fb);
+        return;
+      } else if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
+      el.onload = el.onerror = el[onreadystatechange] = null
       loaded = 1
       scripts[path] = 2
       fn()

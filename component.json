@@ -1,0 +1,13 @@
+{
+  "author": "Dustin Diaz",
+  "name": "$script.js",
+  "description": "$script.js - Async JavaScript loader and dependency manager",
+  "version": "2.2.6",
+  "homepage": "https://github.com/ded/script.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ded/script.js.git"
+  },
+  "main": "./dist/script.min.js",
+  "dependencies": {}
+}
