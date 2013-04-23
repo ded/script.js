@@ -1,14 +1,14 @@
 /*!
   * $script.js Async loader & dependency manager
   * https://github.com/ded/script.js
-  * (c) Dustin Diaz, Jacob Thornton 2011
+  * (c) Dustin Diaz 2013
   * License: MIT
   */
-(function (name, definition, context) {
-  if (typeof context['module'] != 'undefined' && context['module']['exports']) context['module']['exports'] = definition()
-  else if (typeof context['define'] != 'undefined' && context['define'] == 'function' && context['define']['amd']) define(name, definition)
+(function (name, context, definition) {
+  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+  else if (typeof define == 'function' && define.amd) define(definition)
   else context[name] = definition()
-})('$script', function () {
+})('$script', this, function() {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
@@ -109,4 +109,4 @@
     return $script
   }
   return $script
-}, this);
+});
