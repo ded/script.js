@@ -112,6 +112,20 @@ $script.ready(['foo', 'bar', 'thunk'], function () {
       $script(dependencyList[dep], dep)
     })
   })
+
+
+// in my-awesome-plugin.js
+$script.ready('jquery', function() {
+  //define awesome jquery plugin here
+  $script.done('my-awesome-plugin')
+})
+
+// in index.html
+$script('jquery.js', 'jquery')
+$script('my-awesome-plugin.js')
+$script.ready('my-awesome-plugin', function() {
+  //run code here when jquery and my awesome plugin are both ready
+})
 ```
 
 $script.path()

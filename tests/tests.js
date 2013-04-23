@@ -102,6 +102,15 @@ script('../node_modules/domready/ready.js', function () {
         })
       })
 
+      test('done function', 3, function () {
+        var count = 0
+        ok(count == 0, '0')
+        script.ready(['a', 'b'], function () { ok(++count == 2, '2') })
+        script.ready('a', function () { ok(++count == 1, '1') })
+        script.done('a')
+        script.done('b')
+      })
+
     })
     start()
   })
