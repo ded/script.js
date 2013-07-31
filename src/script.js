@@ -1,8 +1,8 @@
-(function (name, definition, context) {
-  if (typeof context['module'] != 'undefined' && context['module']['exports']) context['module']['exports'] = definition()
-  else if (typeof context['define'] != 'undefined' && context['define'] == 'function' && context['define']['amd']) define(name, definition)
+(function (name, context, definition) {
+  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+  else if (typeof define == 'function' && define.amd) define(definition)
   else context[name] = definition()
-})('$script', function () {
+})('$script', this, function() {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
@@ -29,12 +29,13 @@
     doc[readyState] = 'loading'
   }
 
-  function $script(paths, idOrDone, optDone, fb) {
+  function $script(paths, idOrDone, optDone, optfFb) {
     paths = paths[push] ? paths : [paths]
     var idOrDoneIsDone = idOrDone && idOrDone.call
       , done = idOrDoneIsDone ? idOrDone : optDone
       , id = idOrDoneIsDone ? paths.join('') : idOrDone
       , queue = paths.length
+      , fb = idOrDoneIsDone ? optDone : optfFb
     function loopFn(item) {
       return item.call ? item() : list[item]
     }
@@ -49,6 +50,7 @@
     }
     setTimeout(function () {
       each(paths, function (path) {
+        if (path === null) return callback()
         if (scripts[path]) {
           id && (ids[id] = 1)
           return scripts[path] == 2 && callback()
@@ -68,9 +70,9 @@
       el.onload = el.onerror = el[onreadystatechange] = null
       fb && $script.ready(id,fn,fb)
     }
-    el.onload= el[onreadystatechange] = function () {
+    el.onload = el[onreadystatechange] = function () {
       if (el[readyState] === 'loaded' && el.nextSibling === null) {
-        fb && $script.ready(id,fn,fb);
+        fb && $script.ready(id,fn,fb)
         return;
       } else if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
       el.onload = el.onerror = el[onreadystatechange] = null
@@ -109,5 +111,10 @@
     }(deps.join('|'))
     return $script
   }
+
+  $script.done = function (idOrDone) {
+    $script([null], idOrDone)
+  }
+
   return $script
-}, this);
+});

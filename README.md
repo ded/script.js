@@ -96,6 +96,7 @@ var dependencyList = {
     foo: 'foo.js'
   , bar: 'bar.js'
   , thunk: ['thunkor.js', 'thunky.js']
+  , cdn: 'cdn_fallback.js'
 }
 
 $script('foo.js', 'foo')
@@ -103,29 +104,25 @@ $script('bar.js', 'bar')
 
 // fallback to catch failed dependencies
 function fallback(depsNotFound) {
-	// foo.js & bar.js may have downloaded
-    // but ['thunk'] dependency was never found
-    // so lazy load it now
-	var i = depsNotFound.length;
-	while (i--) {
-		console.log('fallback '+depsNotFound[i]);
-		$script(dependencyList[depsNotFound[i]], depsNotFound[i]);
-	}
+  // foo.js & bar.js may have downloaded
+  // but ['thunk'] dependency was never found
+  // so lazy load it now
+  var i = depsNotFound.length;
+  while (i--) {
+    console.log('fallback '+depsNotFound[i]);
+    $script(dependencyList[depsNotFound[i]], depsNotFound[i]);
+  }
 }
-
-// CDN fallback
-$script('//cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js', 'Angular', function() {
-	
-}, fallback)
 
 // wait for multiple dependencies!
 $script.ready(['foo', 'bar', 'thunk'], function () {
   // foo.js & bar.js & thunkor.js & thunky.js is ready
 }, fallback)
 
-
-
-
+// CDN fallback
+$script('URL_TO_CDN_FILE.js', 'cdn', function() {
+  // URL_TO_CDN_FILE.js (or cdn.js if URL_TO_CDN_FILE.js is not found) is ready
+}, fallback)
 ```
 
 $script.path()
