@@ -1,19 +1,17 @@
-$script.js - Async JavaScript loader and dependency manager
-------------------------------------------------------------------
+### $script.js - Async JavaScript loader & dependency manager
 
 `$script.js` is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint. Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
-Browser Support
----------------
+### Browser Support
+
   * IE 6+
   * Opera 10+
   * Safari 3+
-  * Chrome 9+
+  * Chrome 1+
   * Firefox 2+
-  * Lynx (just kidding)
 
-Examples
---------
+### Examples
+
 
 old school - blocks CSS, Images, AND JS!
 
@@ -56,8 +54,7 @@ $script.ready('bundle', function() {
 })
 ```
 
-Exhaustive list of ways to use $script.js
------------------------------------------
+### Exhaustive list of ways to use $script.js
 
 ``` js
 $script('foo.js', function() {
@@ -128,8 +125,8 @@ $script.ready('my-awesome-plugin', function() {
 })
 ```
 
-$script.path()
-------------
+### $script.path()
+
 Optionally to make working with large projects easier, there is a path variable you can set to set as a base.
 
 ``` js
@@ -152,18 +149,22 @@ $script.get('http://example.com/base.js', function () {
 })
 ```
 
-Developers
--------------------
+### Developers
+
 Building a $script environment works like this:
 
-    $ npm install -dev
-    $ make
+``` sh
+npm install -dev
+make
+```
 
-Ender support
--------------
-You can add `$script` to your existing [ender](http://ender.no.de) build by adding it as such:
+### Ender support
 
-    $ ender add scriptjs
+You can add `$script` to your existing [ender](http://enderjs.com) build by adding it as such:
+
+``` sh
+ender add scriptjs
+```
 
 Get access to it as such:
 
@@ -181,7 +182,5 @@ $S('/foo.js', function () {
 })
 ```
 
-Contributors
-------------
-  * [Dustin Diaz](https://github.com/ded/script.js/commits/master?author=ded)
-  * [Jacob Thornton](https://github.com/ded/script.js/commits/master?author=fat)
+### Giving back
+Are you using this library in production? Consider [leaving a tip](https://www.gittip.com/ded) to show your appreciation.
