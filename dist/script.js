@@ -1,38 +1,36 @@
 /*!
-  * $script.js Async loader & dependency manager
+  * $script.js JS loader & dependency manager
   * https://github.com/ded/script.js
-  * (c) Dustin Diaz 2013
-  * License: MIT
+  * (c) Dustin Diaz 2014 | License MIT
   */
+
 (function (name, context, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition()
   else if (typeof define == 'function' && define.amd) define(definition)
   else context[name] = definition()
-})('$script', this, function() {
+})('$script', this, function () {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , validBase = /^https?:\/\//
-    , list = {}, ids = {}, delay = {}, scriptpath
-    , scripts = {}, s = 'string', f = false
-    , push = 'push', domContentLoaded = 'DOMContentLoaded', readyState = 'readyState'
-    , addEventListener = 'addEventListener', onreadystatechange = 'onreadystatechange'
+    , s = 'string'
+    , f = false
+    , push = 'push'
+    , readyState = 'readyState'
+    , onreadystatechange = 'onreadystatechange'
+    , scriptpath
+    , list = {}
+    , ids = {}
+    , delay = {}
+    , scripts = {}
 
   function every(ar, fn) {
     for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
     return 1
   }
   function each(ar, fn) {
-    every(ar, function(el) {
+    every(ar, function (el) {
       return !fn(el)
     })
-  }
-
-  if (!doc[readyState] && doc[addEventListener]) {
-    doc[addEventListener](domContentLoaded, function fn() {
-      doc.removeEventListener(domContentLoaded, fn, f)
-      doc[readyState] = 'complete'
-    }, f)
-    doc[readyState] = 'loading'
   }
 
   function $script(paths, idOrDone, optDone) {
