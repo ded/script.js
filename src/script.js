@@ -72,7 +72,7 @@
     }
     el.async = 1
     el.src = path
-    head.insertBefore(el, head.firstChild)
+    head.insertBefore(el, head.lastChild)
   }
 
   $script.get = create
