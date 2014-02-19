@@ -4,24 +4,23 @@
   * (c) Dustin Diaz 2014 | License MIT
   */
 
-(function (name, context, definition) {
+(function (name, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition()
   else if (typeof define == 'function' && define.amd) define(definition)
-  else context[name] = definition()
-})('$script', this, function () {
+  else this[name] = definition()
+})('$script', function () {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
-    , validBase = /^https?:\/\//
     , s = 'string'
     , f = false
     , push = 'push'
     , readyState = 'readyState'
     , onreadystatechange = 'onreadystatechange'
-    , scriptpath
     , list = {}
     , ids = {}
     , delay = {}
     , scripts = {}
+    , scriptpath
 
   function every(ar, fn) {
     for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
@@ -60,7 +59,7 @@
         }
         scripts[path] = 1
         id && (ids[id] = 1)
-        create(!validBase.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
+        create(!/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
       })
     }, 0)
     return $script
@@ -86,8 +85,7 @@
   $script.order = function (scripts, id, done) {
     (function callback(s) {
       s = scripts.shift()
-      if (!scripts.length) $script(s, id, done)
-      else $script(s, callback)
+      !scripts.length ? $script(s, id, done) : $script(s, callback)
     }())
   }
 
