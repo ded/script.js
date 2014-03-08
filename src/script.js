@@ -44,18 +44,22 @@
         }
       }
     }
-    setTimeout(function () {
-      each(paths, function (path) {
-        if (path === null) return callback()
-        if (scripts[path]) {
+    if(paths.length === 0) {
+      if(done) done();
+    } else {
+      setTimeout(function () {
+        each(paths, function (path) {
+          if (path === null) return callback()
+          if (scripts[path]) {
+            id && (ids[id] = 1)
+            return scripts[path] == 2 && callback()
+          }
+          scripts[path] = 1
           id && (ids[id] = 1)
-          return scripts[path] == 2 && callback()
-        }
-        scripts[path] = 1
-        id && (ids[id] = 1)
-        create(!/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
-      })
-    }, 0)
+          create(!/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
+        })
+      }, 0)
+    }
     return $script
   }
 
