@@ -1,0 +1,10 @@
+{
+  "name": "script.js",
+  "description": "Asyncronous JavaScript loader and dependency manager",
+  "version": "2.5.2",
+  "homepage": "https://github.com/ded/script.js",
+  "authors": [
+    "Dustin Diaz <dustin@dustindiaz.com> (http://dustindiaz.com)"
+  ],
+  "main": "./dist/script.js"
+}
