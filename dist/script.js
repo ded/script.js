@@ -51,23 +51,26 @@
       }
     }
     setTimeout(function () {
-      each(paths, function (path) {
+      each(paths, function loading(path, force) {
         if (path === null) return callback()
+        path = !force && !/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path
         if (scripts[path]) {
-          id && (ids[id] = 1)
-          return scripts[path] == 2 && callback()
+          if (id) ids[id] = 1
+          if (scripts[path] == 2) callback()
+          else setTimeout(loading.bind(null, path, true), 0)
+          return;
         }
+
         scripts[path] = 1
-        id && (ids[id] = 1)
-        create(!/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path, callback)
+        if (id) ids[id] = 1
+        create(path, callback)
       })
     }, 0)
     return $script
   }
 
   function create(path, fn) {
-    var el = doc.createElement('script')
-      , loaded = f
+    var el = doc.createElement('script'), loaded
     el.onload = el.onerror = el[onreadystatechange] = function () {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
       el.onload = el[onreadystatechange] = null

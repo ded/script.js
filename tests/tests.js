@@ -111,6 +111,18 @@ script('../node_modules/domready/ready.js', function () {
         script.done('b')
       })
 
+      test('double loaded files', function (done) {
+        var count = 0
+        function load () {
+          if (++count == 2) {
+            ok(true, 'loaded callbacks twice')
+            done()
+          }
+        }
+        script('double-load', load)
+        script('double-load', load)
+      })
+
     })
     start()
   })
