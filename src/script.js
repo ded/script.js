@@ -15,6 +15,7 @@
     , delay = {}
     , scripts = {}
     , scriptpath
+    , urlArgs
 
   function every(ar, fn) {
     for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
@@ -73,7 +74,7 @@
       fn()
     }
     el.async = 1
-    el.src = path
+    el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
     head.insertBefore(el, head.lastChild)
   }
 
@@ -88,6 +89,9 @@
 
   $script.path = function (p) {
     scriptpath = p
+  }
+  $script.urlArgs = function (str) {
+    urlArgs = str;
   }
   $script.ready = function (deps, ready, req) {
     deps = deps[push] ? deps : [deps]
