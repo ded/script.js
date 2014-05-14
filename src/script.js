@@ -48,7 +48,7 @@
     setTimeout(function () {
       each(paths, function loading(path, force) {
         if (path === null) return callback()
-        path = !force && !/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path
+        path = !force && path.indexOf('.js') === -1 && !/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path
         if (scripts[path]) {
           if (id) ids[id] = 1
           if (scripts[path] == 2) callback()
