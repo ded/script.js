@@ -1,0 +1,7 @@
+{
+  "name": "script.js",
+  "version": "2.5.3",
+  "main": "dist/script.js",
+  "dependencies": {
+  }
+}
