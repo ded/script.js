@@ -90,6 +90,16 @@ script('../node_modules/domready/ready.js', function () {
           ok(typeof morpheus !== 'undefined', 'loaded morpheus.js from http')
         })
       })
+      
+      test('passing urlArgs', 2, function () {
+        script.urlArgs('key=value')
+        script(['../demos/js/foo.js'], function() {
+          ok(true, 'foo has been loaded with given urlArgs')
+        })
+        script(['../demos/js/bar.js?foo=bar'], function() {
+          ok(true, 'bar has been loaded and urlArgs have been added to existing query string')
+        })
+      })
 
       test('syncronous ordered loading', 2, function () {
         script.order(['order-a', 'order-b', 'order-c'], 'ordered-id', function () {
