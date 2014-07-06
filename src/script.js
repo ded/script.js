@@ -27,6 +27,23 @@
     })
   }
 
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function(obj) {
+      if (typeof this !== 'function') {
+        throw new TypeError('Not bind-able');
+      }
+      var args = Array.prototype.slice.call(arguments, 1),
+        toBind = this,
+        nop = function() {},
+        bind = function() {
+          return toBind.apply(this instanceof nop && obj ? this : obj, args.concat(Array.prototype.slice.call(arguments)));
+        };
+        nop.prototype = this.prototype;
+        bind.prototype = new nop();
+        return bind;
+    };
+  }
+
   function $script(paths, idOrDone, optDone) {
     paths = paths[push] ? paths : [paths]
     var idOrDoneIsDone = idOrDone && idOrDone.call
