@@ -52,8 +52,7 @@
         if (scripts[path]) {
           if (id) ids[id] = 1
           if (scripts[path] == 2) callback()
-          else setTimeout(loading.bind(null, path, true), 0)
-          return;
+          else return setTimeout(function () { loading(path, true) }, 0)
         }
 
         scripts[path] = 1
