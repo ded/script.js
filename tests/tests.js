@@ -133,6 +133,14 @@ script('../node_modules/domready/ready.js', function () {
         script('double-load', load)
       })
 
+      test('correctly count loaded scripts', function (done){
+        script.path('../vendor/')
+        script(['patha', 'pathb', 'http://ded.github.com/morpheus/morpheus.js', 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js'], function () {
+          ok(typeof angular !== 'undefined', 'loaded angular.js from http')
+          done();
+        })
+      })
+
     })
     start()
   })

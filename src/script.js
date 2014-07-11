@@ -51,8 +51,7 @@
         path = !force && path.indexOf('.js') === -1 && !/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path
         if (scripts[path]) {
           if (id) ids[id] = 1
-          if (scripts[path] == 2) callback()
-          else return setTimeout(function () { loading(path, true) }, 0)
+          return (scripts[path] == 2) ? callback() : setTimeout(function () { loading(path, true) }, 0)
         }
 
         scripts[path] = 1
