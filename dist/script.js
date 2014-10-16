@@ -109,11 +109,11 @@
       delay[key][push](ready)
       req && req(missing)
     }(deps.join('|'))
-    return $script
+    return this;
   }
 
   $script.done = function (idOrDone) {
-    $script([null], idOrDone)
+    this([null], idOrDone)
   }
 
   return $script
