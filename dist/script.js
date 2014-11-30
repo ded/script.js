@@ -11,6 +11,9 @@
 })('$script', function () {
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
+	, all = doc.getElementsByTagName('script')
+	, thisfile = all[all.length - 1]
+	, loaderPath = thisfile.getAttribute('data-setup-loader')
     , s = 'string'
     , f = false
     , push = 'push'
