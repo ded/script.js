@@ -125,6 +125,25 @@ $script.ready('my-awesome-plugin', function() {
 })
 ```
 
+### Newly Added Feature - setup-main=""
+
+You can now add a "setup-main" attribute to the script tag for script.js and load a setup file with all dependencies 
+appropriately defined based on script.js nuances
+
+``` js
+ 
+ <script setup-main="./js/test-setup.js" type="text/javascript" src="./script.js"></script>
+ 
+ // in js/test-setup.js
+ $script(['boo.js, baz.js'], 'stillonit')
+ $script(['foo.js'], 'almostdone')
+ $script.ready(['stillonit','almostdone'], function(){
+     // all done!
+	 // run more code...
+ }) 
+ 
+```
+
 ### $script.path()
 
 Optionally to make working with large projects easier, there is a path variable you can set to set as a base.
