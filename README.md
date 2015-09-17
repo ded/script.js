@@ -155,7 +155,7 @@ This is especially useful when you're in need of a cachebuster and works as foll
 
 ```js
 $script.urlArgs('key=value&foo=bar');
-``` 
+```
 
 Please note that Squid, a popular proxy, doesn’t cache resources with a querystring. This hurts performance when multiple users behind a proxy cache request the same file – rather than using the cached version everybody would have to send a request to the origin server. So ideally, [as Steve Souders points out](http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/), you should rev the filename itself.
 
@@ -191,6 +191,3 @@ $S('/foo.js', function () {
   // foo is ready
 })
 ```
-
-### Giving back
-Are you using this library in production? Consider [leaving a tip](https://www.gittip.com/ded) to show your appreciation.
