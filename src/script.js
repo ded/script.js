@@ -23,7 +23,8 @@
   }
   function each(ar, fn) {
     every(ar, function (el) {
-      return !fn(el)
+      fn(el)
+      return 1
     })
   }
 

@@ -141,6 +141,15 @@ script('../node_modules/domready/ready.js', function () {
         })
       })
 
+      test('double loaded file in different loading list', 2, function() {
+        script(['../vendor/lab2.js', '../vendor/lab2.min.js'], function() {
+          ok(true, 'lab2 and lab2.min have been loaded')
+        })
+        script(['../vendor/lab2.js', '../vendor/head.js'], function() {
+          ok(true, 'lab2 and head have been loaded')
+        })
+      })
+
     })
     start()
   })
