@@ -127,14 +127,31 @@ $script.ready('my-awesome-plugin', function() {
 
 ### $script.path()
 
-Optionally to make working with large projects easier, there is a path variable you can set to set as a base.
+Optionally to make working with large projects easier, there's a path variable that can be either a String or a Function (that will recieve the given path as first
+argument):
 
 ``` js
+// use a String as base path
 $script.path('/js/modules/')
 $script(['dom', 'event'], function () {
+  // /js/modules/dom.js and /js/modules/event.js will be loaded
+  // use dom & event
+});
+
+//Or use a function as base path
+var fnc = function(path) {
+  //Please note that when using as a function, .js wont be attached automatically
+  return  path === 'dom' ? ('//external.cdn.com/some/path/' + path + '.js') : ('/js/modules/' + path + '.js');
+};
+
+$script.path(fnc)
+$script(['dom', 'event'], function () {
+  // external.cdn.com/some/path/dom.js and /js/modules/event.js will be loaded
   // use dom & event
 });
 ```
+
+Please notice that the string ".js" is not appended automatically if a Function is used as path.
 
 Note that this will include all scripts from here on out with the base path. If you wish to circumvent this for any single script, you can simply call <code>$script.get()</code>
 
