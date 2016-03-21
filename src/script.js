@@ -53,7 +53,7 @@
       each(paths, function loading(path, force) {
         if (path === null) return callback()
         
-        if (!force && !/^https?:\/\//.test(path) && scriptpath) {
+        if (!force && !/^(https?:)?\/\//.test(path) && scriptpath) {
           if (isFunction(scripts)) {
           	path = scriptpath(path);
           } else {
