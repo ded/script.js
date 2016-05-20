@@ -51,7 +51,7 @@
         if (path === null) return callback()
         
         if (!force && !/^https?:\/\//.test(path) && scriptpath) {
-          path = (path.indexOf('.js') === -1) ? scriptpath + path + '.js' : scriptpath + path;
+          path = (path.indexOf('.js') === -1) ? ((path.indexOf('.css') === -1) ? scriptpath + path + '.js' : scriptpath + path) : scriptpath + path;
         }
         
         if (scripts[path]) {
@@ -68,7 +68,7 @@
   }
 
   function create(path, fn) {
-    var el = doc.createElement('script'), loaded
+    var loaded, css = (path.indexOf('.js') === -1), el = doc.createElement(css ? 'link' : 'script')
     el.onload = el.onerror = el[onreadystatechange] = function () {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
       el.onload = el[onreadystatechange] = null
@@ -77,7 +77,8 @@
       fn()
     }
     el.async = 1
-    el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
+    if (css) el.rel = "stylesheet";
+    el[css ? 'href' : 'src'] = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
     head.insertBefore(el, head.lastChild)
   }
 
