@@ -34,11 +34,14 @@
     })
   }
 
-  function $script(paths, idOrDone, optDone) {
+  function $script(paths, maybeId, maybeOptions, maybeDone) {
     paths = paths[push] ? paths : [paths]
-    var idOrDoneIsDone = idOrDone && idOrDone.call
-      , done = idOrDoneIsDone ? idOrDone : optDone
-      , id = idOrDoneIsDone ? paths.join('') : idOrDone
+    var maybeIdIsDone = maybeId && maybeId.call
+      , maybeIdIsOptions = !maybeIdIsDone && typeof maybeId === 'object'
+      , maybeOptionsIsDone = !maybeIdIsDone && maybeOptions && maybeOptions.call
+      , done = maybeIdIsDone ? maybeId : (maybeOptionsIsDone ? maybeOptions : maybeDone)
+      , id = maybeIdIsDone || maybeIdIsOptions ? paths.join('') : maybeId
+      , options = maybeIdIsOptions ? maybeId : (maybeOptionsIsDone ? null : maybeOptions)
       , queue = paths.length
     function loopFn(item) {
       return item.call ? item() : list[item]
@@ -67,13 +70,13 @@
 
         scripts[path] = 1
         if (id) ids[id] = 1
-        create(path, callback)
+        create(path, callback, options)
       })
     }, 0)
     return $script
   }
 
-  function create(path, fn) {
+  function create(path, fn, options) {
     var el = doc.createElement('script'), loaded
     el.onload = el.onerror = el[onreadystatechange] = function () {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
@@ -82,18 +85,22 @@
       scripts[path] = 2
       fn()
     }
-    el.async = 1
+    el.async = !options || !options.preserveExecutionOrder
     el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
     head.insertBefore(el, head.lastChild)
   }
 
   $script.get = create
 
-  $script.order = function (scripts, id, done) {
+  $script.order = $script.serial = function (scripts, id, done) {
     (function callback(s) {
       s = scripts.shift()
       !scripts.length ? $script(s, id, done) : $script(s, callback)
     }())
+  }
+
+  $script.parallel = function (scripts, id, done) {
+    return $script(scripts, id, { preserveExecutionOrder: true }, done)
   }
 
   $script.path = function (p) {
