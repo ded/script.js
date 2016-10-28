@@ -3,6 +3,10 @@
   else if (typeof define == 'function' && define.amd) define(definition)
   else this[name] = definition()
 })('$script', function () {
+  if (typeof document === 'undefined') {
+    return function noop () {};
+  }
+  
   var doc = document
     , head = doc.getElementsByTagName('head')[0]
     , s = 'string'
