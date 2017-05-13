@@ -1,5 +1,7 @@
 ### $script.js - Async JavaScript loader & dependency manager
 
+[![CDNJS](https://img.shields.io/cdnjs/v/script.js.svg)](https://cdnjs.com/libraries/script.js)
+
 `$script.js` is an asynchronous JavaScript loader and dependency manager with an astonishingly impressive lightweight footprint. Like many other script loaders, $script.js allows you to load script resources on-demand from any URL and not block other resources from loading (like CSS and images). Furthermore, it's unique interface allows developers to work easily with even the most complicated dependencies, which can often be the case for large, complex web applications.
 
 ### Browser Support
