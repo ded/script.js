@@ -10,6 +10,7 @@
     "loader"
   ],
   "version": "2.5.8",
+  "license": "MIT",
   "homepage": "https://github.com/ded/script.js",
   "author": "Dustin Diaz <dustin@dustindiaz.com> (http://dustindiaz.com)",
   "contributors": [
