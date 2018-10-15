@@ -37,10 +37,10 @@
     function loopFn(item) {
       return item.call ? item() : list[item]
     }
-    function callback() {
+    function callback(event) {
       if (!--queue) {
         list[id] = 1
-        done && done()
+        done && done(event)
         for (var dset in delay) {
           every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
         }
@@ -69,12 +69,12 @@
 
   function create(path, fn) {
     var el = doc.createElement('script'), loaded
-    el.onload = el.onerror = el[onreadystatechange] = function () {
+    el.onload = el.onerror = el[onreadystatechange] = function (event) {
       if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
       el.onload = el[onreadystatechange] = null
       loaded = 1
       scripts[path] = 2
-      fn()
+      fn(event)
     }
     el.async = 1
     el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
