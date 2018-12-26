@@ -27,6 +27,9 @@
       return 1
     })
   }
+  function isFunction(object) {
+   return typeof(object) === 'function';
+  }
 
   function $script(paths, idOrDone, optDone) {
     paths = paths[push] ? paths : [paths]
@@ -50,8 +53,12 @@
       each(paths, function loading(path, force) {
         if (path === null) return callback()
         
-        if (!force && !/^https?:\/\//.test(path) && scriptpath) {
-          path = (path.indexOf('.js') === -1) ? scriptpath + path + '.js' : scriptpath + path;
+        if (!force && !/^(https?:)?\/\//.test(path) && scriptpath) {
+          if (isFunction(scripts)) {
+          	path = scriptpath(path);
+          } else {
+            path = (path.indexOf('.js') === -1) ? scriptpath + path + '.js' : scriptpath + path;          	
+          }
         }
         
         if (scripts[path]) {
