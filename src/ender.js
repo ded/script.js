@@ -5,3 +5,4 @@ ender.ender({
   , ready: s.ready
   , getScript: s.get
 });
+// @license-end
