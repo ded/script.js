@@ -98,7 +98,7 @@ var dependencyList = {
 $script('foo.js', 'foo')
 $script('bar.js', 'bar')
 
-// wait for multiple depdendencies!
+// wait for multiple dependencies!
 $script.ready(['foo', 'bar', 'thunk'], function () {
   // foo.js & bar.js & thunkor.js & thunky.js is ready
 }, function(depsNotFound) {
